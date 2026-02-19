@@ -1,0 +1,622 @@
+{
+  "metadata": {
+    "title": "Indian Financial Fraud & Compliance Laws - CA/CFA Landscape",
+    "description": "Comprehensive dictionary of laws, rules, regulations, and standards governing fraud prevention, detection, and compliance in the Indian financial, chartered accountancy, and financial advisory domain.",
+    "jurisdiction": "India",
+    "last_updated": "2026-02-18",
+    "categories": [
+      "Companies Act, 2013",
+      "Indian Penal Code / Bharatiya Nyaya Sanhita",
+      "Prevention of Money Laundering Act, 2002",
+      "SEBI Act & Regulations",
+      "RBI Directions & Banking Regulation",
+      "Income Tax Act, 1961",
+      "Black Money Act, 2015",
+      "CGST Act, 2017",
+      "FEMA, 1999",
+      "Negotiable Instruments Act, 1881",
+      "Fugitive Economic Offenders Act, 2018",
+      "Benami Transactions Act, 1988",
+      "Chartered Accountants Act, 1949",
+      "ICAI Standards on Auditing",
+      "ICAI Code of Ethics & Guidelines",
+      "NFRA Rules, 2018",
+      "Insolvency and Bankruptcy Code, 2016",
+      "Cost and Works Accountants Act, 1959",
+      "Company Secretaries Act, 1980"
+    ]
+  },
+
+  "companies_act_2013": {
+    "section_128": {
+      "name": "Section 128 - Books of Account",
+      "statement": "Every company shall prepare and keep at its registered office books of account and other relevant books and papers and financial statement for every financial year which give a true and fair view of the state of affairs of the company. Books must be kept on accrual basis and according to the double entry system of accounting. Failure to comply is punishable with imprisonment up to one year and/or fine of Rs. 50,000 to Rs. 5,00,000."
+    },
+    "section_129": {
+      "name": "Section 129 - Financial Statement",
+      "statement": "The financial statements shall give a true and fair view of the state of affairs of the company and shall comply with accounting standards notified under Section 133. The financial statement shall be in the form as may be provided in Schedule III. If the financial statements do not comply with accounting standards, the company shall disclose in its financial statements the deviation, the reasons for such deviation, and the financial effects thereof."
+    },
+    "section_130": {
+      "name": "Section 130 - Re-opening of Accounts on Court's or Tribunal's Orders",
+      "statement": "A company shall not re-open its books of account and not recast its financial statements unless an application is made by the Central Government, Income Tax authorities, SEBI, or any other statutory regulatory body or authority, or any person concerned, and an order is made by a court of competent jurisdiction or the Tribunal to the effect that the relevant earlier accounts were prepared in a fraudulent manner or the affairs of the company were mismanaged during the relevant period, casting a doubt on the reliability of financial statements."
+    },
+    "section_131": {
+      "name": "Section 131 - Voluntary Revision of Financial Statements or Board's Report",
+      "statement": "If it appears to the directors of a company that the financial statement of the company or the Board's report do not comply with the provisions of Section 129 or Section 134, they may prepare revised financial statement or revised report in respect of any of the three preceding financial years after obtaining approval of the Tribunal on an application made by the company in such form and manner as may be prescribed. The Tribunal shall give notice to the Central Government and the Income Tax authorities and consider representations made before passing any order."
+    },
+    "section_132": {
+      "name": "Section 132 - Constitution of National Financial Reporting Authority (NFRA)",
+      "statement": "The Central Government shall constitute a National Financial Reporting Authority (NFRA) to provide for matters relating to accounting and auditing standards. NFRA shall make recommendations on the formulation of accounting and auditing policies and standards, monitor and enforce compliance, oversee the quality of service of the professions, and has power to investigate professional or other misconduct committed by any member or firm of Chartered Accountants. NFRA may impose penalties and debar members from practice for a period of six months to ten years."
+    },
+    "section_133": {
+      "name": "Section 133 - Central Government to Prescribe Accounting Standards",
+      "statement": "The Central Government may prescribe the standards of accounting or any addendum thereto, as recommended by the Institute of Chartered Accountants of India (ICAI), constituted under the Chartered Accountants Act, 1949, in consultation with and after examination of the recommendations made by the National Financial Reporting Authority (NFRA)."
+    },
+    "section_134": {
+      "name": "Section 134 - Financial Statement, Board's Report, etc.",
+      "statement": "The financial statement including consolidated financial statement, if any, shall be approved by the Board of Directors before they are signed on behalf of the Board by at least the chairperson of the company where authorized by the Board or by two directors one of whom shall be the managing director, and the Chief Executive Officer, Chief Financial Officer and company secretary of the company, wherever they are appointed. The Board's report shall include a Directors' Responsibility Statement stating that applicable accounting standards have been followed, accounting policies have been applied consistently, judgments and estimates are reasonable and prudent, and that the directors have prepared the financial statements on a going concern basis."
+    },
+    "section_135": {
+      "name": "Section 135 - Corporate Social Responsibility (CSR)",
+      "statement": "Every company having net worth of Rs. 500 crore or more, or turnover of Rs. 1,000 crore or more, or net profit of Rs. 5 crore or more during the immediately preceding financial year shall constitute a CSR Committee and shall ensure that the company spends in every financial year at least 2% of the average net profits of the company made during the three immediately preceding financial years in pursuance of its CSR policy. Non-compliance requires disclosure of reasons in the Board's report."
+    },
+    "section_143": {
+      "name": "Section 143 - Powers and Duties of Auditors and Auditing Standards",
+      "statement": "The auditor shall have a right of access at all times to the books of account and vouchers of the company and shall make a report to the members of the company on the accounts examined by him. The auditor's report shall state whether the company has adequate internal financial controls with reference to financial statements in place and the operating effectiveness of such controls. If the auditor has reason to believe that an offence of fraud involving a prescribed amount is being or has been committed in the company by its officers or employees, the auditor shall report the matter to the Central Government (Section 143(12)). For fraud below the prescribed amount, the auditor shall report to the Audit Committee or Board within 2 days."
+    },
+    "section_147": {
+      "name": "Section 147 - Punishment for Contravention",
+      "statement": "If an auditor of a company contravenes any of the provisions of Sections 139 to 146, the auditor shall be punishable with fine which shall not be less than Rs. 25,000 but which may extend to Rs. 5,00,000 or four times the remuneration of the auditor, whichever is less. If an auditor has contravened such provisions knowingly or willfully with the intention to deceive the company or its shareholders or creditors or tax authorities, he shall be punishable with imprisonment for a term which may extend to one year and with fine which shall not be less than Rs. 1,00,000 but which may extend to Rs. 25,00,000. The auditor shall also refund remuneration received and pay damages."
+    },
+    "section_177": {
+      "name": "Section 177 - Audit Committee",
+      "statement": "Every listed public company and every other prescribed class of companies shall constitute an Audit Committee of the Board consisting of a minimum of three directors with independent directors forming a majority. The Audit Committee shall act in accordance with the terms of reference specified in writing by the Board which shall include: overseeing the company's financial reporting process and disclosure of financial information, recommending appointment/remuneration/terms of appointment of auditors, approval of payment to statutory auditors for additional services, reviewing with management the annual and quarterly financial statements, monitoring end-use of funds raised through public offers, evaluation of internal financial controls and risk management systems, and reviewing the functioning of the whistle blower mechanism. The Audit Committee shall have authority to investigate any matter within its terms of reference."
+    },
+    "section_211": {
+      "name": "Section 211 - Establishment of Serious Fraud Investigation Office (SFIO)",
+      "statement": "The Central Government shall establish an office to be called the Serious Fraud Investigation Office (SFIO) to investigate frauds relating to a company. The SFIO shall consist of a Director (not below the rank of Joint Secretary to the Government of India), and such number of experts from the fields of accountancy, forensic auditing, banking, law, information technology, investigation, company law, and other relevant disciplines as may be prescribed."
+    },
+    "section_212": {
+      "name": "Section 212 - Investigation into Affairs of Company by SFIO",
+      "statement": "Where the Central Government is of the opinion that it is necessary to investigate into the affairs of a company by the SFIO (a) on receipt of a report of the Registrar or inspector under Section 208, (b) on intimation of a special resolution passed by a company that its affairs are required to be investigated, (c) in the public interest, or (d) on request from any Department of the Central or State Government, the Central Government may, by order, assign the investigation to the SFIO. Where a case is assigned to SFIO, no other investigating agency of the Central or State Government shall proceed with the investigation in such case. SFIO shall submit its investigation report to the Central Government. The investigation report filed with the Special Court shall be treated as a police report filed under Section 173 of CrPC."
+    },
+    "section_213": {
+      "name": "Section 213 - Investigation into Affairs of Company in Other Cases",
+      "statement": "The Tribunal may order an investigation into the affairs of a company on an application made by not less than one hundred members or members holding not less than one-tenth of the total voting power, or the company by a special resolution, or the Central Government, if the Tribunal is satisfied that: (a) the business of the company is being conducted with intent to defraud creditors, members, or any other person; (b) the persons concerned in the formation or management of the company's affairs have been guilty of fraud, misfeasance, or other misconduct towards the company or its members; or (c) the members have not been given all the information with respect to the affairs of the company which they might reasonably expect."
+    },
+    "section_245": {
+      "name": "Section 245 - Class Action Suits",
+      "statement": "Members, depositors, or any class of them may, if they are of the opinion that the management or conduct of the affairs of the company are being conducted in a manner prejudicial to the interests of the company or its members or depositors, file an application before the Tribunal on behalf of the members or depositors seeking any order. The Tribunal may pass orders to restrain the company from committing an act which is ultra vires the articles or memorandum, declare a resolution as void if passed by suppression of material facts, restrain the company from acting contrary to the provisions of the Act, claim damages or compensation from auditor for any improper or misleading statement of particulars in the audit report, or any other suitable remedy."
+    },
+    "section_447": {
+      "name": "Section 447 - Punishment for Fraud",
+      "statement": "Without prejudice to any liability including repayment of any debt under this Act or any other law for the time being in force, any person who is found to be guilty of fraud shall be punishable with imprisonment for a term which shall not be less than six months but which may extend to ten years, and shall also be liable to fine which shall not be less than the amount involved in the fraud, but which may extend to three times the amount involved in the fraud. Where the fraud involves public interest, the term of imprisonment shall not be less than three years. 'Fraud' includes any act, omission, concealment of any fact, or abuse of position committed by any person or any other person with the connivance in any manner, with intent to deceive, to gain undue advantage from, or to injure the interests of, the company or its shareholders or its creditors or any other person, whether or not there is any wrongful gain or wrongful loss."
+    },
+    "section_448": {
+      "name": "Section 448 - Punishment for False Statement",
+      "statement": "If in any return, report, certificate, financial statement, prospectus, statement, or other document required by or for the purposes of any of the provisions of this Act, any person makes a statement which is false in any material particular, knowing it to be false, or which omits any material fact, knowing it to be material, he shall be liable for action under Section 447 (punishment for fraud)."
+    },
+    "section_449": {
+      "name": "Section 449 - Punishment for False Evidence",
+      "statement": "If any person intentionally gives false evidence upon any examination on oath or solemn affirmation, authorized under this Act, or in any affidavit, deposition, or solemn affirmation in or about the winding up of any company under this Act, or otherwise in or about any matter arising under this Act, he shall be punishable with imprisonment for a term which shall not be less than three years but which may extend to seven years, and with fine which may extend to Rs. 10,00,000."
+    }
+  },
+
+  "indian_penal_code_bharatiya_nyaya_sanhita": {
+    "section_120A_ipc": {
+      "name": "Section 120A IPC (BNS Section 61) - Criminal Conspiracy",
+      "statement": "When two or more persons agree to do or cause to be done an illegal act, or an act which is not illegal by illegal means, such an agreement is designated a criminal conspiracy. Where any one of the parties to such agreement does an act in pursuance thereof, that would amount to the offence of criminal conspiracy. In financial fraud context, this covers conspiracies to commit financial fraud, embezzlement, or other economic offences."
+    },
+    "section_120B_ipc": {
+      "name": "Section 120B IPC (BNS Section 61) - Punishment of Criminal Conspiracy",
+      "statement": "Whoever is a party to a criminal conspiracy to commit an offence punishable with death, imprisonment for life, or rigorous imprisonment for a term of two years or upwards shall be punished in the same manner as if he had abetted such offence. In other cases, imprisonment up to six months, or fine, or both."
+    },
+    "section_403_ipc": {
+      "name": "Section 403 IPC (BNS Section 316) - Dishonest Misappropriation of Property",
+      "statement": "Whoever dishonestly misappropriates or converts to his own use any movable property shall be punished with imprisonment of either description for a term which may extend to two years, or with fine, or with both."
+    },
+    "section_405_ipc": {
+      "name": "Section 405 IPC (BNS Section 316) - Criminal Breach of Trust",
+      "statement": "Whoever, being in any manner entrusted with property, or with any dominion over property, dishonestly misappropriates or converts to his own use that property, or dishonestly uses or disposes of that property in violation of any direction of law prescribing the mode in which such trust is to be discharged, or of any legal contract, express or implied, which he has made touching the discharge of such trust, or willfully suffers any other person so to do, commits criminal breach of trust."
+    },
+    "section_406_ipc": {
+      "name": "Section 406 IPC (BNS Section 316) - Punishment for Criminal Breach of Trust",
+      "statement": "Whoever commits criminal breach of trust shall be punished with imprisonment of either description for a term which may extend to three years, or with fine, or with both."
+    },
+    "section_407_ipc": {
+      "name": "Section 407 IPC (BNS Section 317) - Criminal Breach of Trust by Carrier, Wharfinger, etc.",
+      "statement": "Whoever, being entrusted with property as a carrier, wharfinger, or warehouse-keeper, commits criminal breach of trust in respect of such property, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine."
+    },
+    "section_408_ipc": {
+      "name": "Section 408 IPC (BNS Section 317) - Criminal Breach of Trust by Clerk or Servant",
+      "statement": "Whoever, being a clerk or servant or employed as a clerk or servant, and being in any manner entrusted in such capacity with property or with any dominion over property, commits criminal breach of trust, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine."
+    },
+    "section_409_ipc": {
+      "name": "Section 409 IPC (BNS Section 316(5)) - Criminal Breach of Trust by Public Servant or Banker/Merchant/Agent",
+      "statement": "Whoever, being in any manner entrusted with property or with any dominion over property in his capacity of a public servant or in the way of his business as a banker, merchant, factor, broker, attorney, or agent, commits criminal breach of trust in respect of that property, shall be punished with imprisonment for life, or with imprisonment of either description for a term which may extend to ten years, and shall also be liable to fine."
+    },
+    "section_415_ipc": {
+      "name": "Section 415 IPC (BNS Section 318) - Cheating",
+      "statement": "Whoever, by deceiving any person, fraudulently or dishonestly induces the person so deceived to deliver any property to any person, or to consent that any person shall retain any property, or intentionally induces the person so deceived to do or omit to do anything which he would not do or omit if he were not so deceived, and which act or omission causes or is likely to cause damage or harm to that person in body, mind, reputation, or property, is said to 'cheat'."
+    },
+    "section_420_ipc": {
+      "name": "Section 420 IPC (BNS Section 318(4)) - Cheating and Dishonestly Inducing Delivery of Property",
+      "statement": "Whoever cheats and thereby dishonestly induces the person deceived to deliver any property to any person, or to make, alter, or destroy the whole or any part of a valuable security, or anything which is signed or sealed and which is capable of being converted into a valuable security, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine."
+    },
+    "section_463_ipc": {
+      "name": "Section 463 IPC (BNS Section 336) - Forgery",
+      "statement": "Whoever makes any false document or false electronic record or part of a document or electronic record with intent to cause damage or injury to the public or to any person, or to support any claim or title, or to cause any person to part with property, or to enter into any express or implied contract, or with intent to commit fraud or that fraud may be committed, commits forgery."
+    },
+    "section_465_ipc": {
+      "name": "Section 465 IPC (BNS Section 336) - Punishment for Forgery",
+      "statement": "Whoever commits forgery shall be punished with imprisonment of either description for a term which may extend to two years, or with fine, or with both."
+    },
+    "section_467_ipc": {
+      "name": "Section 467 IPC (BNS Section 338) - Forgery of Valuable Security, Will, etc.",
+      "statement": "Whoever forges a document which purports to be a valuable security or a will, or an authority to adopt a son, or which purports to give authority to any person to make or transfer any valuable security, or to receive the principal, interest, or dividends thereon, or to receive or deliver any money, movable property, or valuable security, or any document purporting to be an acquittance or receipt acknowledging the payment of money, or an acquittance or receipt for the delivery of any movable property or valuable security, shall be punished with imprisonment for life, or with imprisonment of either description for a term which may extend to ten years, and shall also be liable to fine."
+    },
+    "section_468_ipc": {
+      "name": "Section 468 IPC (BNS Section 339) - Forgery for Purpose of Cheating",
+      "statement": "Whoever commits forgery, intending that the document or electronic record forged shall be used for the purpose of cheating, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine."
+    },
+    "section_471_ipc": {
+      "name": "Section 471 IPC (BNS Section 340) - Using as Genuine a Forged Document or Electronic Record",
+      "statement": "Whoever fraudulently or dishonestly uses as genuine any document or electronic record which he knows or has reason to believe to be a forged document or electronic record, shall be punished in the same manner as if he had forged such document or electronic record."
+    },
+    "section_489A_to_489E_ipc": {
+      "name": "Sections 489A-489E IPC - Counterfeiting Currency Notes and Bank Notes",
+      "statement": "Sections 489A to 489E deal with counterfeiting currency notes or bank notes, using or possessing counterfeit notes as genuine, possession of forged notes, making or possessing instruments for counterfeiting, and making or using documents resembling currency notes. Punishment ranges from imprisonment for life or up to ten years with fine (for counterfeiting, Section 489A) to imprisonment up to seven years with fine (for possession, Section 489C) and one year or fine (for documents resembling notes, Section 489E)."
+    }
+  },
+
+  "prevention_of_money_laundering_act_2002": {
+    "section_3": {
+      "name": "Section 3 - Offence of Money Laundering",
+      "statement": "Whosoever directly or indirectly attempts to indulge or knowingly assists or knowingly is a party or is actually involved in any process or activity connected with the proceeds of crime including its concealment, possession, acquisition or use and projecting or claiming it as untainted property shall be guilty of offence of money-laundering. The offence of money-laundering is a standalone offence independent of the predicate (scheduled) offence."
+    },
+    "section_4": {
+      "name": "Section 4 - Punishment for Money Laundering",
+      "statement": "Whoever commits the offence of money-laundering shall be punishable with rigorous imprisonment for a term which shall not be less than three years but which may extend to seven years and shall also be liable to fine. Where the proceeds of crime involved relate to any offence specified under paragraph 2 of Part A of the Schedule (offences under NDPS Act), the maximum punishment shall be rigorous imprisonment for a term which may extend to ten years."
+    },
+    "section_5": {
+      "name": "Section 5 - Attachment of Property Involved in Money Laundering",
+      "statement": "Where the Director or any other officer not below the rank of Deputy Director authorized by the Director has reason to believe (on the basis of material in his possession) that any person is in possession of any proceeds of crime and such proceeds of crime are likely to be concealed, transferred, or dealt with in any manner which may result in frustrating any proceedings relating to confiscation of such proceeds of crime, he may by order in writing provisionally attach such property for a period not exceeding 150 days."
+    },
+    "section_8": {
+      "name": "Section 8 - Adjudication",
+      "statement": "On receipt of a complaint under Section 5(5), the Adjudicating Authority shall serve notice on the persons named in the complaint and shall issue an order that all attachment of properties shall continue during the pendency of the proceedings. After hearing the aggrieved person and the Authority, if the Adjudicating Authority is satisfied that any property is involved in money-laundering, it shall by order in writing confirm the attachment or order confiscation of such property to the Central Government."
+    },
+    "section_12": {
+      "name": "Section 12 - Obligations of Banking Companies, Financial Institutions, and Intermediaries",
+      "statement": "Every banking company, financial institution, and intermediary shall: (a) maintain a record of all transactions including the nature and value (prescribed threshold of Rs. 10 lakh and above); (b) furnish information of transactions referred to in clause (a) to the FIU-IND within the prescribed time; (c) verify and maintain the record of the identity of all its clients and beneficial owners; (d) maintain records of the identity and transaction records for a period of five years from the date of cessation of the transactions."
+    },
+    "section_12A": {
+      "name": "Section 12A - Enhanced Due Diligence",
+      "statement": "Every reporting entity shall: (a) verify the identity of clients using reliable, independent source documents, data, or information; (b) identify the beneficial owner and take reasonable measures to verify the identity; (c) understand and obtain information on the purpose and intended nature of the business relationship; (d) undertake ongoing due diligence and scrutiny of transactions throughout the course of the relationship to ensure consistency with the reporting entity's knowledge of the client."
+    },
+    "section_12AA": {
+      "name": "Section 12AA - Reporting Entity to Verify Identity of Clients",
+      "statement": "Where a reporting entity has reason to believe that a transaction involves proceeds of crime, the reporting entity shall increase the future monitoring of the business relationship with the client, including greater scrutiny of transactions. Where the reporting entity is unable to apply customer due diligence or where there is a suspicion, the entity shall consider filing a suspicious transaction report with FIU-IND."
+    },
+    "section_13": {
+      "name": "Section 13 - Penalty for Non-Compliance (Reporting Entities)",
+      "statement": "Where a reporting entity or its designated director on the Board of Directors or any of its employees fails to comply with the obligations under Chapter IV (Sections 12, 12A, 12AA), the reporting entity shall be liable to a fine which may extend to Rs. 10,000 for each default during the period of non-compliance. Continued non-compliance may lead to more stringent penalties and regulatory action."
+    },
+    "section_17": {
+      "name": "Section 17 - Search and Seizure",
+      "statement": "The Director or any other officer not below the rank of Deputy Director may, on the basis of information in his possession, authorize any officer subordinate to him to enter and search any building, place, vessel, vehicle, or aircraft where he has reason to believe that any proceeds of crime are kept, and seize any record or property found as a result of such search."
+    },
+    "section_24": {
+      "name": "Section 24 - Burden of Proof",
+      "statement": "In any proceeding relating to proceeds of crime, the burden of proving that proceeds of crime are untainted property shall be on the person who claims the property as his own. This reversal of the burden of proof is a distinguishing feature of the PMLA regime."
+    },
+    "section_44": {
+      "name": "Section 44 - Offences Triable by Special Courts",
+      "statement": "Notwithstanding anything contained in the Code of Criminal Procedure, 1973, the offence punishable under Section 4 and any scheduled offence connected to the offence under that section shall be triable by the Special Court constituted under Section 43."
+    },
+    "section_45": {
+      "name": "Section 45 - Offence of Money Laundering to be Cognizable and Non-Bailable",
+      "statement": "Notwithstanding anything contained in the Code of Criminal Procedure, 1973, every offence punishable under this Act shall be cognizable and non-bailable. No person accused of an offence under this Act shall be released on bail unless the Public Prosecutor has been given an opportunity to oppose the application for release, and where the Public Prosecutor opposes the application, the court is satisfied that there are reasonable grounds for believing that the accused is not guilty and that he is not likely to commit any offence while on bail."
+    },
+    "section_50": {
+      "name": "Section 50 - Powers of Authorities Regarding Summons, Production of Documents, etc.",
+      "statement": "The Director, or any other officer not below the rank of Assistant Director, shall have power to summon any person whose attendance he considers necessary, to give evidence or to produce a record during the course of any investigation or proceeding under this Act. Every person summoned shall be bound to attend and state the truth upon any subject respecting which he is examined or make a statement, and to produce such documents as may be required."
+    },
+    "section_66": {
+      "name": "Section 66 - Punishment for Vexatious Search",
+      "statement": "Any authority or officer exercising powers under this Act who without reasonable ground of suspicion enters any building, or searches any person, or seizes any record or property, shall for every such offence be liable to a fine which may extend to Rs. 50,000."
+    }
+  },
+
+  "sebi_act_and_regulations": {
+    "sebi_act_section_11": {
+      "name": "SEBI Act 1992 - Section 11 - Functions of the Board",
+      "statement": "It shall be the duty of the Board to protect the interests of investors in securities and to promote the development of, and to regulate, the securities market, by such measures as it thinks fit. The Board may take measures to: regulate the business in stock exchanges; register and regulate the working of stockbrokers, sub-brokers, share transfer agents, bankers to an issue, trustees of trust deeds, registrars to an issue, merchant bankers, underwriters, portfolio managers, investment advisers, and such other intermediaries; regulate and prohibit insider trading in securities; and prohibit fraudulent and unfair trade practices relating to securities markets."
+    },
+    "sebi_act_section_11B": {
+      "name": "SEBI Act 1992 - Section 11B - Power to Issue Directions",
+      "statement": "The Board may, in the interest of investors or orderly development of securities market, by order, for reasons to be recorded in writing, in respect of any listed company or a person associated with the securities market, issue such directions as may be appropriate, including directions to: suspend trading of any security; restrain persons from accessing the securities market; prohibit any person from dealing in securities; prohibit any person from disposing of any securities; and direct any intermediary not to dispose of or deal with the assets of the entity."
+    },
+    "sebi_act_section_11C": {
+      "name": "SEBI Act 1992 - Section 11C - Investigation",
+      "statement": "Where the Board has reasonable ground to believe that transactions in securities are being dealt with in a manner detrimental to the investors or the securities market, or that any intermediary or any person associated with the securities market has violated any of the provisions of this Act or the rules or the regulations made thereunder, it may, at any time by order in writing, direct any person to investigate the affairs of such intermediary or persons associated with the securities market."
+    },
+    "sebi_act_section_12A": {
+      "name": "SEBI Act 1992 - Section 12A - Prohibition of Manipulative and Deceptive Devices, Insider Trading, and Substantial Acquisition of Securities",
+      "statement": "No person shall directly or indirectly: (a) use or employ, in connection with the issue, purchase, or sale of any securities listed or proposed to be listed on a recognized stock exchange, any manipulative or deceptive device or contrivance in contravention of the provisions of this Act or the rules or the regulations made thereunder; (b) employ any device, scheme, or artifice to defraud in connection with issue or dealing in securities which are listed or proposed to be listed on a recognized stock exchange; (c) engage in any act, practice, course of business which operates or would operate as fraud or deceit upon any person, in connection with the issue, dealing in securities which are listed or proposed to be listed on a recognized stock exchange, in contravention of the provisions of this Act or the rules or the regulations made thereunder."
+    },
+    "sebi_act_section_15G": {
+      "name": "SEBI Act 1992 - Section 15G - Penalty for Insider Trading",
+      "statement": "Any insider who deals in securities in contravention of the provisions of Section 12A or the regulations made thereunder shall be liable to a penalty which shall not be less than ten lakh rupees but which may extend to twenty-five crore rupees or three times the amount of profits made out of insider trading, whichever is higher."
+    },
+    "sebi_act_section_15H": {
+      "name": "SEBI Act 1992 - Section 15H - Penalty for Non-Disclosure of Acquisition of Shares and Takeovers",
+      "statement": "Any person who fails to disclose the acquisition of shares of a body corporate or fails to make a public announcement for an open offer shall be liable to a penalty which shall not be less than ten lakh rupees but which may extend to twenty-five crore rupees or three times the amount of profits made, whichever is higher."
+    },
+    "sebi_act_section_15HA": {
+      "name": "SEBI Act 1992 - Section 15HA - Penalty for Fraudulent and Unfair Trade Practices",
+      "statement": "Any person who indulges in fraudulent and unfair trade practices relating to securities shall be liable to a penalty which shall not be less than five lakh rupees but which may extend to twenty-five crore rupees or three times the amount of profits made out of such practices, whichever is higher."
+    },
+    "sebi_act_section_24": {
+      "name": "SEBI Act 1992 - Section 24 - Offences",
+      "statement": "Any person who contravenes or attempts to contravene or abets the contravention of the provisions of this Act or of any rules or regulations made thereunder, for which no punishment is provided elsewhere in this Act, shall be punishable with imprisonment for a term which may extend to ten years, or with fine which may extend to twenty-five crore rupees, or with both."
+    },
+    "sebi_pfutp_regulations_2003": {
+      "name": "SEBI (Prohibition of Fraudulent and Unfair Trade Practices relating to Securities Market) Regulations, 2003",
+      "statement": "These regulations prohibit fraudulent and unfair trade practices in the securities market. Regulation 2(1)(c) defines 'fraud' broadly to include any act, expression, omission, or concealment committed whether in a deceitful manner or not by a person or by any other person with his connivance or by his agent while dealing in securities to induce another person to deal in securities. Regulation 3 prohibits dealing in securities in a fraudulent manner. Regulation 4 prohibits specific unfair trade practices including market manipulation, creating misleading appearance of trading, price rigging, publishing misleading information, and front-running."
+    },
+    "sebi_insider_trading_regulations_2015": {
+      "name": "SEBI (Prohibition of Insider Trading) Regulations, 2015",
+      "statement": "These regulations prohibit insider trading and prescribe a framework for prevention. An 'insider' means any person who is a connected person or in possession of or having access to unpublished price sensitive information (UPSI). Regulation 3 prohibits communication or procurement of UPSI except for legitimate purposes, performance of duties, or discharge of legal obligations. Regulation 4 prohibits trading by insiders when in possession of UPSI. Companies are required to formulate a code of conduct for prevention of insider trading, maintain a structured digital database of persons with access to UPSI, and close the trading window during the period when UPSI exists."
+    },
+    "sebi_lodr_regulations_2015": {
+      "name": "SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 (LODR)",
+      "statement": "These regulations prescribe obligations for listed entities regarding disclosure of material information, corporate governance, and compliance. Key provisions include: Regulation 17 (composition and role of Board of Directors); Regulation 18 (Audit Committee); Regulation 22 (Vigil Mechanism/Whistleblower Policy); Regulation 27 (Corporate Governance compliance report); Regulation 30 (Disclosure of events or information which is material); Regulation 33 (Financial results); Regulation 36 (Annual Report and disclosures); Regulation 46 (Website disclosures). Non-compliance attracts penalties under the SEBI Act."
+    },
+    "sebi_takeover_regulations_2011": {
+      "name": "SEBI (Substantial Acquisition of Shares and Takeovers) Regulations, 2011",
+      "statement": "These regulations prescribe the framework for substantial acquisition of shares and takeovers. Any acquirer who acquires shares or voting rights exceeding 25% of a target company (or acquires control) must make a mandatory open offer to acquire at least 26% of total shares. Regulation 3 triggers the open offer obligation. Regulation 4 deals with indirect acquisitions. Regulation 13 prescribes disclosure requirements on acquisition. Non-compliance is punishable under Section 15H of the SEBI Act."
+    },
+    "sebi_investment_advisers_regulations_2013": {
+      "name": "SEBI (Investment Advisers) Regulations, 2013",
+      "statement": "These regulations govern registration and conduct of investment advisers. Key provisions include: mandatory registration with SEBI for providing investment advice; requirement to act in fiduciary capacity towards clients; prohibition on receiving any consideration from any person other than the client; requirement to maintain records of advice tendered and rationale thereof; risk profiling and suitability assessment obligations; prohibition on providing assured or guaranteed returns. Non-compliance attracts monetary penalties and cancellation of registration."
+    },
+    "sebi_portfolio_managers_regulations_2020": {
+      "name": "SEBI (Portfolio Managers) Regulations, 2020",
+      "statement": "These regulations govern the registration and operations of portfolio managers. Key provisions include: minimum net worth of Rs. 5 crore; mandatory registration with SEBI; fiduciary obligation towards clients; prohibition on portfolio manager or its employees from dealing in securities of the client for personal benefit; requirement to maintain detailed records; mandatory disclosure documents; investment approach disclosure; prohibition on assured or guaranteed returns; and compliance officer requirement. Non-compliance attracts penalties and cancellation of registration."
+    }
+  },
+
+  "rbi_directions_and_banking_regulation": {
+    "banking_regulation_act_section_35A": {
+      "name": "Banking Regulation Act, 1949 - Section 35A - Power of RBI to Give Directions",
+      "statement": "The Reserve Bank may from time to time issue directions to banking companies generally or to any banking company in particular as it may deem fit. Such directions may relate to advances, interest rates, or other matters as may be specified. All banking companies shall be bound to comply with such directions."
+    },
+    "banking_regulation_act_section_36AD": {
+      "name": "Banking Regulation Act, 1949 - Section 36AD - Penalties for Non-Compliance",
+      "statement": "If any banking company fails to comply with any direction given by the Reserve Bank, such banking company shall be liable to pay a penalty of Rs. 5 lakh for each default and a further penalty of Rs. 25,000 for every day during which the default continues."
+    },
+    "banking_regulation_act_section_46": {
+      "name": "Banking Regulation Act, 1949 - Section 46 - Penalties",
+      "statement": "If any person contravenes the provisions of the Banking Regulation Act, or makes a false or misleading statement in any return, balance sheet, or other document required under the Act, such person shall be punishable with fine which may extend to Rs. 2 crore and where a contravention or default is a continuing one, with a further fine which may extend to Rs. 1 lakh for every day during which the contravention or default continues."
+    },
+    "rbi_master_direction_frauds_2016": {
+      "name": "RBI Master Direction - Frauds - Classification and Reporting by Commercial Banks and Select FIs (2016, updated periodically)",
+      "statement": "This Master Direction prescribes the framework for classification, reporting, and monitoring of frauds in banks. A fraud is defined as a deliberate act of omission or commission by any person carried out in the course of a banking transaction or in the books of accounts maintained manually or under computer system in banks, resulting in wrongful gain to any person or wrongful loss to the bank. Frauds are classified by amount: (i) Rs. 1 lakh and above but less than Rs. 10 lakh; (ii) Rs. 10 lakh and above but less than Rs. 25 crore; (iii) Rs. 25 crore and above but less than Rs. 100 crore; (iv) Rs. 100 crore and above. All fraud cases of Rs. 1 lakh and above must be reported to RBI within 3 weeks of detection. Cases of Rs. 100 crore and above must also be reported to the Central Vigilance Commission (CVC) and Central Bureau of Investigation (CBI)."
+    },
+    "rbi_kyc_master_direction_2016": {
+      "name": "RBI Master Direction - Know Your Customer (KYC) Direction, 2016",
+      "statement": "This Direction prescribes KYC procedures for regulated entities including banks, NBFCs, and payment system participants. Key requirements include: Customer Due Diligence (CDD) at the time of establishing business relationship; ongoing monitoring of transactions; Enhanced Due Diligence (EDD) for high-risk customers, PEPs (Politically Exposed Persons), and correspondent banking; maintenance of records for at least five years after the business relationship is ended; Suspicious Transaction Reporting (STR) to FIU-IND; Cash Transaction Reporting (CTR) for cash transactions of Rs. 10 lakh and above; Non-Profit Organisation Transaction Reporting (NTR); and periodic KYC updation."
+    },
+    "rbi_wilful_defaulters_direction": {
+      "name": "RBI Master Direction on Wilful Defaulters (2015, updated periodically)",
+      "statement": "A 'wilful defaulter' is a borrower who has defaulted in meeting payment/repayment obligations and: (a) has defaulted despite having capacity to honour the obligation; or (b) has not utilised the finance for the specific purposes for which it was availed and has diverted the funds; or (c) has siphoned off the funds and the funds have not been used for the specific purpose for which they were availed; or (d) has disposed of or removed the movable/immovable property given as security without the knowledge of the lender. The name of the wilful defaulter is to be disseminated to the Credit Information Companies (CIBIL, etc.), and such persons are barred from accessing institutional finance for five years. Promoters/directors of wilful defaulter companies are barred from floating new ventures for five years."
+    },
+    "rbi_internal_audit_direction": {
+      "name": "RBI Master Direction on Internal Audit and Concurrent Audit",
+      "statement": "This direction prescribes the framework for internal audit function in banks. Banks are required to have an independent internal audit function that covers all areas of operations including credit management, treasury operations, IT systems, anti-money laundering compliance, and regulatory compliance. Concurrent audit is required for branches above specified thresholds. The internal audit function must report to the Audit Committee of the Board and must have unfettered access to all records. Deficiencies identified must be tracked and rectified within prescribed timelines."
+    }
+  },
+
+  "income_tax_act_1961": {
+    "section_269SS": {
+      "name": "Section 269SS - Mode of Taking or Accepting Certain Loans, Deposits, and Specified Sums",
+      "statement": "No person shall take or accept from any other person any loan or deposit or any specified sum otherwise than by an account payee cheque or account payee bank draft or use of electronic clearing system through a bank account or such other electronic modes as may be prescribed, if the amount of such loan or deposit or specified sum or the aggregate amount of such loan, deposit, and specified sum is Rs. 20,000 or more. This provision is designed to prevent circulation of unaccounted money."
+    },
+    "section_269T": {
+      "name": "Section 269T - Mode of Repayment of Certain Loans or Deposits",
+      "statement": "No branch of a banking company or a co-operative bank and no other company or co-operative society and no firm or other person shall repay any loan or deposit made with it or any specified advance received by it otherwise than by an account payee cheque or account payee bank draft or use of electronic clearing system through a bank account, if the amount of the loan or deposit or specified advance together with interest, if any, is Rs. 20,000 or more."
+    },
+    "section_271D": {
+      "name": "Section 271D - Penalty for Failure to Comply with Section 269SS",
+      "statement": "If a person takes or accepts any loan or deposit or specified sum in contravention of Section 269SS, he shall be liable to pay, by way of penalty, a sum equal to the amount of the loan or deposit or specified sum so taken or accepted."
+    },
+    "section_271E": {
+      "name": "Section 271E - Penalty for Failure to Comply with Section 269T",
+      "statement": "If a person repays any loan or deposit or specified advance in contravention of Section 269T, he shall be liable to pay, by way of penalty, a sum equal to the amount of the loan or deposit or specified advance so repaid."
+    },
+    "section_271_1_c": {
+      "name": "Section 271(1)(c) - Penalty for Concealment of Income or Furnishing Inaccurate Particulars",
+      "statement": "If the Assessing Officer or the Commissioner (Appeals) or the Principal Commissioner or Commissioner in the course of any proceedings under this Act is satisfied that any person has concealed the particulars of his income or furnished inaccurate particulars of such income, he may direct that such person shall pay by way of penalty a sum which shall not be less than but which shall not exceed three times the amount of tax sought to be evaded by reason of the concealment of particulars of his income or the furnishing of inaccurate particulars of such income."
+    },
+    "section_276C": {
+      "name": "Section 276C - Wilful Attempt to Evade Tax",
+      "statement": "If a person wilfully attempts in any manner whatsoever to evade any tax, penalty, or interest chargeable or imposable under this Act, he shall, without prejudice to any penalty that may be imposable on him under any other provision of this Act, be punishable: (i) in a case where the amount sought to be evaded exceeds Rs. 25,00,000, with rigorous imprisonment for a term which shall not be less than six months but which may extend to seven years and with fine; (ii) in any other case, with rigorous imprisonment for a term which shall not be less than three months but which may extend to two years and with fine."
+    },
+    "section_276CC": {
+      "name": "Section 276CC - Failure to Furnish Return of Income",
+      "statement": "If a person wilfully fails to furnish in due time the return of income which he is required to furnish under Section 139(1) or by notice given under Section 142(1) or Section 148 or Section 153A, he shall be punishable with rigorous imprisonment for a term which shall not be less than three months but which may extend to two years and with fine. Where the tax which would have been evaded if the failure had not been discovered exceeds Rs. 25,00,000, the imprisonment shall be for a term which shall not be less than six months but which may extend to seven years and with fine."
+    },
+    "section_277": {
+      "name": "Section 277 - False Statement in Verification",
+      "statement": "If a person makes a statement in any verification under this Act or under any rule made thereunder, or delivers an account or statement which is false, and which he either knows or believes to be false, or does not believe to be true, he shall be punishable: (i) where the amount of tax which would have been evaded exceeds Rs. 25,00,000, with rigorous imprisonment for a term which shall not be less than six months but which may extend to seven years and with fine; (ii) in any other case, with rigorous imprisonment for a term which shall not be less than three months but which may extend to two years and with fine."
+    },
+    "section_278": {
+      "name": "Section 278 - Abetment of False Return",
+      "statement": "If a person abets or induces in any manner another person to make and deliver an account, a statement or declaration relating to any income or any fringe benefits chargeable to tax which is false and which he either knows to be false or does not believe to be true, or to commit an offence under Section 276CC, he shall be punishable with rigorous imprisonment for a term which may extend to two years or seven years (depending on the amount), and with fine."
+    }
+  },
+
+  "black_money_act_2015": {
+    "section_3": {
+      "name": "Section 3 - Tax on Undisclosed Foreign Income and Assets",
+      "statement": "Where in any previous year, an assessee has any undisclosed foreign income and asset, the assessee shall be liable for tax at the rate of thirty per cent of the value of such undisclosed foreign income and asset."
+    },
+    "section_10": {
+      "name": "Section 10 - Penalty for Non-Disclosure of Foreign Income and Assets",
+      "statement": "Where any undisclosed foreign income or asset is detected, a penalty equal to three times the tax computed under Section 3 shall be levied, in addition to the tax payable."
+    },
+    "section_48": {
+      "name": "Section 48 - Wilful Attempt to Evade Tax (Foreign Income)",
+      "statement": "If a person wilfully attempts in any manner whatsoever to evade any tax or penalty chargeable or imposable under this Act, he shall be punishable with rigorous imprisonment for a term which shall not be less than three years but which may extend to ten years and with fine."
+    },
+    "section_49": {
+      "name": "Section 49 - Failure to Furnish Return in Relation to Foreign Income and Asset",
+      "statement": "If a person, being a resident (other than not ordinarily resident), who has an asset located outside India or has signing authority in any account located outside India, fails to furnish in due time, the return of income in respect of foreign income, he shall be punishable with rigorous imprisonment for a term which shall not be less than six months but which may extend to seven years and with fine."
+    },
+    "section_50": {
+      "name": "Section 50 - Failure to Furnish Information or Furnish Inaccurate Particulars about Foreign Assets",
+      "statement": "If a person, being a resident (other than not ordinarily resident), who has an asset located outside India, fails to furnish information or furnishes inaccurate particulars about any foreign asset or income from a source outside India in the return of income, he shall be punishable with rigorous imprisonment for a term which shall not be less than six months but which may extend to seven years and with fine."
+    }
+  },
+
+  "cgst_act_2017_gst_fraud": {
+    "section_122": {
+      "name": "Section 122 CGST Act - Penalty for Certain Offences",
+      "statement": "Any taxable person who supplies goods or services or both without issue of invoice or issues incorrect/false invoice; collects tax but fails to pay to the Government; collects tax in contravention of the provisions of this Act but fails to pay to the Government within three months; avails/utilises input tax credit without actual receipt of goods or services; fraudulently obtains refund; issues invoice or bill without supply; or falsifies financial records or produces fake accounts/documents, shall be liable to a penalty of Rs. 10,000 or an amount equivalent to the tax evaded or the tax not deducted/short deducted or input tax credit availed/utilised wrongly, whichever is higher."
+    },
+    "section_132": {
+      "name": "Section 132 CGST Act - Punishment for Certain Offences",
+      "statement": "Whoever commits any of the following offences: (a) supplies goods/services without issue of invoice with intent to evade tax; (b) issues invoice/bill without supply leading to wrongful availment of input tax credit or refund; (c) avails input tax credit using invoice without actual supply; (d) collects tax but fails to pay to Government beyond 3 months; (e) evades tax, fraudulently obtains refund, or avails/utilises input tax credit fraudulently, shall be punishable: (i) where the amount exceeds Rs. 5 crore, with imprisonment up to 5 years and fine; (ii) where amount exceeds Rs. 2 crore but does not exceed Rs. 5 crore, with imprisonment up to 3 years and fine; (iii) where amount exceeds Rs. 1 crore but does not exceed Rs. 2 crore, with imprisonment up to 1 year and fine."
+    }
+  },
+
+  "fema_1999": {
+    "section_3": {
+      "name": "Section 3 FEMA - Dealing in Foreign Exchange",
+      "statement": "Save as otherwise provided in this Act, rules, or regulations made thereunder, or with the general or special permission of the Reserve Bank, no person shall deal in or transfer any foreign exchange or foreign security to any person not being an authorised person; make any payment to or for the credit of any person resident outside India in any manner; receive otherwise than through an authorised person, any payment by order or on behalf of any person resident outside India. Contravention can attract penalties under Section 13."
+    },
+    "section_4": {
+      "name": "Section 4 FEMA - Holding of Foreign Exchange",
+      "statement": "Save as otherwise provided in this Act, no person resident in India shall acquire, hold, own, possess, or transfer any foreign exchange, foreign security, or any immovable property situated outside India."
+    },
+    "section_13": {
+      "name": "Section 13 FEMA - Penalties",
+      "statement": "If any person contravenes any provision of this Act, or contravenes any rule, regulation, notification, direction, or order issued in exercise of the powers under this Act, he shall, upon adjudication, be liable to a penalty up to thrice the sum involved in such contravention where such amount is quantifiable, or up to Rs. 2,00,000 where the amount is not quantifiable, and where such contravention is a continuing one, further penalty which may extend to Rs. 5,000 for every day after the first day during which the contravention continues."
+    },
+    "section_37A": {
+      "name": "Section 37A FEMA - Empowerment of ED for FEMA Contraventions",
+      "statement": "The Director of Enforcement and other officers of Enforcement are empowered to investigate contraventions under FEMA, issue show cause notices, and adjudicate contraventions. Proceedings under FEMA are civil in nature with monetary penalties, unlike the erstwhile FERA (Foreign Exchange Regulation Act) which had criminal provisions."
+    }
+  },
+
+  "negotiable_instruments_act_1881": {
+    "section_138": {
+      "name": "Section 138 - Dishonour of Cheque for Insufficiency of Funds",
+      "statement": "Where any cheque drawn by a person on an account maintained by him with a banker for payment of any amount of money to another person from out of that account for the discharge, in whole or in part, of any debt or other liability, is returned by the bank unpaid, either because of the amount of money standing to the credit of that account is insufficient to honour the cheque or that it exceeds the amount arranged to be paid from that account by an agreement made with that bank, such person shall be deemed to have committed an offence and shall be punished with imprisonment for a term which may extend to two years, or with fine which may extend to twice the amount of the cheque, or with both."
+    },
+    "section_141": {
+      "name": "Section 141 - Offences by Companies",
+      "statement": "If the person committing an offence under Section 138 is a company, every person who at the time the offence was committed was in charge of, and was responsible to, the company for the conduct of the business of the company, as well as the company, shall be deemed to be guilty of the offence and shall be liable to be proceeded against and punished accordingly."
+    },
+    "section_142": {
+      "name": "Section 142 - Cognizance of Offences",
+      "statement": "Notwithstanding anything contained in the Code of Criminal Procedure, 1973, no court shall take cognizance of any offence punishable under Section 138 except upon a complaint in writing made by the payee or the holder in due course of the cheque. Such complaint must be made within one month of the date on which the cause of action arises (i.e., the expiry of the 15-day notice period). The complaint can be filed before the court within whose local jurisdiction the cheque was drawn or presented."
+    }
+  },
+
+  "fugitive_economic_offenders_act_2018": {
+    "section_2_f": {
+      "name": "Section 2(f) - Definition of Fugitive Economic Offender",
+      "statement": "A 'Fugitive Economic Offender' means any individual against whom a warrant for arrest in relation to a scheduled offence has been issued by any court in India, who has left India so as to avoid criminal prosecution, or being abroad refuses to return to India to face criminal prosecution. The total value of the offence or offences involved must be Rs. 100 crore or more."
+    },
+    "section_4": {
+      "name": "Section 4 - Application for Declaration",
+      "statement": "The Director or any other officer not below the rank of Deputy Director authorized by the Director for the purposes of this Act may file an application before the Special Court for a declaration that an individual is a fugitive economic offender."
+    },
+    "section_12": {
+      "name": "Section 12 - Confiscation and Vesting of Property",
+      "statement": "Upon the Special Court making a declaration under Section 12 that an individual is a fugitive economic offender, the authorities may confiscate: (a) the proceeds of crime, whether or not such property is owned by the fugitive economic offender; (b) any other property or benami property owned by the fugitive economic offender; and (c) any property which is the proceeds of crime, including a property belonging to any person other than the fugitive economic offender, if such person has acquired it by connivance or conspiracy with the fugitive economic offender."
+    },
+    "section_14": {
+      "name": "Section 14 - Disentitlement of Fugitive Economic Offender",
+      "statement": "The Special Court may, on an application by any civil court or tribunal, bar the fugitive economic offender from filing or defending any civil claim before any court or tribunal in India. This disentitlement includes the inability to file appeals, applications, or any proceeding in any civil court or tribunal."
+    }
+  },
+
+  "benami_transactions_prohibition_act_1988": {
+    "section_2_9": {
+      "name": "Section 2(9) - Definition of Benami Transaction",
+      "statement": "A 'benami transaction' means: (a) a transaction or an arrangement where a property is transferred to or is held by a person, and the consideration for such property has been provided, or paid by, another person (the beneficial owner); (b) a transaction or an arrangement in respect of a property carried out or made in a fictitious name; (c) a transaction or arrangement in respect of a property where the owner of the property is not aware of, or denies knowledge of, such ownership; (d) a transaction or arrangement in respect of a property where the person providing the consideration is not traceable or is fictitious."
+    },
+    "section_3": {
+      "name": "Section 3 - Prohibition of Benami Transactions",
+      "statement": "No person shall enter into any benami transaction. Any property which is subject matter of a benami transaction shall be liable to be confiscated by the Central Government."
+    },
+    "section_53": {
+      "name": "Section 53 - Penalty for Benami Transaction",
+      "statement": "Whoever enters into a benami transaction shall be punishable with rigorous imprisonment for a term which shall not be less than one year but which may extend to three years and shall also be liable to fine which may extend to twenty-five per cent of the fair market value of the property."
+    },
+    "section_54": {
+      "name": "Section 54 - Penalty for False Information",
+      "statement": "Whoever furnishes false information to the Initiating Officer or the Adjudicating Authority shall be punishable with rigorous imprisonment for a term which shall not be less than six months but which may extend to five years and shall also be liable to fine which may extend to ten per cent of the fair market value of the property."
+    }
+  },
+
+  "chartered_accountants_act_1949": {
+    "section_21": {
+      "name": "Section 21 - Procedure in Inquiries Relating to Misconduct of Members",
+      "statement": "Where on receipt of information by or a complaint made to the Institute, the Director (Discipline) is of the opinion that a member of the Institute is guilty of any professional or other misconduct mentioned in any of the Schedules, the Director (Discipline) shall place the matter before the Board of Discipline or the Disciplinary Committee as the case may be."
+    },
+    "section_21B": {
+      "name": "Section 21B - Disciplinary Committee",
+      "statement": "The Disciplinary Committee shall follow the prescribed procedure and, after inquiry, where the Disciplinary Committee is of the opinion that a member is guilty of professional or other misconduct mentioned in the Second Schedule or both Schedules, it may: (a) reprimand the member; (b) remove the name of the member from the Register permanently or for such period as it thinks fit; or (c) impose such fine as it may think fit, which may extend to Rs. 5,00,000."
+    },
+    "section_22_first_schedule_part_I": {
+      "name": "Section 22 read with First Schedule, Part I - Professional Misconduct by CAs in Practice",
+      "statement": "A Chartered Accountant in practice shall be deemed to be guilty of professional misconduct if he: (1) allows any person to practice in his name as a CA unless such person is also a CA in practice and is in partnership with or employed by him; (2) pays or allows any share, commission, or brokerage in the fees or profits of his professional business to any person other than a member of the Institute or a partner; (3) accepts or agrees to accept any part of the profits or fees of a solicitor, advocate, or attorney-at-law; (4) enters into partnership with any person other than a CA in practice or a firm of such CAs; (5) secures either through the services of a person not qualified to be his partner or by means which are not open to a CA any professional business; (6) solicits clients or professional work by advertisement or personal communication; (7) advertises professional attainments or services; (8) accepts an appointment as auditor without first ascertaining from the member or firm holding the appointment whether there are any professional or other reasons why the appointment should not be accepted; (9) charges or offers to charge, accepts or offers to accept, fees which are based on a percentage of profits or which are contingent upon the findings or results of employment; (10) engages in any business or occupation other than the profession of CA unless permitted by the Council; (11) allows a person not being a member of the Institute in practice or a member not being his partner to sign on his behalf or on behalf of his firm any balance sheet, profit and loss account, report, or financial statements."
+    },
+    "section_22_first_schedule_part_II": {
+      "name": "Section 22 read with First Schedule, Part II - Professional Misconduct by CAs in Service",
+      "statement": "A member of the Institute (whether in practice or not) shall be deemed to be guilty of professional misconduct if he: (1) discloses information acquired in the course of professional engagement to any person other than his client without the consent of his client or otherwise than as required by law; (2) certifies or submits in his name, or in the name of his firm, a report of an examination of financial statements unless the examination of such statements has been made by him or by a partner or an employee in his firm or by another CA in practice; (3) permits his name or the name of his firm to be used in connection with an estimate of earnings contingent upon future transactions in a manner which may lead to the belief that he vouches for the accuracy of the forecast; (4) expresses his opinion on financial statements of any business or enterprise in which he, his firm, or a partner in his firm has a substantial interest."
+    },
+    "section_22_second_schedule_part_I": {
+      "name": "Section 22 read with Second Schedule, Part I - Graver Misconduct by CAs in Practice",
+      "statement": "A CA in practice shall be deemed to be guilty of professional misconduct (of a graver nature) if he: (1) discloses information acquired in the course of professional engagement to any person other than his client without consent, except as required by law; (2) certifies or submits in his name a report which has not been prepared by him or under his supervision; (3) permits his name to be used in connection with an estimate of earnings contingent upon future transactions in a misleading manner; (4) expresses opinion on financial statements of a business in which he has a substantial interest; (5) fails to disclose a material fact known to him which is not disclosed in a financial statement but disclosure of which is necessary to make the financial statement not misleading; (6) fails to report a material misstatement known to him to appear in a financial statement with which he is concerned in a professional capacity; (7) does not exercise due diligence, or is grossly negligent in the conduct of his professional duties; (8) fails to obtain sufficient information which is necessary for expression of an opinion or its exceptions are sufficiently material to negate the expression of an opinion; (9) fails to invite attention to any material departure from the generally accepted procedure of audit applicable to the circumstances; (10) fails to keep moneys of his client in a separate banking account or to use such moneys for purposes for which they are intended."
+    },
+    "section_22_second_schedule_part_II": {
+      "name": "Section 22 read with Second Schedule, Part II - Other Misconduct Applicable Generally",
+      "statement": "A member of the Institute, whether in practice or not, shall be deemed to be guilty of other misconduct if he: (1) is held guilty by any civil or criminal court for an offence which is punishable with imprisonment for a term not exceeding six months; (2) in the opinion of the Council, brings disrepute to the profession or the Institute as a result of his action whether or not related to his professional work."
+    },
+    "section_29": {
+      "name": "Section 29 - Penalty for Falsely Claiming to Be a Member or CA",
+      "statement": "Any person who not being a member of the Institute: (a) represents that he is a member of the Institute; or (b) uses the designation 'Chartered Accountant'; or (c) uses the letters 'CA' after his name, shall be punishable on first conviction with fine which may extend to Rs. 1,000, and on any subsequent conviction with imprisonment which may extend to six months or with fine which may extend to Rs. 5,000 or with both."
+    }
+  },
+
+  "icai_standards_on_auditing": {
+    "sa_200": {
+      "name": "SA 200 - Overall Objectives of the Independent Auditor and the Conduct of an Audit in Accordance with Standards on Auditing",
+      "statement": "The purpose of an audit is to enhance the degree of confidence of intended users in the financial statements. The auditor shall obtain reasonable assurance about whether the financial statements as a whole are free from material misstatement, whether due to fraud or error, thereby enabling the auditor to express an opinion on whether the financial statements are prepared, in all material respects, in accordance with an applicable financial reporting framework."
+    },
+    "sa_240": {
+      "name": "SA 240 - The Auditor's Responsibilities Relating to Fraud in an Audit of Financial Statements",
+      "statement": "This standard deals with the auditor's responsibilities relating to fraud in an audit of financial statements. The primary responsibility for the prevention and detection of fraud rests with both those charged with governance and management. The auditor conducting an audit in accordance with SAs is responsible for obtaining reasonable assurance that the financial statements are free from material misstatement, whether caused by fraud or error. The auditor shall maintain professional skepticism throughout the audit, recognizing the possibility that a material misstatement due to fraud could exist notwithstanding the auditor's past experience of the honesty and integrity of the entity's management and those charged with governance. Two types of intentional misstatements are relevant: misstatements resulting from fraudulent financial reporting and misstatements resulting from misappropriation of assets. The auditor shall make inquiries of management, those charged with governance, and others within the entity regarding their knowledge of any actual, suspected, or alleged fraud. The auditor shall evaluate whether the information obtained from risk assessment procedures and related activities indicates that one or more fraud risk factors are present."
+    },
+    "sa_250": {
+      "name": "SA 250 - Consideration of Laws and Regulations in an Audit of Financial Statements",
+      "statement": "This standard deals with the auditor's responsibility to consider laws and regulations in an audit of financial statements. The auditor shall obtain a general understanding of the legal and regulatory framework applicable to the entity and how the entity is complying with that framework. The auditor shall obtain sufficient appropriate audit evidence regarding compliance with the provisions of those laws and regulations generally recognized to have a direct effect on the determination of material amounts and disclosures in the financial statements. If the auditor becomes aware of information concerning an instance of non-compliance or suspected non-compliance with laws and regulations, the auditor shall communicate the matter to those charged with governance and, where required by law, to appropriate authorities outside the entity."
+    },
+    "sa_315": {
+      "name": "SA 315 - Identifying and Assessing the Risks of Material Misstatement through Understanding the Entity and Its Environment",
+      "statement": "This standard requires the auditor to identify and assess the risks of material misstatement, whether due to fraud or error, at the financial statement and assertion levels. The auditor must understand the entity and its environment including internal controls: the control environment, the entity's risk assessment process, the information system (including related business processes) relevant to financial reporting and communication, control activities, and monitoring of controls. The auditor must evaluate the design and implementation of controls relevant to the audit."
+    },
+    "sa_330": {
+      "name": "SA 330 - The Auditor's Responses to Assessed Risks",
+      "statement": "This standard requires the auditor to design and implement overall responses to address the assessed risks of material misstatement at the financial statement level, and to design and perform further audit procedures whose nature, timing, and extent are responsive to the assessed risks at the assertion level. The auditor designs substantive procedures for each material class of transactions, account balance, and disclosure, irrespective of the assessed risks. For risks assessed as higher, the auditor must obtain more persuasive audit evidence."
+    },
+    "sa_550": {
+      "name": "SA 550 - Related Parties",
+      "statement": "This standard addresses the auditor's responsibilities regarding related party relationships and transactions. The auditor must understand the entity's related party relationships and transactions, maintain alert for related party information throughout the audit, and evaluate whether identified related party relationships and transactions have been properly accounted for and disclosed. Related party transactions may not be conducted under normal market terms and may pose higher risks of material misstatement."
+    },
+    "sa_560": {
+      "name": "SA 560 - Subsequent Events",
+      "statement": "This standard deals with the auditor's responsibilities relating to subsequent events. The auditor must perform procedures to identify events occurring between the date of the financial statements and the date of the auditor's report that require adjustment or disclosure. If facts become known after the report date that may have caused amendment of the report, the auditor must take appropriate action."
+    },
+    "sa_570": {
+      "name": "SA 570 - Going Concern",
+      "statement": "This standard requires the auditor to obtain sufficient appropriate audit evidence about the appropriateness of management's use of the going concern assumption in the preparation of financial statements, and to conclude whether a material uncertainty exists related to events or conditions that may cast significant doubt on the entity's ability to continue as a going concern. The auditor must modify the report appropriately if a material uncertainty exists."
+    },
+    "sa_580": {
+      "name": "SA 580 - Written Representations",
+      "statement": "This standard requires the auditor to obtain written representations from management confirming: responsibility for preparation of financial statements in accordance with applicable framework; that all transactions are recorded and reflected; that management has disclosed to the auditor all known instances of fraud or suspected fraud; and all known instances of non-compliance with laws and regulations. If management does not provide requested representations, the auditor must re-evaluate the integrity of management."
+    },
+    "sa_700_series": {
+      "name": "SA 700 Series - Forming an Opinion and Reporting",
+      "statement": "SA 700 requires the auditor to form an opinion on financial statements and express it clearly. SA 701 requires communication of key audit matters for listed entities. SA 705 establishes three types of modified opinions: qualified opinion, adverse opinion, and disclaimer of opinion. SA 706 permits Emphasis of Matter and Other Matter paragraphs. SA 720 addresses auditor's responsibilities relating to other information in documents containing audited financial statements."
+    }
+  },
+
+  "icai_code_of_ethics_and_guidelines": {
+    "code_of_ethics_fundamental_principles": {
+      "name": "ICAI Code of Ethics - Fundamental Principles",
+      "statement": "The ICAI Code of Ethics (aligned with the IESBA Code) establishes five fundamental principles: (a) Integrity - be straightforward and honest in all professional and business relationships; (b) Objectivity - do not allow bias, conflict of interest, or undue influence to override professional or business judgments; (c) Professional Competence and Due Care - maintain professional knowledge and skill and act diligently; (d) Confidentiality - respect confidentiality of information acquired in professional relationships; (e) Professional Behavior - comply with relevant laws and regulations and avoid any action that discredits the profession. The Code provides a conceptual framework for identifying, evaluating, and addressing threats (self-interest, self-review, advocacy, familiarity, and intimidation threats)."
+    },
+    "icai_aml_guidelines": {
+      "name": "ICAI Guidelines on Anti-Money Laundering (AML)",
+      "statement": "ICAI directs CAs to: exercise due diligence in client acceptance and continuance including KYC procedures; maintain records of client identification and transactions for prescribed periods; report suspicious transactions to FIU-IND under PMLA; be aware of money laundering typologies including layering through complex corporate structures, trade-based money laundering, and use of shell entities; include AML awareness as part of CPE. CAs providing specified services (managing client money, accounts, securities, or assets; organising contributions for creation or management of companies; buying and selling of business entities) are designated as 'reporting entities' under PMLA and must comply with Sections 12 and 12A of PMLA."
+    },
+    "icai_peer_review": {
+      "name": "ICAI Peer Review Standards",
+      "statement": "The Peer Review mechanism provides for mandatory review of audit quality of practicing CAs and firms by qualified external reviewers. Reviews verify that the firm has adequate systems for compliance with Standards on Auditing, Standards on Quality Control (SQC 1), and applicable technical standards. The Peer Review Board has authority to initiate action for non-compliance by referring matters to the Disciplinary Directorate. Reviews are conducted periodically, generally every three years."
+    }
+  },
+
+  "nfra_rules_2018": {
+    "rule_3_applicability": {
+      "name": "NFRA Rules, 2018 - Rule 3 - Applicability",
+      "statement": "NFRA has jurisdiction over auditors and audit firms of: (a) companies whose securities are listed on any stock exchange in India or outside India; (b) unlisted public companies having paid-up capital of Rs. 500 crore or more, or annual turnover of Rs. 1,000 crore or more, or aggregate outstanding loans, debentures and deposits of Rs. 500 crore or more; (c) insurance companies, banking companies, companies in electricity generation or supply, companies governed by special Acts; (d) any body corporate referred by the Central Government."
+    },
+    "rule_4_functions": {
+      "name": "NFRA Rules, 2018 - Rule 4 - Functions of NFRA",
+      "statement": "NFRA shall: (a) protect the public interest and interests of investors, creditors, and others by establishing high quality accounting and auditing standards; (b) recommend accounting and auditing policies and standards; (c) monitor and enforce compliance with accounting and auditing standards; (d) oversee quality of service of professions associated with ensuring compliance."
+    },
+    "rule_5_powers": {
+      "name": "NFRA Rules, 2018 - Rule 5 - Powers of NFRA",
+      "statement": "NFRA has power to: (a) investigate professional or other misconduct by any CA member or firm; (b) impose penalty of not less than Rs. 1 lakh extending to five times fees received (individuals) or not less than Rs. 10 lakh extending to ten times fees received (firms); (c) debar member or firm from practice for six months to ten years; (d) call for information or documents from any person including auditor, company, or related persons. Where NFRA takes action, no other institute or body shall initiate or continue disciplinary proceedings for the same matter."
+    }
+  },
+
+  "insolvency_and_bankruptcy_code_2016": {
+    "sections_43_44": {
+      "name": "Sections 43-44 IBC - Preferential Transactions",
+      "statement": "A corporate debtor is deemed to have given a preference if there is a transfer of property for the benefit of a creditor that puts the creditor in a better position than in liquidation distribution. The relevant time period is two years for related parties and one year for non-related parties preceding the insolvency commencement date. The Adjudicating Authority (NCLT) may declare such transactions preferential and order property to be vested back in the corporate debtor."
+    },
+    "sections_45_49": {
+      "name": "Sections 45-49 IBC - Undervalued Transactions",
+      "statement": "A transaction is undervalued where the corporate debtor makes a gift or enters into a transaction for consideration significantly less than the value provided. The relevant period is two years for related parties and one year for others. The NCLT may order transfer of property back, release of security interests, or payment of money."
+    },
+    "sections_50_51": {
+      "name": "Sections 50-51 IBC - Extortionate Credit Transactions",
+      "statement": "A transaction is extortionate if terms require exorbitant payments or are unconscionable. The NCLT may set aside the transaction, vary terms, require repayment, and restore positions. The relevant period is two years preceding insolvency commencement."
+    },
+    "section_65": {
+      "name": "Section 65 IBC - Fraudulent or Malicious Initiation of Proceedings",
+      "statement": "If any person initiates insolvency resolution process or liquidation proceedings fraudulently or with malicious intent for any purpose other than resolution of insolvency, the Adjudicating Authority may impose a penalty of not less than Rs. 1 lakh extending to Rs. 1 crore."
+    },
+    "section_66": {
+      "name": "Section 66 IBC - Fraudulent Trading or Wrongful Trading",
+      "statement": "Section 66(1) - Fraudulent Trading: If business has been carried on with intent to defraud creditors or for fraudulent purpose, persons knowingly party to such conduct shall be personally liable without limitation. Section 66(2) - Wrongful Trading: If business has been carried on in a manner likely to create obligations the debtor cannot meet, and directors knew or ought to have known there was no reasonable prospect of avoiding insolvency, the NCLT may direct such directors to make personal contributions without limitation."
+    },
+    "sections_67_69": {
+      "name": "Sections 67-69 IBC - Proceedings Against Officers, Fraud During CIRP, Defrauding Creditors",
+      "statement": "Section 67: Where persons in management have misapplied, retained, or are accountable for money/property, or are guilty of misfeasance/breach of trust, the NCLT may examine conduct and compel repayment. Section 68: Addresses fraud during CIRP including concealment of property, destruction of documents, false representations, and failure to account for loss. Section 69: Criminal liability for officers who conceal property/debt, destroy/falsify records, make fraudulent omissions, or dispose of property fraudulently. Punishment: imprisonment of one to five years, or fine of Rs. 1 lakh to Rs. 1 crore, or both."
+    }
+  },
+
+  "cost_and_works_accountants_act_1959": {
+    "section_21_22_disciplinary": {
+      "name": "Sections 21-22 CWA Act - Disciplinary Mechanism and Professional Misconduct",
+      "statement": "Establishes a disciplinary mechanism for members of the Institute of Cost Accountants of India (ICAI-CMA) substantially similar to the CA Act. Professional misconduct is defined in two schedules: First Schedule (less grave) covers soliciting clients, advertising, fee-splitting with non-members, failure to communicate with outgoing auditor, and contingent fees. Second Schedule (graver offences) covers breach of confidentiality, certifying false statements, gross negligence, and conviction for offences involving moral turpitude. Penalties include reprimand, removal from register, or fine."
+    },
+    "section_28": {
+      "name": "Section 28 CWA Act - Penalty for Falsely Claiming to Be a Cost Accountant",
+      "statement": "Penalizes persons who falsely represent themselves as cost accountants or use the designation 'Cost Accountant' or the letters 'CMA' without being registered members."
+    }
+  },
+
+  "company_secretaries_act_1980": {
+    "section_21_22_disciplinary": {
+      "name": "Sections 21-22 CS Act - Disciplinary Mechanism and Professional Misconduct",
+      "statement": "Establishes a disciplinary mechanism for members of the Institute of Company Secretaries of India (ICSI). First Schedule covers professional misconduct in practice (solicitation, fee-sharing, failure to communicate with predecessor) and in service (conflict of interest). Second Schedule covers graver offences (breach of confidentiality, certifying false reports, gross negligence, failure to disclose material facts, failure to report material misstatements). Penalties: Board of Discipline may reprimand, remove from register for up to five years, or impose fine up to Rs. 1 lakh. Disciplinary Committee may reprimand, permanently or temporarily remove, or impose fine up to Rs. 5 lakh."
+    },
+    "section_26": {
+      "name": "Section 26 CS Act - Penalty for Falsely Claiming to Be a Company Secretary",
+      "statement": "Penalizes persons who falsely represent themselves as members of ICSI or use the designation 'Company Secretary' or 'CS' without being registered members. Punishable with fine on first conviction and imprisonment and/or fine on subsequent convictions."
+    },
+    "secretarial_audit_section_204_companies_act": {
+      "name": "Section 204 Companies Act, 2013 - Secretarial Audit",
+      "statement": "Every listed company and every other prescribed class of companies shall annex with its Board's report a secretarial audit report given by a company secretary in practice, in Form MR-3. The secretarial audit verifies compliance with all applicable laws, detects non-compliances, and reports them. Non-compliance with this section is punishable with fine of Rs. 1 lakh to Rs. 5 lakh for the company and Rs. 50,000 to Rs. 2 lakh for every officer in default."
+    }
+  }
+}
