@@ -12,6 +12,7 @@ from skills.shared.lightrag_init import (
     PROJECT_ROOT,
     DEFAULT_STORAGE,
     DEFAULT_OUTPUT_DIR,
+    DEFAULT_INPUT_DIR,
 )
 
 __all__ = [
@@ -27,4 +28,5 @@ __all__ = [
     "PROJECT_ROOT",
     "DEFAULT_STORAGE",
     "DEFAULT_OUTPUT_DIR",
+    "DEFAULT_INPUT_DIR",
 ]

@@ -30,6 +30,7 @@ from agno.tools import Toolkit
 from skills.shared.lightrag_init import (
     PROJECT_ROOT,
     DEFAULT_STORAGE,
+    DEFAULT_INPUT_DIR,
     DEFAULT_OUTPUT_DIR,
     ensure_output_dir,
 )
@@ -77,10 +78,13 @@ class ForensicToolkit(Toolkit):
         rag: Any = None,
         client: LightRAGClient | None = None,
         storage_path: str | Path | None = None,
+        input_dir: str | Path | None = None,
     ):
         super().__init__(name="forensic_tools")
 
         self._storage_path = str(storage_path or DEFAULT_STORAGE)
+        self._input_dir = Path(input_dir or DEFAULT_INPUT_DIR)
+        self._input_dir.mkdir(parents=True, exist_ok=True)
         self._router = PreprocessingRouter()
 
         # Wrap raw rag instance in a client if needed
@@ -101,6 +105,21 @@ class ForensicToolkit(Toolkit):
         self.register(self.get_compliance_report)
         self.register(self.preview_document)
         self.register(self.read_excel_sheet)
+
+    def _resolve_path(self, file_path: str) -> Path:
+        """Resolve a file path, checking user_documents/ if not found directly."""
+        p = Path(file_path)
+        if p.exists():
+            return p
+        # Try relative to user_documents/
+        candidate = self._input_dir / p.name
+        if candidate.exists():
+            return candidate
+        candidate = self._input_dir / file_path
+        if candidate.exists():
+            return candidate
+        # Return original (will fail with a clear "not found" message)
+        return p
 
     async def _get_client(self) -> LightRAGClient:
         """Lazy-init the LightRAG client."""
@@ -139,6 +158,8 @@ class ForensicToolkit(Toolkit):
     ) -> str:
         """Upload and index a document. Auto-selects preprocessor by file type.
 
+        Files are looked up in user_documents/ by default. Absolute paths also work.
+
         Args:
             file_path: Path to document (PDF, XLSX, DOCX, images, CSV, etc.)
             preprocessor_override: Force a specific preprocessor ('docling', 'pandas', 'paddleocr').
@@ -146,11 +167,11 @@ class ForensicToolkit(Toolkit):
         Returns:
             Status message with character count.
         """
-        path = Path(file_path)
+        path = self._resolve_path(file_path)
         if not path.exists():
-            return f"Error: File not found: {file_path}"
+            return f"Error: File not found: {file_path} (also checked user_documents/)"
 
-        result = await self._router.process(file_path, override=preprocessor_override)
+        result = await self._router.process(str(path), override=preprocessor_override)
         text = result.get("text", "")
 
         if not text.strip():
@@ -313,6 +334,7 @@ class ForensicToolkit(Toolkit):
         """Preview document preprocessing output without indexing.
 
         Useful for quality-checking extraction before committing to the index.
+        Files are looked up in user_documents/ by default.
 
         Args:
             file_path: Path to the document.
@@ -320,11 +342,11 @@ class ForensicToolkit(Toolkit):
         Returns:
             Extracted text preview (first 3000 chars).
         """
-        path = Path(file_path)
+        path = self._resolve_path(file_path)
         if not path.exists():
-            return f"Error: File not found: {file_path}"
+            return f"Error: File not found: {file_path} (also checked user_documents/)"
 
-        result = await self._router.process(file_path)
+        result = await self._router.process(str(path))
         text = result.get("text", "")
 
         if not text.strip():
@@ -354,6 +376,8 @@ class ForensicToolkit(Toolkit):
     ) -> str:
         """Read a specific Excel sheet with formatting and formula info.
 
+        Files are looked up in user_documents/ by default.
+
         Args:
             file_path: Path to the Excel file.
             sheet_name: Sheet to read (default: first sheet).
@@ -361,9 +385,9 @@ class ForensicToolkit(Toolkit):
         Returns:
             Sheet data as markdown with metadata and formulas.
         """
-        path = Path(file_path)
+        path = self._resolve_path(file_path)
         if not path.exists():
-            return f"Error: File not found: {file_path}"
+            return f"Error: File not found: {file_path} (also checked user_documents/)"
 
         if path.suffix.lower() not in {".xlsx", ".xlsm", ".xls", ".xlsb"}:
             return f"Error: Not an Excel file: {path.name}"
@@ -371,7 +395,7 @@ class ForensicToolkit(Toolkit):
         from openpyxl import load_workbook
         import pandas as pd
 
-        wb = load_workbook(file_path, data_only=True)
+        wb = load_workbook(str(path), data_only=True)
 
         if sheet_name and sheet_name not in wb.sheetnames:
             wb.close()
@@ -403,7 +427,7 @@ class ForensicToolkit(Toolkit):
 
         # Get formulas
         preprocessor = self._router._excel
-        formulas = preprocessor._extract_formulas(file_path, target_sheet)
+        formulas = preprocessor._extract_formulas(str(path), target_sheet)
 
         parts = [
             f"# {target_sheet}",

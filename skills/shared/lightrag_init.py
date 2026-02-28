@@ -25,6 +25,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 LAWS_JSON_PATH = PROJECT_ROOT / "indian_financial_fraud_compliance_laws.json"
 DEFAULT_STORAGE = PROJECT_ROOT / "rag_storage"
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "skills" / "compliance-checker" / "outputs"
+DEFAULT_INPUT_DIR = PROJECT_ROOT / "user_documents"
 GEMINI_MODEL_ID = "gemini-3.0-flash-preview"
 
 # Load .env from project root

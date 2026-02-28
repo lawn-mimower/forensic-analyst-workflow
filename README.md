@@ -22,9 +22,13 @@ LightRAG provides five retrieval modes (`local`, `global`, `hybrid`, `mix`, `nai
 ```
 Forensic_workflow/
 |-- rag_chatbot.ipynb                         # Main notebook: ingest documents, build KG, interactive chat
+|-- model_config.yaml                         # LLM provider/role configuration (hot-swappable)
 |-- indian_financial_fraud_compliance_laws.json # 17 categories of Indian financial/compliance laws
 |-- requirements.txt                           # Python dependencies
 |-- .env                                       # API keys (GEMINI_API_KEY, MISTRAL_API_KEY)
+|
+|-- user_documents/                            # Place input documents here (PDF, XLSX, CSV, images, etc.)
+|   +sample_docs/sample_statement.pdf     # Example input document
 |
 |-- rag_storage/                               # LightRAG knowledge graph data
 |   |-- graph_chunk_entity_relation.graphml    # Entity-relation graph
@@ -36,7 +40,14 @@ Forensic_workflow/
 |-- skills/
 |   |-- shared/
 |   |   |-- __init__.py
-|   |   +-- lightrag_init.py                   # Shared LightRAG factory, rate limiter, LLM/embedding funcs
+|   |   |-- lightrag_init.py                   # Shared LightRAG factory, rate limiter, LLM/embedding funcs
+|   |   |-- rate_limiter.py                    # Per-provider rate limiting
+|   |   |-- llm_providers.py                   # Unified LLM provider wrappers (Mistral, Gemini, Anthropic)
+|   |   |-- llm_registry.py                    # YAML-driven role→provider mapping with hot-swap
+|   |   |-- lightrag_client.py                 # Dual-mode LightRAG client (HTTP server / direct library)
+|   |   |-- preprocessors.py                   # File-type-aware document preprocessing (Docling, openpyxl, pandas)
+|   |   |-- agent_tools.py                     # ForensicToolkit (9 agent tools)
+|   |   +-- model_config_agno.py               # Agno Model factory for agent LLM selection
 |   |
 |   |-- lightrag-query/
 |   |   |-- SKILL.md
@@ -62,8 +73,7 @@ Forensic_workflow/
 |           |-- compliance_report.json         # Phase 4 structured report
 |           +-- compliance_report.md           # Phase 4 human-readable report
 |
-|-- reports/                                   # Architecture documentation (HTML)
-+sample_docs/sample_statement.pdf         # Sample input document
++-- reports/                                   # Architecture documentation (HTML)
 ```
 
 ---
@@ -143,8 +153,8 @@ MISTRAL_API_KEY=your_mistral_api_key
 Open `rag_chatbot.ipynb` and run cells sequentially:
 
 1. **Environment setup** -- loads API keys and initializes the LightRAG instance with Mistral LLM and local embeddings.
-2. **Document indexing** -- add file paths to `files_to_index`, then run the cell to parse (via Docling) and index into the knowledge graph.
-3. **Interactive chat** -- starts a conversational loop powered by a Gemini agent that searches the knowledge graph before answering.
+2. **Document indexing** -- place documents in `user_documents/`, add their paths to `files_to_index`, then run the cell to preprocess (file-type-aware) and index into the knowledge graph. Or skip this and use the agent's `upload_document` tool interactively.
+3. **Interactive chat** -- starts a conversational loop powered by a Gemini agent with 9 tools (search, upload, preview, compliance check, etc.).
 
 ```bash
 jupyter notebook rag_chatbot.ipynb
@@ -201,7 +211,7 @@ All intermediate and final outputs are written to `skills/compliance-checker/out
 
 ## Sample Output
 
-Running the full compliance pipeline against the **Example Engineering Private Limited Profit & Loss Statement (FY 2023-24)** produced the following results:
+Running the full compliance pipeline against `user_documents/sample_docs/sample_statement.pdf` (**Example Engineering Private Limited Profit & Loss Statement, FY 2023-24**) produced the following results:
 
 | Metric | Value |
 |---|---|
