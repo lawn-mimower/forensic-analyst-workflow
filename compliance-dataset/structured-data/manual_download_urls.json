@@ -1,0 +1,133 @@
+{
+  "description": "Resources that require manual download (behind login walls or restricted access). Visit these URLs in a browser to download.",
+  "icai_kb_resources": [
+    {
+      "name": "ICAI Handbook of Auditing Pronouncements Vol I.A - Standards & Statements",
+      "url": "http://kb.icai.org/pdfs/PDFFile5b28ad3b2e4ec9.10179614.pdf",
+      "alternate_url": "https://www.icai.org/post/icai-publications-auditing-assurance-standards-board",
+      "save_as": "ICAI_Auditing_Handbook_Vol1A.pdf"
+    },
+    {
+      "name": "ICAI Handbook of Auditing Pronouncements Vol II - Guidance Notes",
+      "url": "http://kb.icai.org/pdfs/PDFFile5b28ae88743507.12130871.pdf",
+      "alternate_url": "https://www.icai.org/post/icai-publications-auditing-assurance-standards-board",
+      "save_as": "ICAI_Auditing_Handbook_Vol2_Guidance_Notes.pdf"
+    },
+    {
+      "name": "ICAI Code of Ethics (13th Edition)",
+      "url": "https://kb.icai.org/pdfs/PDFFile62cd69c386d6b4.87205684.pdf",
+      "alternate_url": "https://www.icai.org/post/icai-publications-ethical-standards-board",
+      "save_as": "ICAI_Code_of_Ethics.pdf"
+    },
+    {
+      "name": "ICAI Study Material on Forensic Accounting and Fraud Detection",
+      "url": "http://kb.icai.org/pdfs/PDFFile5b2789bca7f334.80216010.pdf",
+      "alternate_url": "https://www.wirc-icai.org/images/material/The-Forensic-Accountant-notes.pdf",
+      "save_as": "ICAI_Forensic_Accounting_Study_Material.pdf"
+    },
+    {
+      "name": "ICAI Guidance Note on Reporting on Fraud under Section 143(12)",
+      "url": "https://kb.icai.org/pdfs/PDFFile5b276acda1ecf3.64214733.pdf",
+      "alternate_url": "https://www.icai.org/post/12381",
+      "save_as": "ICAI_Fraud_Reporting_GN_Section_143_12.pdf"
+    },
+    {
+      "name": "ICAI Guidance Note on ICFR (Internal Financial Controls over Financial Reporting)",
+      "url": "http://kb.icai.org/pdfs/PDFFile5b276a4c148d73.52290639.pdf",
+      "alternate_url": "http://kb.icai.org/pdfs/PDFFile5b276dcfed2163.27393305.pdf",
+      "save_as": "ICAI_ICFR_Guidance_Note.pdf"
+    },
+    {
+      "name": "ICAI Checklist on Standards on Auditing (38 SAs)",
+      "url": "https://www.icai.org/post/checklist-on-standards-on-auditing",
+      "note": "Download from the ICAI page - look for the PDF download link",
+      "save_as": "ICAI_Checklist_on_SAs.pdf"
+    }
+  ],
+  "commercial_resources": [
+    {
+      "name": "TeamLease RegTech Compliance Database",
+      "url": "https://www.teamleaseregtech.com/",
+      "note": "Commercial product: 69,233 compliances across 1,536 Acts. Contact for API access."
+    },
+    {
+      "name": "Indian Kanoon API",
+      "url": "https://api.indiankanoon.org/",
+      "note": "Register for API access to 4.5M+ legal documents with AI classification"
+    },
+    {
+      "name": "ACFE Fraud Examiners Manual",
+      "url": "https://www.acfe.com/training-events-and-products/cfe-exam-preparation/cfe-exam-prep---study-on-your-own-options/fraud-examiners-manual",
+      "note": "Free for active CFEs, otherwise requires purchase"
+    }
+  ],
+  "web_resources": [
+    {
+      "name": "CAIRR - Companies Act Integrated Ready Reckoner",
+      "url": "https://ca2013.com/",
+      "note": "Free web-based Companies Act 2013 + SEBI regulations with cross-references"
+    },
+    {
+      "name": "India Code - All Central/State Legislation",
+      "url": "https://www.indiacode.nic.in/",
+      "note": "Full text of every Indian law in force"
+    },
+    {
+      "name": "MCA E-Books Portal",
+      "url": "https://www.mca.gov.in/content/mca/global/en/acts-rules/ebooks.html",
+      "note": "E-books for 10 acts and applicable rules"
+    },
+    {
+      "name": "RBI Master Directions Index",
+      "url": "https://rbi.org.in/scripts/bs_viewmasterdirections.aspx",
+      "note": "All consolidated RBI regulatory directions"
+    },
+    {
+      "name": "SEBI Master Circulars",
+      "url": "https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=6&smid=0",
+      "note": "Consolidated SEBI guidance by topic"
+    },
+    {
+      "name": "NSE Compliance Calendar",
+      "url": "https://www.nseindia.com/static/companies-listing/compliance-information-compliance-calendar-main-board",
+      "note": "Structured compliance deadlines for listed entities"
+    },
+    {
+      "name": "BSE Compliance Calendar",
+      "url": "https://www.bseindia.com/corporates/compliancecalendar.aspx",
+      "note": "Structured compliance deadlines for listed entities"
+    },
+    {
+      "name": "NFRA Audit Practice Toolkit & AQR Reports",
+      "url": "https://nfra.gov.in/documents/",
+      "note": "Shows common compliance failures in real audits"
+    },
+    {
+      "name": "data.gov.in APIs",
+      "url": "https://www.data.gov.in/apis",
+      "note": "Open government data APIs; Python client: pip install datagovindia"
+    }
+  ],
+  "books_to_purchase": [
+    {
+      "name": "Taxmann's Forensic Foresight",
+      "author": "Dr. (CA) Durgesh Pandey",
+      "url": "https://www.taxmann.com/bookstore/product/40005487-forensic-audit-decoded",
+      "edition": "July 2024"
+    },
+    {
+      "name": "Taxmann's Forensic Audit Decoded (2nd Edition)",
+      "author": "CA Gyan B. Pipara",
+      "url": "https://www.amazon.in/Taxmanns-Forensic-Audit-Decoded-sustainability/dp/9364556259",
+      "edition": "July 2024"
+    },
+    {
+      "name": "Taxmann's Company Law Manual 2025",
+      "url": "https://www.aggarwallawhouse.com/product/taxmann-company-law-manual-a-compendium-of-companies-act-2013-along-with-relevant-rules-edition-2025/"
+    },
+    {
+      "name": "EBC Secretarial Audit and Compliance Manual",
+      "url": "https://www.ebcwebstore.com/product/secretarial-audit-and-compliance-manual-under-companies-act-2013?products_id=99097324"
+    }
+  ]
+}

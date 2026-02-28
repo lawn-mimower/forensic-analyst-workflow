@@ -22,6 +22,7 @@ from lightrag import QueryParam
 from skills.shared.lightrag_init import (
     get_rag_instance,
     get_gemini_model,
+    generate_with_thinking,
     get_category_display_names,
     ensure_output_dir,
 )
@@ -76,8 +77,11 @@ INSTRUCTIONS:
 
 Return ONLY a valid JSON array of strings, nothing else."""
 
-    response = model.generate_content(prompt)
-    response_text = response.text.strip()
+    response_text = generate_with_thinking(
+        model, prompt,
+        debug_label="phase0_applicability",
+        debug_dir=out_dir / "debug_thoughts",
+    ).strip()
 
     # Parse the JSON array from Gemini's response
     # Handle potential markdown code blocks

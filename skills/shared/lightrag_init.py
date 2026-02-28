@@ -2,6 +2,9 @@
 Shared LightRAG factory, RateLimiter, Gemini helper, and embedding/LLM functions.
 Every compliance-checker and lightrag-query script imports from here.
 Uses lazy singletons so models load once even across multiple phases.
+
+Refactored to delegate to llm_providers / llm_registry when available,
+while preserving every existing function signature for backward compatibility.
 """
 
 import os
@@ -22,6 +25,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 LAWS_JSON_PATH = PROJECT_ROOT / "indian_financial_fraud_compliance_laws.json"
 DEFAULT_STORAGE = PROJECT_ROOT / "rag_storage"
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "skills" / "compliance-checker" / "outputs"
+GEMINI_MODEL_ID = "gemini-3.0-flash-preview"
 
 # Load .env from project root
 load_dotenv(PROJECT_ROOT / ".env")
@@ -32,23 +36,9 @@ if os.getenv("GEMINI_API_KEY") and not os.getenv("GOOGLE_API_KEY"):
 
 
 # ---------------------------------------------------------------------------
-# Rate Limiter (token-bucket style)
+# Rate Limiter (re-exported from rate_limiter.py for backward compat)
 # ---------------------------------------------------------------------------
-class RateLimiter:
-    """Enforces a minimum delay between API calls across all concurrent workers."""
-
-    def __init__(self, requests_per_minute: int = 30):
-        self._delay = 60.0 / requests_per_minute
-        self._lock = asyncio.Lock()
-        self._last_call = 0.0
-
-    async def wait(self):
-        async with self._lock:
-            now = _time.monotonic()
-            wait_time = self._delay - (now - self._last_call)
-            if wait_time > 0:
-                await asyncio.sleep(wait_time)
-            self._last_call = _time.monotonic()
+from skills.shared.rate_limiter import RateLimiter  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -59,6 +49,10 @@ _embed_model = None
 _mistral_client = None
 _gemini_model_cache: dict = {}
 _laws_data: dict | None = None
+
+# Registry-based provider (lazy, optional)
+_kg_provider = None
+_reasoning_provider = None
 
 
 def get_rate_limiter(rpm: int = 30) -> RateLimiter:
@@ -77,11 +71,38 @@ def _get_embed_model():
 
 
 def _get_mistral_client():
+    """Fallback: direct Mistral client when registry is not used."""
     global _mistral_client
     if _mistral_client is None:
         from mistralai import Mistral
         _mistral_client = Mistral(api_key=os.environ["MISTRAL_API_KEY"])
     return _mistral_client
+
+
+def _get_kg_provider():
+    """Try to get the kg_llm provider from the registry; return None on failure."""
+    global _kg_provider
+    if _kg_provider is not None:
+        return _kg_provider
+    try:
+        from skills.shared.llm_registry import get_role
+        _kg_provider = get_role("kg_llm")
+        return _kg_provider
+    except Exception:
+        return None
+
+
+def _get_reasoning_provider():
+    """Try to get the reasoning_llm provider from the registry; return None on failure."""
+    global _reasoning_provider
+    if _reasoning_provider is not None:
+        return _reasoning_provider
+    try:
+        from skills.shared.llm_registry import get_role
+        _reasoning_provider = get_role("reasoning_llm")
+        return _reasoning_provider
+    except Exception:
+        return None
 
 
 # ---------------------------------------------------------------------------
@@ -98,6 +119,16 @@ async def embedding_func(texts: list[str]) -> np.ndarray:
 async def llm_model_func(
     prompt, system_prompt=None, history_messages=None, keyword_extraction=False, **kwargs
 ) -> str:
+    # Try registry-based provider first
+    provider = _get_kg_provider()
+    if provider is not None:
+        return await provider.generate(
+            prompt,
+            system_prompt=system_prompt,
+            messages=history_messages,
+        )
+
+    # Fallback: direct Mistral SDK call (original implementation)
     from mistralai import UserMessage, SystemMessage, AssistantMessage
 
     client = _get_mistral_client()
@@ -149,15 +180,55 @@ async def get_rag_instance(storage_path: str | Path | None = None) -> "LightRAG"
 
 
 # ---------------------------------------------------------------------------
-# Gemini model helper
+# Gemini model helper (backward-compatible — uses old google-generativeai SDK)
+# New code should prefer GeminiProvider from llm_providers.py.
 # ---------------------------------------------------------------------------
-def get_gemini_model(model_id: str = "gemini-2.5-flash") -> "GenerativeModel":
+def get_gemini_model(model_id: str = GEMINI_MODEL_ID) -> "GenerativeModel":
     """Return a configured google.generativeai GenerativeModel (cached)."""
     if model_id not in _gemini_model_cache:
         import google.generativeai as genai
         genai.configure(api_key=os.environ["GEMINI_API_KEY"])
         _gemini_model_cache[model_id] = genai.GenerativeModel(model_id)
     return _gemini_model_cache[model_id]
+
+
+def generate_with_thinking(
+    model,
+    prompt: str,
+    debug_label: str = "",
+    debug_dir: "Path | None" = None,
+) -> str:
+    """Call model.generate_content() with thinking mode enabled (budget=-1 = dynamic).
+
+    Separates thought parts from answer parts. If debug_label and debug_dir are
+    given, saves the thoughts to debug_dir/<debug_label>.txt for inspection.
+    Returns only the answer text.
+    """
+    import google.generativeai as genai
+
+    response = model.generate_content(
+        prompt,
+        generation_config=genai.GenerationConfig(
+            thinking_config=genai.types.ThinkingConfig(thinking_budget=-1)
+        ),
+    )
+
+    thoughts = []
+    answer_parts = []
+    for part in response.candidates[0].content.parts:
+        if getattr(part, "thought", False):
+            thoughts.append(part.text)
+        else:
+            answer_parts.append(part.text)
+
+    if thoughts and debug_dir and debug_label:
+        debug_path = Path(debug_dir)
+        debug_path.mkdir(parents=True, exist_ok=True)
+        (debug_path / f"{debug_label}.txt").write_text(
+            "\n\n".join(thoughts), encoding="utf-8"
+        )
+
+    return "".join(answer_parts)
 
 
 # ---------------------------------------------------------------------------

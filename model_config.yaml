@@ -1,0 +1,19 @@
+providers:
+  mistral:
+    api_key_env: "MISTRAL_API_KEY"
+    default_model: "ministral-14b-2512"
+    rate_limit_rpm: 30
+  gemini:
+    api_key_env: "GEMINI_API_KEY"
+    default_model: "gemini-3-flash-preview"
+    rate_limit_rpm: 60
+  # anthropic:
+  #   api_key_env: "ANTHROPIC_API_KEY"
+  #   default_model: "claude-sonnet-4-20250514"
+  #   rate_limit_rpm: 60
+
+roles:
+  kg_llm:          { provider: mistral }
+  reasoning_llm:   { provider: gemini }
+  agent_llm:       { provider: gemini }
+  embedding:       { provider: local, model: "all-MiniLM-L6-v2", dim: 384 }

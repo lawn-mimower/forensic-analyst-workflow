@@ -1,9 +1,10 @@
 # Core Dependencies
 agno[os]>=0.1.0
-lightrag>=0.1.0
+lightrag-hku>=0.1.0  # Changed from 'lightrag' to its official PyPI name
 
 # LLM Providers
-google-generativeai>=0.5.0
+google-genai[aiohttp]>=1.0.0
+# google-generativeai>=0.5.0 # Commented out: This is the legacy SDK. google-genai is the new standard.
 mistralai>=0.1.0
 openai>=1.0.0
 anthropic>=0.20.0
@@ -20,7 +21,7 @@ faiss-cpu>=1.7.4
 
 # Database and Storage
 sqlalchemy>=2.0.0
-sqlite3-api>=0.1.0
+# sqlite3-api removed: sqlite3 is a built-in Python standard library module.
 
 # Visualization and UI
 plotly>=5.17.0
@@ -31,10 +32,17 @@ pyvis>=0.3.2
 
 # Utilities
 python-dotenv>=1.0.0
-asyncio>=3.4.3
+# asyncio removed: Built into Python standard library. Do not pip install!
 aiohttp>=3.9.0
 tiktoken>=0.5.0
 pydantic>=2.0.0
+pyyaml>=6.0
+httpx>=0.27.0
+
+# Document Preprocessing
+python-calamine>=0.3.1
+openpyxl>=3.1.0
+docling>=2.0.0
 
 # Optional for enhanced performance
 numba>=0.58.0
