@@ -19,7 +19,7 @@ _SCRIPT_DIR = Path(__file__).resolve().parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent.parent.parent
 sys.path.insert(0, str(_PROJECT_ROOT))
 
-from skills.shared.lightrag_init import get_gemini_model, ensure_output_dir
+from skills.shared.lightrag_init import get_gemini_model, generate_with_thinking, ensure_output_dir, DEFAULT_OUTPUT_DIR
 
 VALID_VERDICTS = {"COMPLIANT", "VIOLATION", "INSUFFICIENT_EVIDENCE"}
 
@@ -70,8 +70,11 @@ Return ONLY a valid JSON object with exactly these fields:
 Return ONLY the JSON object, no explanation."""
 
         try:
-            response = model.generate_content(prompt)
-            response_text = response.text.strip()
+            response_text = generate_with_thinking(
+                model, prompt,
+                debug_label=f"phase3_{qid}",
+                debug_dir=DEFAULT_OUTPUT_DIR / "debug_thoughts",
+            ).strip()
 
             # Handle markdown code blocks
             if response_text.startswith("```"):

@@ -21,6 +21,7 @@ sys.path.insert(0, str(_PROJECT_ROOT))
 
 from skills.shared.lightrag_init import (
     get_gemini_model,
+    generate_with_thinking,
     get_laws_data,
     ensure_output_dir,
     DEFAULT_OUTPUT_DIR,
@@ -93,8 +94,11 @@ Return ONLY a valid JSON array where each element has:
 Return ONLY the JSON array, no explanation."""
 
             try:
-                response = model.generate_content(prompt)
-                response_text = response.text.strip()
+                response_text = generate_with_thinking(
+                    model, prompt,
+                    debug_label=f"phase1_{cat_key}_{section_key}",
+                    debug_dir=out_dir / "debug_thoughts",
+                ).strip()
 
                 # Handle markdown code blocks
                 if response_text.startswith("```"):
