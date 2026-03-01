@@ -19,13 +19,25 @@ _SCRIPT_DIR = Path(__file__).resolve().parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent.parent.parent
 sys.path.insert(0, str(_PROJECT_ROOT))
 
-from skills.shared.lightrag_init import get_gemini_model, generate_with_thinking, ensure_output_dir, DEFAULT_OUTPUT_DIR
+from skills.shared.llm_registry import get_role
+from skills.shared.lightrag_init import ensure_output_dir, DEFAULT_OUTPUT_DIR
 
-VALID_VERDICTS = {"COMPLIANT", "VIOLATION", "INSUFFICIENT_EVIDENCE"}
+VERDICT_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "verdict": {
+            "type": "string",
+            "enum": ["COMPLIANT", "VIOLATION", "INSUFFICIENT_EVIDENCE"],
+        },
+        "reasoning": {"type": "string"},
+        "excerpt": {"type": "string"},
+    },
+    "required": ["verdict", "reasoning", "excerpt"],
+}
 
 
 async def _adjudicate_single(
-    model,
+    provider,
     question: dict,
     context: dict,
     semaphore: asyncio.Semaphore,
@@ -62,40 +74,21 @@ INSTRUCTIONS:
 - If the context shows a clear violation or non-compliance, verdict is VIOLATION.
 - If the context is insufficient, ambiguous, or does not address the question, verdict is INSUFFICIENT_EVIDENCE.
 - Provide brief reasoning (1-3 sentences).
-- Quote the most relevant excerpt from the context (if any).
-
-Return ONLY a valid JSON object with exactly these fields:
-{{"verdict": "COMPLIANT|VIOLATION|INSUFFICIENT_EVIDENCE", "reasoning": "...", "excerpt": "..."}}
-
-Return ONLY the JSON object, no explanation."""
+- Quote the most relevant excerpt from the context (if any)."""
 
         try:
-            response_text = generate_with_thinking(
-                model, prompt,
-                debug_label=f"phase3_{qid}",
-                debug_dir=DEFAULT_OUTPUT_DIR / "debug_thoughts",
-            ).strip()
-
-            # Handle markdown code blocks
-            if response_text.startswith("```"):
-                lines = response_text.split("\n")
-                response_text = "\n".join(lines[1:-1])
-
-            result = json.loads(response_text)
-
-            # Validate verdict
-            verdict = result.get("verdict", "").upper().replace(" ", "_")
-            if verdict not in VALID_VERDICTS:
-                verdict = "INSUFFICIENT_EVIDENCE"
+            result = await provider.generate_json(
+                prompt, schema=VERDICT_SCHEMA,
+            )
 
             return {
                 "question_id": qid,
-                "verdict": verdict,
+                "verdict": result["verdict"],
                 "reasoning": result.get("reasoning", ""),
                 "excerpt": result.get("excerpt", ""),
             }
 
-        except (json.JSONDecodeError, Exception) as e:
+        except Exception as e:
             return {
                 "question_id": qid,
                 "verdict": "INSUFFICIENT_EVIDENCE",
@@ -127,14 +120,14 @@ async def adjudicate(
 
     print(f"[Phase 3] Adjudicating {len(questions)} questions (max_concurrent={max_concurrent})")
 
-    model = get_gemini_model()
+    provider = get_role("reasoning_llm")
     semaphore = asyncio.Semaphore(max_concurrent)
 
     tasks = []
     for q in questions:
         qid = q["question_id"]
         ctx = contexts.get(qid, {"is_empty": True, "context_text": ""})
-        tasks.append(_adjudicate_single(model, q, ctx, semaphore))
+        tasks.append(_adjudicate_single(provider, q, ctx, semaphore))
 
     verdicts = await asyncio.gather(*tasks)
 

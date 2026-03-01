@@ -19,13 +19,17 @@ _PROJECT_ROOT = _SCRIPT_DIR.parent.parent.parent
 sys.path.insert(0, str(_PROJECT_ROOT))
 
 from lightrag import QueryParam
+from skills.shared.llm_registry import get_role
 from skills.shared.lightrag_init import (
     get_rag_instance,
-    get_gemini_model,
-    generate_with_thinking,
     get_category_display_names,
     ensure_output_dir,
 )
+
+CATEGORIES_SCHEMA = {
+    "type": "array",
+    "items": {"type": "string"},
+}
 
 PROFILE_QUERY = (
     "Provide a comprehensive summary of this document covering: "
@@ -57,7 +61,7 @@ async def profile_document(
 
     # Step 3: Ask Gemini which categories apply
     print("[Phase 0] Asking Gemini for applicable categories...")
-    model = get_gemini_model()
+    provider = get_role("reasoning_llm")
 
     prompt = f"""You are a financial compliance expert. Given the following document summary,
 determine which categories of Indian financial/compliance laws are applicable to this entity.
@@ -73,23 +77,11 @@ INSTRUCTIONS:
 - For example, SEBI regulations only apply to listed companies.
 - RBI directions only apply to banking companies.
 - Consider the entity type (public/private, listed/unlisted), industry, and document type.
-- Return your answer as a JSON array of the exact category names that apply.
+- Return the exact category names that apply."""
 
-Return ONLY a valid JSON array of strings, nothing else."""
-
-    response_text = generate_with_thinking(
-        model, prompt,
-        debug_label="phase0_applicability",
-        debug_dir=out_dir / "debug_thoughts",
-    ).strip()
-
-    # Parse the JSON array from Gemini's response
-    # Handle potential markdown code blocks
-    if response_text.startswith("```"):
-        lines = response_text.split("\n")
-        response_text = "\n".join(lines[1:-1])
-
-    applicable_display_names = json.loads(response_text)
+    applicable_display_names = await provider.generate_json(
+        prompt, schema=CATEGORIES_SCHEMA,
+    )
 
     # Map display names back to category keys
     reverse_map = {v: k for k, v in cat_map.items()}

@@ -19,9 +19,8 @@ _SCRIPT_DIR = Path(__file__).resolve().parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent.parent.parent
 sys.path.insert(0, str(_PROJECT_ROOT))
 
+from skills.shared.llm_registry import get_role
 from skills.shared.lightrag_init import (
-    get_gemini_model,
-    generate_with_thinking,
     get_laws_data,
     ensure_output_dir,
     DEFAULT_OUTPUT_DIR,
@@ -44,7 +43,7 @@ async def atomise_laws(output_dir: str | None = None) -> list[dict]:
     applicable_keys = profile["applicable_category_keys"]
 
     laws = get_laws_data()
-    model = get_gemini_model()
+    provider = get_role("reasoning_llm")
 
     all_questions = []
     question_counter = 0
@@ -94,11 +93,11 @@ Return ONLY a valid JSON array where each element has:
 Return ONLY the JSON array, no explanation."""
 
             try:
-                response_text = generate_with_thinking(
-                    model, prompt,
+                response_text = (await provider.generate_with_thinking(
+                    prompt,
                     debug_label=f"phase1_{cat_key}_{section_key}",
                     debug_dir=out_dir / "debug_thoughts",
-                ).strip()
+                )).strip()
 
                 # Handle markdown code blocks
                 if response_text.startswith("```"):

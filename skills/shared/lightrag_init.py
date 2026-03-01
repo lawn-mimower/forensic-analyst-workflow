@@ -1,10 +1,7 @@
 """
-Shared LightRAG factory, RateLimiter, Gemini helper, and embedding/LLM functions.
-Every compliance-checker and lightrag-query script imports from here.
-Uses lazy singletons so models load once even across multiple phases.
-
-Refactored to delegate to llm_providers / llm_registry when available,
-while preserving every existing function signature for backward compatibility.
+Shared LightRAG factory, embedding/LLM functions, and compliance-law helpers.
+Every compliance-checker script imports path constants and utility functions
+from here. LLM calls go through llm_registry / llm_providers.
 """
 
 import os
@@ -26,7 +23,6 @@ LAWS_JSON_PATH = PROJECT_ROOT / "indian_financial_fraud_compliance_laws.json"
 DEFAULT_STORAGE = PROJECT_ROOT / "rag_storage"
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "skills" / "compliance-checker" / "outputs"
 DEFAULT_INPUT_DIR = PROJECT_ROOT / "user_documents"
-GEMINI_MODEL_ID = "gemini-3.0-flash-preview"
 
 # Load .env from project root
 load_dotenv(PROJECT_ROOT / ".env")
@@ -48,12 +44,10 @@ from skills.shared.rate_limiter import RateLimiter  # noqa: E402
 _rate_limiter: RateLimiter | None = None
 _embed_model = None
 _mistral_client = None
-_gemini_model_cache: dict = {}
 _laws_data: dict | None = None
 
 # Registry-based provider (lazy, optional)
 _kg_provider = None
-_reasoning_provider = None
 
 
 def get_rate_limiter(rpm: int = 30) -> RateLimiter:
@@ -89,19 +83,6 @@ def _get_kg_provider():
         from skills.shared.llm_registry import get_role
         _kg_provider = get_role("kg_llm")
         return _kg_provider
-    except Exception:
-        return None
-
-
-def _get_reasoning_provider():
-    """Try to get the reasoning_llm provider from the registry; return None on failure."""
-    global _reasoning_provider
-    if _reasoning_provider is not None:
-        return _reasoning_provider
-    try:
-        from skills.shared.llm_registry import get_role
-        _reasoning_provider = get_role("reasoning_llm")
-        return _reasoning_provider
     except Exception:
         return None
 
@@ -178,58 +159,6 @@ async def get_rag_instance(storage_path: str | Path | None = None) -> "LightRAG"
     )
     await rag.initialize_storages()
     return rag
-
-
-# ---------------------------------------------------------------------------
-# Gemini model helper (backward-compatible — uses old google-generativeai SDK)
-# New code should prefer GeminiProvider from llm_providers.py.
-# ---------------------------------------------------------------------------
-def get_gemini_model(model_id: str = GEMINI_MODEL_ID) -> "GenerativeModel":
-    """Return a configured google.generativeai GenerativeModel (cached)."""
-    if model_id not in _gemini_model_cache:
-        import google.generativeai as genai
-        genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-        _gemini_model_cache[model_id] = genai.GenerativeModel(model_id)
-    return _gemini_model_cache[model_id]
-
-
-def generate_with_thinking(
-    model,
-    prompt: str,
-    debug_label: str = "",
-    debug_dir: "Path | None" = None,
-) -> str:
-    """Call model.generate_content() with thinking mode enabled (budget=-1 = dynamic).
-
-    Separates thought parts from answer parts. If debug_label and debug_dir are
-    given, saves the thoughts to debug_dir/<debug_label>.txt for inspection.
-    Returns only the answer text.
-    """
-    import google.generativeai as genai
-
-    response = model.generate_content(
-        prompt,
-        generation_config=genai.GenerationConfig(
-            thinking_config=genai.types.ThinkingConfig(thinking_budget=-1)
-        ),
-    )
-
-    thoughts = []
-    answer_parts = []
-    for part in response.candidates[0].content.parts:
-        if getattr(part, "thought", False):
-            thoughts.append(part.text)
-        else:
-            answer_parts.append(part.text)
-
-    if thoughts and debug_dir and debug_label:
-        debug_path = Path(debug_dir)
-        debug_path.mkdir(parents=True, exist_ok=True)
-        (debug_path / f"{debug_label}.txt").write_text(
-            "\n\n".join(thoughts), encoding="utf-8"
-        )
-
-    return "".join(answer_parts)
 
 
 # ---------------------------------------------------------------------------

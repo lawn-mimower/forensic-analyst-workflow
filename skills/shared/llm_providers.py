@@ -4,12 +4,16 @@ Unified LLM provider wrappers with lazy SDK imports and per-provider rate limiti
 Each provider implements a common async interface:
     generate(prompt, *, system_prompt, messages, temperature, max_tokens) -> str
 
+Gemini additionally supports:
+    generate_json(prompt, *, schema, system_prompt) -> dict
+
 Gemini and Anthropic additionally support:
     generate_with_thinking(prompt, *, debug_label, debug_dir) -> str
 """
 
 from __future__ import annotations
 
+import json
 import os
 from abc import ABC, abstractmethod
 from pathlib import Path
@@ -38,6 +42,22 @@ class LLMProvider(ABC):
         temperature: float | None = None,
         max_tokens: int | None = None,
     ) -> str: ...
+
+    async def generate_json(
+        self,
+        prompt: str,
+        *,
+        schema: dict,
+        system_prompt: str | None = None,
+    ) -> dict:
+        """Generate a response constrained to a JSON schema.
+
+        Returns a parsed dict — callers never touch json.loads().
+        Override in providers that support native JSON mode.
+        """
+        raise NotImplementedError(
+            f"{type(self).__name__} does not support generate_json()"
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -153,6 +173,39 @@ class GeminiProvider(LLMProvider):
             config=config,
         )
         return response.text
+
+    async def generate_json(
+        self,
+        prompt: str,
+        *,
+        schema: dict,
+        system_prompt: str | None = None,
+    ) -> dict:
+        """Generate a response constrained to a JSON schema.
+
+        Uses Gemini's native response_mime_type + response_schema to guarantee
+        valid JSON output — no post-hoc parsing or cleanup needed.
+        """
+        from google.genai import types
+
+        client = self._get_client()
+
+        config_kwargs: dict = {
+            "response_mime_type": "application/json",
+            "response_schema": schema,
+        }
+        if system_prompt:
+            config_kwargs["system_instruction"] = system_prompt
+
+        config = types.GenerateContentConfig(**config_kwargs)
+
+        await self._rl.wait()
+        response = await client.aio.models.generate_content(
+            model=self.model,
+            contents=prompt,
+            config=config,
+        )
+        return json.loads(response.text)
 
     async def generate_with_thinking(
         self,
