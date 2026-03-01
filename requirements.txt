@@ -21,6 +21,7 @@ faiss-cpu>=1.7.4
 
 # Database and Storage
 sqlalchemy>=2.0.0
+duckdb>=1.0.0
 # sqlite3-api removed: sqlite3 is a built-in Python standard library module.
 
 # Visualization and UI
@@ -44,6 +45,19 @@ python-calamine>=0.3.1
 openpyxl>=3.1.0
 docling>=2.0.0
 easyocr>=1.7.0
+
+# Forensic Analytics
+scipy>=1.11.0
+benford-py>=0.5.0
+splink>=4.0.0
+rapidfuzz>=3.0.0
+pyod>=2.0.0
+holidays>=0.40
+python-louvain>=0.16
+
+# Report Generation
+weasyprint>=60.0
+jinja2>=3.1.0
 
 # Optional for enhanced performance
 numba>=0.58.0

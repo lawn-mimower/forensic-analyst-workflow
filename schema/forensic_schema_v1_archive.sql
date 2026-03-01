@@ -1,7 +1,7 @@
 -- =============================================================================
 -- FORENSIC ACCOUNTING ANALYSIS SYSTEM — RELATIONAL DATA MODEL
 -- =============================================================================
--- Target: SQLite / DuckDB (portable, embedded, zero-config)
+-- Target: DuckDB (portable, embedded, zero-config)
 -- Convention: All monetary amounts stored in ABSOLUTE RUPEES (paise precision)
 --             Source unit (lakhs/crores) recorded for audit trail
 --             Indian FY convention: FY 2023-24 = April 2023 to March 2024
@@ -13,8 +13,6 @@
 --   4. Immutable audit trail — corrections via new rows, not updates
 -- =============================================================================
 
-PRAGMA journal_mode = WAL;
-PRAGMA foreign_keys = ON;
 
 -- =============================================================================
 -- TABLE 1: entities
@@ -34,7 +32,7 @@ CREATE TABLE IF NOT EXISTS entities (
                         CHECK (entity_type IN ('company','subsidiary','associate','jv',
                                                'trust','llp','proprietorship','individual','other')),
     parent_entity_id    TEXT REFERENCES entities(entity_id), -- NULL for ultimate parent
-    ownership_pct       REAL,                                -- Parent's ownership percentage (0-100)
+    ownership_pct       DOUBLE,                              -- Parent's ownership percentage (0-100)
     incorporation_date  TEXT,                                -- ISO date 'YYYY-MM-DD'
     registered_address  TEXT,
     industry_code       TEXT,                                -- NIC code
@@ -45,9 +43,9 @@ CREATE TABLE IF NOT EXISTS entities (
     accounting_standard TEXT DEFAULT 'ind_as'                -- 'ind_as','igaap','ifrs'
                         CHECK (accounting_standard IN ('ind_as','igaap','ifrs')),
     functional_currency TEXT DEFAULT 'INR',
-    is_active           INTEGER DEFAULT 1,                   -- 0 = dissolved/struck-off
-    created_at          TEXT DEFAULT (datetime('now')),
-    updated_at          TEXT DEFAULT (datetime('now')),
+    is_active           BOOLEAN DEFAULT TRUE,                 -- FALSE = dissolved/struck-off
+    created_at          TEXT DEFAULT CURRENT_TIMESTAMP,
+    updated_at          TEXT DEFAULT CURRENT_TIMESTAMP,
     metadata_json       TEXT                                 -- Flexible overflow for unstructured attributes
 );
 
@@ -102,11 +100,11 @@ CREATE TABLE IF NOT EXISTS documents (
     reporting_currency  TEXT DEFAULT 'INR',
     source_unit         TEXT DEFAULT 'absolute'              -- Unit in which numbers appear in the document
                         CHECK (source_unit IN ('absolute','thousands','lakhs','crores','millions','billions')),
-    source_unit_multiplier REAL DEFAULT 1.0,                 -- 1, 1000, 100000, 10000000, 1000000, 1000000000
+    source_unit_multiplier DOUBLE DEFAULT 1.0,               -- 1, 1000, 100000, 10000000, 1000000, 1000000000
     total_pages         INTEGER,
-    ingestion_timestamp TEXT DEFAULT (datetime('now')),
+    ingestion_timestamp TEXT DEFAULT CURRENT_TIMESTAMP,
     extraction_method   TEXT,                                -- 'docling','camelot','manual','xbrl_parse','ocr'
-    extraction_confidence REAL,                              -- 0.0 to 1.0 overall confidence
+    extraction_confidence DOUBLE,                            -- 0.0 to 1.0 overall confidence
     notes               TEXT,
     metadata_json       TEXT                                 -- Overflow for custom attributes
 );
@@ -150,12 +148,12 @@ CREATE TABLE IF NOT EXISTS tables_extracted (
     column_headers_json TEXT,                                -- JSON: ["Particulars","FY 2023-24","FY 2022-23"]
     source_unit         TEXT,                                -- May differ from document-level unit
     extraction_method   TEXT,                                -- 'docling_table','camelot','manual_entry'
-    extraction_confidence REAL,                              -- Per-table confidence 0.0 to 1.0
+    extraction_confidence DOUBLE,                            -- Per-table confidence 0.0 to 1.0
     raw_text            TEXT,                                -- Raw text dump before structuring
     structured_json     TEXT,                                -- Full table as JSON array of row-dicts
     bbox_json           TEXT,                                -- Bounding box coordinates on page
     notes               TEXT,
-    created_at          TEXT DEFAULT (datetime('now'))
+    created_at          TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_tables_document ON tables_extracted(document_id);
@@ -196,8 +194,8 @@ CREATE TABLE IF NOT EXISTS accounts (
     xbrl_element        TEXT,                                -- MCA XBRL taxonomy element name
     normal_balance      TEXT DEFAULT 'debit'                 -- Expected balance direction
                         CHECK (normal_balance IN ('debit','credit','not_applicable')),
-    is_posting          INTEGER DEFAULT 1,                   -- 1=leaf account that holds values; 0=header/subtotal
-    is_mandatory        INTEGER DEFAULT 1,                   -- 1=required by Schedule III; 0=optional detail
+    is_posting          BOOLEAN DEFAULT TRUE,                 -- leaf account (postable) vs header/subtotal
+    is_mandatory        BOOLEAN DEFAULT TRUE,                 -- TRUE = required by Schedule III; FALSE = optional detail
     display_order       INTEGER,                             -- Sort order within parent for presentation
     formula_json        TEXT,                                -- For computed accounts: JSON formula spec
     description         TEXT,
@@ -232,13 +230,13 @@ CREATE TABLE IF NOT EXISTS line_items (
     period_type         TEXT DEFAULT 'annual'
                         CHECK (period_type IN ('annual','half_yearly','quarterly','monthly',
                                                'ytd','as_at','custom')),
-    is_comparative      INTEGER DEFAULT 0,                   -- 1 if this is the prior-period comparative column
+    is_comparative      BOOLEAN DEFAULT FALSE,                -- TRUE if this is the prior-period comparative column
 
     -- The actual value
-    amount_original     REAL NOT NULL,                       -- Value as it appears in the document
+    amount_original     DOUBLE NOT NULL,                     -- Value as it appears in the document
     source_unit         TEXT DEFAULT 'absolute'              -- Unit of amount_original
                         CHECK (source_unit IN ('absolute','thousands','lakhs','crores','millions','billions')),
-    amount_absolute     REAL NOT NULL,                       -- Normalized to absolute rupees (= amount_original * multiplier)
+    amount_absolute     DOUBLE NOT NULL,                     -- Normalized to absolute rupees (= amount_original * multiplier)
     amount_paise        INTEGER,                             -- Integer paise for exact arithmetic (amount_absolute * 100)
     currency            TEXT DEFAULT 'INR',
 
@@ -260,20 +258,20 @@ CREATE TABLE IF NOT EXISTS line_items (
     -- Cross-document linking
     canonical_group_id  TEXT,                                -- Groups the same economic fact across documents
                                                              -- e.g., Revenue FY24 appears in P&L, CF notes, Director's Report
-    is_primary_source   INTEGER DEFAULT 0,                   -- 1 = this is the authoritative source for this fact
+    is_primary_source   BOOLEAN DEFAULT FALSE,                -- TRUE = authoritative source
 
     -- Quality
-    extraction_confidence REAL,                              -- 0.0 to 1.0
-    is_derived          INTEGER DEFAULT 0,                   -- 1 = computed from other line_items, not directly extracted
+    extraction_confidence DOUBLE,                            -- 0.0 to 1.0
+    is_derived          BOOLEAN DEFAULT FALSE,                -- TRUE = computed from other line_items, not directly extracted
     derivation_formula  TEXT,                                -- If derived: 'SUM(line_item_id_1, line_item_id_2)'
-    is_audited          INTEGER DEFAULT 1,                   -- Inherited from document.audit_status
-    is_restated         INTEGER DEFAULT 0,                   -- 1 = this is a restated figure (differs from original filing)
+    is_audited          BOOLEAN DEFAULT TRUE,                 -- Inherited from document.audit_status
+    is_restated         BOOLEAN DEFAULT FALSE,                -- TRUE = restated figure (differs from original filing)
     original_line_item_id TEXT REFERENCES line_items(line_item_id), -- Points to pre-restatement value
 
     -- Annotation
     notes               TEXT,
-    created_at          TEXT DEFAULT (datetime('now')),
-    updated_at          TEXT DEFAULT (datetime('now'))
+    created_at          TEXT DEFAULT CURRENT_TIMESTAMP,
+    updated_at          TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_line_items_entity ON line_items(entity_id);
@@ -308,15 +306,15 @@ CREATE TABLE IF NOT EXISTS transactions (
     reference_type      TEXT,                                -- 'invoice','cheque','utr','receipt','debit_note','credit_note'
     counterparty_name   TEXT,                                -- Name of the other party
     counterparty_pan    TEXT,                                -- PAN of counterparty (for TDS matching)
-    is_related_party    INTEGER DEFAULT 0,                   -- 1 = identified as related party transaction
+    is_related_party    BOOLEAN DEFAULT FALSE,                -- TRUE = identified as related party transaction
     related_party_id    TEXT REFERENCES related_parties(relationship_id),
-    total_amount        REAL NOT NULL,                       -- Total debit (= total credit) for this entry
+    total_amount        DOUBLE NOT NULL,                     -- Total debit (= total credit) for this entry
     currency            TEXT DEFAULT 'INR',
-    exchange_rate       REAL DEFAULT 1.0,                    -- For foreign currency transactions
-    is_reversed         INTEGER DEFAULT 0,                   -- 1 = this entry has been reversed
+    exchange_rate       DOUBLE DEFAULT 1.0,                  -- For foreign currency transactions
+    is_reversed         BOOLEAN DEFAULT FALSE,                -- TRUE = this entry has been reversed
     reversal_txn_id     TEXT REFERENCES transactions(transaction_id),
     source_system       TEXT,                                -- 'tally','sap','zoho','manual'
-    created_at          TEXT DEFAULT (datetime('now')),
+    created_at          TEXT DEFAULT CURRENT_TIMESTAMP,
     metadata_json       TEXT
 );
 
@@ -339,9 +337,9 @@ CREATE TABLE IF NOT EXISTS transaction_legs (
     leg_id              TEXT PRIMARY KEY,                    -- UUID
     transaction_id      TEXT NOT NULL REFERENCES transactions(transaction_id),
     account_id          TEXT NOT NULL REFERENCES accounts(account_id),
-    debit_amount        REAL DEFAULT 0.0,                   -- Only one of debit/credit is non-zero
-    credit_amount       REAL DEFAULT 0.0,
-    amount_absolute     REAL NOT NULL,                       -- Signed: positive for debit, negative for credit
+    debit_amount        DOUBLE DEFAULT 0.0,                 -- Only one of debit/credit is non-zero
+    credit_amount       DOUBLE DEFAULT 0.0,
+    amount_absolute     DOUBLE NOT NULL,                     -- Signed: positive for debit, negative for credit
     narration           TEXT,                                -- Leg-specific narration
     cost_center         TEXT,                                -- Department / division / branch
     project_code        TEXT,
@@ -386,9 +384,9 @@ CREATE TABLE IF NOT EXISTS related_parties (
     designation         TEXT,                                -- 'Managing Director','CFO','Company Secretary','Independent Director'
     effective_from      TEXT,                                -- When relationship began
     effective_to        TEXT,                                -- NULL if still active
-    is_active           INTEGER DEFAULT 1,
+    is_active           BOOLEAN DEFAULT TRUE,
     disclosed_in_document_id TEXT REFERENCES documents(document_id), -- Where was this relationship disclosed
-    created_at          TEXT DEFAULT (datetime('now')),
+    created_at          TEXT DEFAULT CURRENT_TIMESTAMP,
     metadata_json       TEXT
 );
 
@@ -416,15 +414,15 @@ CREATE TABLE IF NOT EXISTS related_party_transactions (
                                                              --  'interest_paid','interest_received','rent_paid',
                                                              --  'rent_received','services_received','services_rendered',
                                                              --  'guarantee_given','guarantee_received','other'
-    amount_absolute     REAL NOT NULL,                       -- In absolute rupees
-    outstanding_balance REAL,                                -- Balance as at period end
+    amount_absolute     DOUBLE NOT NULL,                     -- In absolute rupees
+    outstanding_balance DOUBLE,                              -- Balance as at period end
     outstanding_balance_type TEXT,                           -- 'receivable' or 'payable'
-    provision_for_doubtful REAL DEFAULT 0.0,                 -- Provision for doubtful debts on this balance
-    is_arms_length      INTEGER DEFAULT 1,                   -- 1 = at arm's length; 0 = below/above market
+    provision_for_doubtful DOUBLE DEFAULT 0.0,               -- Provision for doubtful debts on this balance
+    is_arms_length      BOOLEAN DEFAULT TRUE,                 -- TRUE = at arm's length; FALSE = below/above market
     disclosed_in_document_id TEXT REFERENCES documents(document_id),
     source_line_item_id TEXT REFERENCES line_items(line_item_id),
     notes               TEXT,
-    created_at          TEXT DEFAULT (datetime('now'))
+    created_at          TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_rpt_relationship ON related_party_transactions(relationship_id);
@@ -453,24 +451,24 @@ CREATE TABLE IF NOT EXISTS ratios (
                             'liquidity','solvency','profitability','efficiency',
                             'valuation','cash_flow','forensic','schedule_iii_mandatory','custom'
                         )),
-    ratio_value         REAL,                                -- The computed ratio value
-    numerator_value     REAL,                                -- Numerator used in calculation
-    denominator_value   REAL,                                -- Denominator used
+    ratio_value         DOUBLE,                              -- The computed ratio value
+    numerator_value     DOUBLE,                              -- Numerator used in calculation
+    denominator_value   DOUBLE,                              -- Denominator used
     numerator_formula   TEXT,                                -- Human-readable: 'Current Assets'
     denominator_formula TEXT,                                -- 'Current Liabilities'
     formula_detail_json TEXT,                                -- JSON: {"numerator_items": ["li_id_1","li_id_2"], ...}
     numerator_account_ids TEXT,                              -- JSON array of account_ids used
     denominator_account_ids TEXT,                            -- JSON array of account_ids used
     unit                TEXT DEFAULT 'ratio',                -- 'ratio','percentage','times','days','rupees'
-    prior_period_value  REAL,                                -- Same ratio for prior period (for variance)
-    variance_pct        REAL,                                -- ((current - prior) / prior) * 100
+    prior_period_value  DOUBLE,                              -- Same ratio for prior period (for variance)
+    variance_pct        DOUBLE,                              -- ((current - prior) / prior) * 100
     variance_explanation TEXT,                               -- Explanation if variance > 25% (Schedule III requirement)
-    benchmark_value     REAL,                                -- Industry benchmark if available
+    benchmark_value     DOUBLE,                              -- Industry benchmark if available
     benchmark_source    TEXT,                                -- 'rbi_industry_avg','crisil','icra','manual'
-    is_schedule_iii     INTEGER DEFAULT 0,                   -- 1 = one of the 11 mandatory ratios
-    is_anomalous        INTEGER DEFAULT 0,                   -- 1 = flagged by forensic analysis
+    is_schedule_iii     BOOLEAN DEFAULT FALSE,                -- TRUE = one of the 11 mandatory ratios
+    is_anomalous        BOOLEAN DEFAULT FALSE,                -- TRUE = flagged by forensic analysis
     flag_id             TEXT REFERENCES flags(flag_id),      -- Link to anomaly flag if flagged
-    computed_at         TEXT DEFAULT (datetime('now')),
+    computed_at         TEXT DEFAULT CURRENT_TIMESTAMP,
     notes               TEXT,
     metadata_json       TEXT
 );
@@ -521,13 +519,13 @@ CREATE TABLE IF NOT EXISTS flags (
     flag_subtype        TEXT,                                -- Further detail: 'digit_1_excess_for_7'
     severity            TEXT NOT NULL DEFAULT 'medium'
                         CHECK (severity IN ('critical','high','medium','low','info')),
-    confidence          REAL,                                -- 0.0 to 1.0 — how confident is the detection
+    confidence          DOUBLE,                              -- 0.0 to 1.0 — how confident is the detection
 
     -- Description
     title               TEXT NOT NULL,                       -- 'Benford First Digit Anomaly in Sales Ledger'
     description         TEXT NOT NULL,                       -- Detailed explanation
     evidence_json       TEXT,                                -- JSON: supporting data, expected vs actual distributions, etc.
-    affected_amount     REAL,                                -- Total rupee value affected
+    affected_amount     DOUBLE,                              -- Total rupee value affected
     affected_period     TEXT,                                -- 'FY 2023-24'
     affected_accounts   TEXT,                                -- JSON array of account_ids
 
@@ -544,8 +542,8 @@ CREATE TABLE IF NOT EXISTS flags (
     test_parameters_json TEXT,                               -- JSON: parameters used for this test run
     test_run_id         TEXT,                                -- Groups flags from the same test execution
 
-    created_at          TEXT DEFAULT (datetime('now')),
-    updated_at          TEXT DEFAULT (datetime('now'))
+    created_at          TEXT DEFAULT CURRENT_TIMESTAMP,
+    updated_at          TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_flags_entity ON flags(entity_id);
@@ -601,19 +599,19 @@ CREATE TABLE IF NOT EXISTS reconciliation (
     source_a_document_id TEXT REFERENCES documents(document_id),
     source_a_line_item_id TEXT REFERENCES line_items(line_item_id),
     source_a_label      TEXT,                                -- 'Balance Sheet: Total Assets'
-    source_a_amount     REAL NOT NULL,
+    source_a_amount     DOUBLE NOT NULL,
 
     -- Source B (the "secondary" or "detail" document)
     source_b_document_id TEXT REFERENCES documents(document_id),
     source_b_line_item_id TEXT REFERENCES line_items(line_item_id),
     source_b_label      TEXT,                                -- 'Note 5: Total Fixed Assets'
-    source_b_amount     REAL NOT NULL,
+    source_b_amount     DOUBLE NOT NULL,
 
     -- Result
-    difference          REAL NOT NULL,                       -- source_a - source_b
-    difference_pct      REAL,                                -- ABS(difference) / MAX(ABS(a), ABS(b)) * 100
-    tolerance           REAL DEFAULT 0.0,                    -- Acceptable rounding difference
-    is_matched          INTEGER NOT NULL,                    -- 1 = within tolerance; 0 = break
+    difference          DOUBLE NOT NULL,                     -- source_a - source_b
+    difference_pct      DOUBLE,                              -- ABS(difference) / MAX(ABS(a), ABS(b)) * 100
+    tolerance           DOUBLE DEFAULT 0.0,                  -- Acceptable rounding difference
+    is_matched          INTEGER NOT NULL,                    -- TRUE = within tolerance; zero = break
     match_status        TEXT DEFAULT 'unreviewed'
                         CHECK (match_status IN ('matched','rounding','break','explained','unreviewed')),
 
@@ -621,7 +619,7 @@ CREATE TABLE IF NOT EXISTS reconciliation (
     flag_id             TEXT REFERENCES flags(flag_id),
 
     explanation         TEXT,                                -- Analyst explanation of difference
-    computed_at         TEXT DEFAULT (datetime('now')),
+    computed_at         TEXT DEFAULT CURRENT_TIMESTAMP,
     notes               TEXT
 );
 
@@ -646,12 +644,12 @@ CREATE TABLE IF NOT EXISTS account_mappings (
     source_account_name TEXT NOT NULL,                       -- 'Sales - Domestic Hydraulic'
     source_group        TEXT,                                -- Tally group: 'Sales Accounts'
     mapped_account_id   TEXT NOT NULL REFERENCES accounts(account_id), -- Our standard account
-    mapping_confidence  REAL DEFAULT 1.0,                    -- 1.0 = manual/certain; <1.0 = AI-suggested
+    mapping_confidence  DOUBLE DEFAULT 1.0,                  -- 1.0 = manual/certain; Less than 1.0 = AI-suggested
     mapping_method      TEXT DEFAULT 'manual'                -- 'manual','rule_based','llm_suggested','xbrl_tag'
                         CHECK (mapping_method IN ('manual','rule_based','llm_suggested','xbrl_tag','historical')),
-    is_verified         INTEGER DEFAULT 0,
+    is_verified         BOOLEAN DEFAULT FALSE,
     verified_by         TEXT,
-    created_at          TEXT DEFAULT (datetime('now')),
+    created_at          TEXT DEFAULT CURRENT_TIMESTAMP,
     notes               TEXT
 );
 
@@ -670,7 +668,7 @@ CREATE INDEX idx_mapping_target ON account_mappings(mapped_account_id);
 CREATE TABLE IF NOT EXISTS unit_conversions (
     unit_name           TEXT PRIMARY KEY,                    -- 'lakhs', 'crores', etc.
     unit_label          TEXT NOT NULL,                       -- Display label: '₹ in Lakhs'
-    multiplier          REAL NOT NULL,                       -- Factor to convert to absolute: 100000 for lakhs
+    multiplier          DOUBLE NOT NULL,                     -- Factor to convert to absolute: 100000 for lakhs
     description         TEXT
 );
 
@@ -815,7 +813,7 @@ FROM line_items li
 JOIN entities e ON li.entity_id = e.entity_id
 JOIN accounts a ON li.account_id = a.account_id
 JOIN documents d ON li.document_id = d.document_id
-WHERE li.is_primary_source = 1;
+WHERE li.is_primary_source = TRUE;
 
 
 -- View: Balance Sheet equation check
@@ -829,9 +827,9 @@ SELECT
     - SUM(CASE WHEN a.account_id LIKE 'BS.EL.%' THEN li.amount_absolute ELSE 0 END) AS difference
 FROM line_items li
 JOIN accounts a ON li.account_id = a.account_id
-WHERE li.is_primary_source = 1
+WHERE li.is_primary_source = TRUE
   AND a.statement_type = 'balance_sheet'
-  AND a.is_posting = 1
+  AND a.is_posting = TRUE
 GROUP BY li.entity_id, li.period_label;
 
 
