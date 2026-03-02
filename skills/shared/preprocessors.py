@@ -2,10 +2,11 @@
 Document preprocessing layer — auto-routes files to the best preprocessor.
 
 Tiered architecture:
-  PDF/DOCX/PPTX/images → Docling (with OCR fallback)
-  XLSX/XLS             → openpyxl + pandas (complex workbook support)
-  CSV                  → pandas (fast, direct)
-  HTML/MD              → Docling (native support)
+  PDF           → MistralPreprocessor (primary) or Docling (fallback)
+  DOCX/PPTX/images → Docling (with OCR fallback)
+  XLSX/XLS      → openpyxl + pandas (complex workbook support)
+  CSV           → pandas (fast, direct)
+  HTML/MD       → Docling (native support)
 
 Usage:
     from skills.shared.preprocessors import PreprocessingRouter
@@ -117,6 +118,43 @@ class DoclingPreprocessor:
         except Exception as e:
             logger.warning(f"RapidOCR fallback failed: {e}")
         return None
+
+
+# ---------------------------------------------------------------------------
+# Mistral OCR Preprocessor (primary for PDFs)
+# ---------------------------------------------------------------------------
+class MistralPreprocessor:
+    """PDF preprocessor using Mistral OCR.
+
+    Uses ``MistralTableExtractor.extract_text()`` for full-page markdown and
+    ``extract()`` for structured table DataFrames — same single API call
+    (cached) produces both outputs.
+    """
+
+    _extractor = None
+
+    def _get_extractor(self):
+        if self._extractor is None:
+            from pipeline.mistral_extractor import MistralTableExtractor
+            self.__class__._extractor = MistralTableExtractor()
+        return self._extractor
+
+    async def process(self, file_path: str) -> dict:
+        """Convert PDF to markdown using Mistral OCR.
+
+        Returns:
+            dict with keys: text (str), tables (list of DataFrames), pages (int)
+        """
+        ext = self._get_extractor()
+
+        # Single API call / cache hit produces both text and tables
+        text, extracted_tables = ext.extract_both(file_path)
+
+        tables = [et.df for et in extracted_tables]
+        # Count pages from the text (pages separated by ---)
+        page_count = text.count("\n\n---\n\n") + 1 if text.strip() else 0
+
+        return {"text": text, "tables": tables, "pages": page_count}
 
 
 # ---------------------------------------------------------------------------
@@ -332,24 +370,49 @@ class CSVPreprocessor:
 # Preprocessing Router
 # ---------------------------------------------------------------------------
 class PreprocessingRouter:
-    """Routes files to the appropriate preprocessor based on type."""
+    """Routes files to the appropriate preprocessor based on type.
 
-    DOCLING_EXTENSIONS = {".pdf", ".docx", ".pptx", ".html", ".md"}
+    Parameters
+    ----------
+    pdf_backend : str
+        "mistral" (default, uses Mistral OCR) or "docling".
+    """
+
+    DOCLING_EXTENSIONS = {".docx", ".pptx", ".html", ".md"}
     IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".tiff", ".bmp"}
     EXCEL_EXTENSIONS = {".xlsx", ".xlsm", ".xls", ".xlsb"}
     CSV_EXTENSIONS = {".csv", ".tsv"}
 
-    def __init__(self):
-        self._docling = DoclingPreprocessor()
+    def __init__(self, pdf_backend: str = "mistral"):
+        self._pdf_backend = pdf_backend
+        self._mistral: MistralPreprocessor | None = None
+        self._docling: DoclingPreprocessor | None = None
         self._excel = ExcelPreprocessor()
         self._csv = CSVPreprocessor()
+
+    def _get_pdf_processor(self):
+        """Lazy-init the PDF processor based on configured backend."""
+        if self._pdf_backend == "mistral":
+            if self._mistral is None:
+                self._mistral = MistralPreprocessor()
+            return self._mistral
+        else:
+            if self._docling is None:
+                self._docling = DoclingPreprocessor()
+            return self._docling
+
+    def _get_docling(self):
+        """Lazy-init Docling for non-PDF document types."""
+        if self._docling is None:
+            self._docling = DoclingPreprocessor()
+        return self._docling
 
     async def process(self, file_path: str, *, override: str | None = None) -> dict:
         """Route file to the best preprocessor.
 
         Args:
             file_path: Path to the document.
-            override: Force a specific preprocessor ('docling', 'pandas', 'paddleocr').
+            override: Force a specific preprocessor ('docling', 'mistral', 'pandas', 'paddleocr').
 
         Returns:
             dict with at minimum a "text" key containing extracted content.
@@ -359,21 +422,28 @@ class PreprocessingRouter:
         if override == "pandas":
             return await self._excel.process(file_path)
         if override == "docling":
-            return await self._docling.process(file_path)
+            return await self._get_docling().process(file_path)
+        if override == "mistral":
+            if self._mistral is None:
+                self._mistral = MistralPreprocessor()
+            return await self._mistral.process(file_path)
         if override == "paddleocr":
-            text = await self._docling._fallback_ocr(file_path)
+            text = await self._get_docling()._fallback_ocr(file_path)
             return {"text": text or "", "method": "paddleocr"}
 
         if ext in self.EXCEL_EXTENSIONS:
             return await self._excel.process(file_path)
         elif ext in self.CSV_EXTENSIONS:
             return await self._csv.process(file_path)
+        elif ext == ".pdf":
+            # PDFs go through configured backend (Mistral by default)
+            return await self._get_pdf_processor().process(file_path)
         elif ext in self.DOCLING_EXTENSIONS | self.IMAGE_EXTENSIONS:
-            return await self._docling.process(file_path)
+            return await self._get_docling().process(file_path)
         else:
             # Fallback: try Docling (it handles many formats)
             try:
-                return await self._docling.process(file_path)
+                return await self._get_docling().process(file_path)
             except Exception as e:
                 logger.warning(f"Docling failed for {file_path}: {e}")
                 # Last resort: read as plain text

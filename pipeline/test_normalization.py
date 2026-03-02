@@ -297,6 +297,10 @@ def _parse_args() -> argparse.Namespace:
         "--files", nargs="+", default=None,
         help="Only process files whose names contain these substrings (e.g. --files sample_statement)",
     )
+    parser.add_argument(
+        "--run-skills", action="store_true",
+        help="After normalization, run all available forensic skills with default params",
+    )
     return parser.parse_args()
 
 
@@ -594,6 +598,103 @@ def main():
     print(f"\n{'=' * 70}")
     print(f"Test database saved to: {test_db}")
     print(f"{'=' * 70}")
+
+    # ---- Step 5 (optional): Run forensic skills ----
+    if args.run_skills:
+        _run_skills(str(test_db))
+
+
+def _run_skills(db_path: str) -> None:
+    """Run all available forensic skills with default parameters."""
+    import subprocess
+
+    print(f"\n{'=' * 70}")
+    print("FORENSIC SKILLS — Pass 1 Sweep")
+    print(f"{'=' * 70}")
+
+    skills = [
+        {
+            "name": "benfords-analysis",
+            "script": "skills/benfords-analysis/scripts/benfords.py",
+            "args": [
+                "--db", db_path,
+                "--table", "line_items",
+                "--column", "amount",
+                "--tests", "all",
+                "--output", "skills/benfords-analysis/outputs/sweep.json",
+            ],
+        },
+        {
+            "name": "duplicate-detector",
+            "script": "skills/duplicate-detector/scripts/duplicate_detector.py",
+            "args": [
+                "--db", db_path,
+                "--output", "skills/duplicate-detector/outputs/sweep.json",
+            ],
+        },
+        {
+            "name": "ratio-analyzer",
+            "script": "skills/ratio-analyzer/scripts/ratio_analyzer.py",
+            "args": [
+                "--db", db_path,
+                "--output", "skills/ratio-analyzer/outputs/sweep.json",
+            ],
+        },
+        {
+            "name": "anomaly-detector",
+            "script": "skills/anomaly-detector/scripts/anomaly_detector.py",
+            "args": [
+                "--db", db_path,
+                "--table", "line_items",
+                "--column", "amount",
+                "--output", "skills/anomaly-detector/outputs/sweep.json",
+            ],
+        },
+        {
+            "name": "network-analyzer",
+            "script": "skills/network-analyzer/scripts/network_analyzer.py",
+            "args": [
+                "--db", db_path,
+                "--output", "skills/network-analyzer/outputs/sweep.json",
+            ],
+        },
+    ]
+
+    results = []
+    for skill in skills:
+        script_path = _PROJECT_ROOT / skill["script"]
+        if not script_path.exists():
+            print(f"\n  [{skill['name']}] SKIP — script not found: {script_path}")
+            continue
+
+        print(f"\n  [{skill['name']}] Running...")
+        cmd = [sys.executable, str(script_path)] + skill["args"]
+        try:
+            proc = subprocess.run(
+                cmd, capture_output=True, text=True, timeout=120,
+                cwd=str(_PROJECT_ROOT),
+            )
+            if proc.returncode == 0:
+                print(f"  [{skill['name']}] OK")
+                results.append((skill["name"], "OK"))
+            else:
+                print(f"  [{skill['name']}] FAILED (exit {proc.returncode})")
+                if proc.stderr:
+                    for line in proc.stderr.strip().split("\n")[-5:]:
+                        print(f"    {line}")
+                results.append((skill["name"], f"FAILED (exit {proc.returncode})"))
+        except subprocess.TimeoutExpired:
+            print(f"  [{skill['name']}] TIMEOUT (120s)")
+            results.append((skill["name"], "TIMEOUT"))
+        except Exception as exc:
+            print(f"  [{skill['name']}] ERROR: {exc}")
+            results.append((skill["name"], f"ERROR: {exc}"))
+
+    print(f"\n{'=' * 50}")
+    print("SKILL SWEEP SUMMARY")
+    print(f"{'=' * 50}")
+    for name, status in results:
+        print(f"  {name:<25} {status}")
 
 
 if __name__ == "__main__":
