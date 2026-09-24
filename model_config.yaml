@@ -11,6 +11,12 @@ providers:
   #   api_key_env: "ANTHROPIC_API_KEY"
   #   default_model: "claude-sonnet-4-20250514"
   #   rate_limit_rpm: 60
+  # Any OpenAI-compatible server, e.g. a local Ollama (see benchmarks/configs/)
+  # openai_compat:
+  #   base_url: "http://localhost:11434/v1"
+  #   default_model: "llama3.2"
+  #   rate_limit_rpm: 600
+  #   timeout_s: 600
 
 roles:
   kg_llm:          { provider: mistral }

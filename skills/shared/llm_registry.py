@@ -5,6 +5,9 @@ Usage:
     from skills.shared.llm_registry import get_role, reload_config
     provider = get_role("kg_llm")
     result = await provider.generate("Hello")
+
+Set MODEL_CONFIG_PATH to use a config file other than <repo>/model_config.yaml
+(the benchmark runs use this to switch every role to one model).
 """
 
 from __future__ import annotations
@@ -18,6 +21,17 @@ if TYPE_CHECKING:
 
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 _CONFIG_PATH = _PROJECT_ROOT / "model_config.yaml"
+
+# Provider settings passed through to the provider class, besides model and rpm
+_PROVIDER_OPTION_KEYS = {
+    "openai_compat": ("base_url", "api_key_env", "timeout_s"),
+}
+
+
+def config_path() -> Path:
+    """The active config file: $MODEL_CONFIG_PATH if set, else model_config.yaml."""
+    override = os.environ.get("MODEL_CONFIG_PATH")
+    return Path(override) if override else _CONFIG_PATH
 
 # ---------------------------------------------------------------------------
 # Internal state
@@ -54,10 +68,13 @@ def _load_config() -> dict:
     if _config is not None:
         return _config
 
-    if _CONFIG_PATH.exists():
+    path = config_path()
+    if os.environ.get("MODEL_CONFIG_PATH") and not path.exists():
+        raise FileNotFoundError(f"MODEL_CONFIG_PATH points to a missing file: {path}")
+    if path.exists():
         import yaml
 
-        with open(_CONFIG_PATH, "r") as f:
+        with open(path, "r") as f:
             _config = yaml.safe_load(f)
     else:
         _config = _DEFAULT_CONFIG
@@ -115,7 +132,12 @@ def get_role(role_name: str) -> "LLMProvider":
             f"Provider '{provider_name}' requires env var '{api_key_env}' to be set."
         )
 
-    provider = create_provider(provider_name, model=model, rpm=rpm)
+    options = {
+        key: prov_cfg[key]
+        for key in _PROVIDER_OPTION_KEYS.get(provider_name, ())
+        if prov_cfg.get(key) is not None
+    }
+    provider = create_provider(provider_name, model=model, rpm=rpm, **options)
     _providers[provider_name] = provider
     return provider
 

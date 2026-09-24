@@ -12,6 +12,7 @@ from skills.shared import lightrag_init, llm_registry
 from skills.shared.llm_providers import (
     GeminiProvider,
     MistralProvider,
+    OpenAICompatProvider,
     create_provider,
 )
 from skills.shared.rate_limiter import RateLimiter, get_rate_limiter
@@ -109,6 +110,31 @@ def test_registry_defaults_without_yaml(clean_registry, monkeypatch, tmp_path):
     assert llm_registry._providers == {}
 
 
+def test_registry_reads_model_config_path(clean_registry, monkeypatch, tmp_path):
+    cfg = tmp_path / "local.yaml"
+    cfg.write_text(
+        "providers:\n"
+        "  openai_compat:\n"
+        "    base_url: http://localhost:11434/v1\n"
+        "    default_model: llama3.2\n"
+        "    rate_limit_rpm: 600\n"
+        "    timeout_s: 30\n"
+        "roles:\n"
+        "  kg_llm: { provider: openai_compat }\n"
+        "  reasoning_llm: { provider: openai_compat }\n"
+    )
+    monkeypatch.setenv("MODEL_CONFIG_PATH", str(cfg))
+    kg = llm_registry.get_role("kg_llm")
+    assert isinstance(kg, OpenAICompatProvider)
+    assert (kg.model, kg.base_url, kg.timeout_s, kg.api_key_env) == ("llama3.2", "http://localhost:11434/v1", 30, None)
+    assert llm_registry.get_role("reasoning_llm") is kg
+
+    monkeypatch.setenv("MODEL_CONFIG_PATH", str(tmp_path / "missing.yaml"))
+    monkeypatch.setattr(llm_registry, "_config", None)
+    with pytest.raises(FileNotFoundError, match="MODEL_CONFIG_PATH"):
+        llm_registry.get_role("kg_llm")
+
+
 def test_create_provider_unknown():
     with pytest.raises(ValueError, match="Unknown provider"):
         create_provider("nope", model="x")
@@ -185,6 +211,43 @@ async def test_mistral_generate():
     assert [type(m).__name__ for m in calls[0]["messages"]] == [
         "SystemMessage", "AssistantMessage", "UserMessage",
     ]
+
+
+class _FakeCompletions:
+    def __init__(self, content):
+        self.content = content
+        self.calls = []
+
+    async def create(self, **kwargs):
+        self.calls.append(kwargs)
+        return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=self.content))])
+
+
+def _openai_compat_with(content):
+    provider = create_provider("openai_compat", model="llama-test", rpm=6000,
+                               base_url="http://localhost:11434/v1")
+    completions = _FakeCompletions(content)
+    provider._client = SimpleNamespace(chat=SimpleNamespace(completions=completions))
+    return provider, completions
+
+
+async def test_openai_compat_generate():
+    provider, completions = _openai_compat_with("pong")
+    out = await provider.generate("ping", system_prompt="sys", temperature=0, max_tokens=5,
+                                  messages=[{"role": "assistant", "content": "earlier"}])
+    assert out == "pong"
+    call = completions.calls[0]
+    assert call["model"] == "llama-test" and call["temperature"] == 0 and call["max_tokens"] == 5
+    assert [m["role"] for m in call["messages"]] == ["system", "assistant", "user"]
+    assert await provider.generate_with_thinking("think") == "pong"
+
+
+async def test_openai_compat_generate_json():
+    provider, completions = _openai_compat_with('{"verdict": "COMPLIANT"}')
+    schema = {"type": "object", "properties": {"verdict": {"type": "string"}}}
+    assert await provider.generate_json("judge", schema=schema) == {"verdict": "COMPLIANT"}
+    fmt = completions.calls[0]["response_format"]
+    assert fmt["type"] == "json_schema" and fmt["json_schema"]["schema"] == schema
 
 
 # ---------------------------------------------------------------------------

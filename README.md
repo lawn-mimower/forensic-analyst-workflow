@@ -129,13 +129,14 @@ Environment variables are read from `.env` in the repository root:
 | `FORENSIC_OUTPUT_DIR` | Where app and agent runs write the workbench, table cache and test reports (default `pipeline/test_output/`) |
 | `FORENSIC_AGENT_DB` | SQLite file for agent sessions and memory (default `data/forensic_agent.db`) |
 | `MISTRAL_OCR_CACHE_DIR` | Cached Mistral OCR responses (default `pipeline/test_output/mistral_cache/`) |
+| `MODEL_CONFIG_PATH` | Model config to use instead of `model_config.yaml` |
 
-`model_config.yaml` maps roles to providers (`kg_llm`: Mistral `ministral-14b-2512`; `reasoning_llm`: Gemini `gemini-3-flash-preview`; the local embedding model) and sets per-provider rate limits. Mistral, Gemini and Anthropic providers are implemented.
+`model_config.yaml` maps roles to providers (`kg_llm`: Mistral `ministral-14b-2512`; `reasoning_llm`: Gemini `gemini-3-flash-preview`; the local embedding model) and sets per-provider rate limits. Mistral, Gemini, Anthropic and `openai_compat` providers are implemented. `openai_compat` talks to any OpenAI-compatible server, such as a local Ollama (`base_url: http://localhost:11434/v1`). Set `MODEL_CONFIG_PATH` to use another config file.
 
 ## Tests
 
 ```bash
-python -m pytest                  # 135 offline tests, about 40 s; no API keys
+python -m pytest                  # 138 offline tests, about 40 s; no API keys
 python -m pytest -m "not slow"    # skip the 15 tests that load Docling or the embedding model
 python -m pytest -m e2e           # live run against Mistral and Gemini; skipped unless both keys are set
 ```

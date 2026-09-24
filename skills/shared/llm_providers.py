@@ -9,6 +9,10 @@ Gemini additionally supports:
 
 Gemini and Anthropic additionally support:
     generate_with_thinking(prompt, *, debug_label, debug_dir) -> str
+
+OpenAICompatProvider talks to any OpenAI-compatible server (for example a
+local Ollama at http://localhost:11434/v1) and supports generate_json via
+the server's json_schema response format.
 """
 
 from __future__ import annotations
@@ -341,17 +345,125 @@ class AnthropicProvider(LLMProvider):
 
 
 # ---------------------------------------------------------------------------
+# OpenAI-compatible endpoint (Ollama, vLLM, llama.cpp server, LM Studio, ...)
+# ---------------------------------------------------------------------------
+class OpenAICompatProvider(LLMProvider):
+    """Wraps any server that speaks the OpenAI chat-completions API.
+
+    ``base_url`` points at the server (for Ollama: http://localhost:11434/v1).
+    Local servers usually ignore the API key, so ``api_key_env`` is optional.
+    There is no separate thinking mode: ``generate_with_thinking`` is a plain
+    ``generate`` call.
+    """
+
+    def __init__(
+        self,
+        model: str,
+        rate_limiter: RateLimiter,
+        *,
+        base_url: str | None = None,
+        api_key_env: str | None = None,
+        timeout_s: float = 600.0,
+    ):
+        super().__init__(model, rate_limiter)
+        self.base_url = base_url
+        self.api_key_env = api_key_env
+        self.timeout_s = timeout_s
+        self._client = None
+
+    def _get_client(self):
+        if self._client is None:
+            from openai import AsyncOpenAI
+
+            key = os.environ.get(self.api_key_env) if self.api_key_env else None
+            self._client = AsyncOpenAI(
+                base_url=self.base_url,
+                api_key=key or "not-needed",
+                timeout=self.timeout_s,
+            )
+        return self._client
+
+    @staticmethod
+    def _messages(prompt, system_prompt, messages) -> list[dict]:
+        msg_list: list[dict] = []
+        if system_prompt:
+            msg_list.append({"role": "system", "content": system_prompt})
+        for msg in messages or []:
+            role = "assistant" if msg["role"] == "assistant" else "user"
+            msg_list.append({"role": role, "content": msg["content"]})
+        msg_list.append({"role": "user", "content": prompt})
+        return msg_list
+
+    async def generate(
+        self,
+        prompt: str,
+        *,
+        system_prompt: str | None = None,
+        messages: list[dict] | None = None,
+        temperature: float | None = None,
+        max_tokens: int | None = None,
+    ) -> str:
+        kwargs: dict = {
+            "model": self.model,
+            "messages": self._messages(prompt, system_prompt, messages),
+        }
+        if temperature is not None:
+            kwargs["temperature"] = temperature
+        if max_tokens is not None:
+            kwargs["max_tokens"] = max_tokens
+
+        await self._rl.wait()
+        response = await self._get_client().chat.completions.create(**kwargs)
+        return response.choices[0].message.content or ""
+
+    async def generate_json(
+        self,
+        prompt: str,
+        *,
+        schema: dict,
+        system_prompt: str | None = None,
+    ) -> dict:
+        """Structured output via ``response_format`` (json_schema)."""
+        await self._rl.wait()
+        response = await self._get_client().chat.completions.create(
+            model=self.model,
+            messages=self._messages(prompt, system_prompt, None),
+            response_format={
+                "type": "json_schema",
+                "json_schema": {"name": "response", "schema": schema},
+            },
+        )
+        return json.loads(response.choices[0].message.content)
+
+    async def generate_with_thinking(
+        self,
+        prompt: str,
+        *,
+        debug_label: str = "",
+        debug_dir: Path | None = None,
+    ) -> str:
+        return await self.generate(prompt)
+
+
+# ---------------------------------------------------------------------------
 # Factory
 # ---------------------------------------------------------------------------
 PROVIDER_CLASSES: dict[str, type[LLMProvider]] = {
     "mistral": MistralProvider,
     "gemini": GeminiProvider,
     "anthropic": AnthropicProvider,
+    "openai_compat": OpenAICompatProvider,
 }
 
 
-def create_provider(provider_name: str, model: str, rpm: int = 30) -> LLMProvider:
-    """Instantiate a provider with its rate limiter."""
+def create_provider(
+    provider_name: str, model: str, rpm: int = 30, **options
+) -> LLMProvider:
+    """Instantiate a provider with its rate limiter.
+
+    ``options`` are passed to providers that take extra settings
+    (``base_url``, ``api_key_env`` and ``timeout_s`` for ``openai_compat``).
+    """
     cls = PROVIDER_CLASSES.get(provider_name)
     if cls is None:
         raise ValueError(
@@ -359,4 +471,4 @@ def create_provider(provider_name: str, model: str, rpm: int = 30) -> LLMProvide
             f"Available: {list(PROVIDER_CLASSES.keys())}"
         )
     rl = get_rate_limiter(provider=provider_name, rpm=rpm)
-    return cls(model=model, rate_limiter=rl)
+    return cls(model=model, rate_limiter=rl, **options)
