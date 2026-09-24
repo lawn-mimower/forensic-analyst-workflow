@@ -580,7 +580,8 @@ try:
     # Quick validation
     json.loads(json_str)
 
-    out_path = "/Users/mihirmohite/forensic-analyst-workflow/compliance-dataset/compliance_rules.json"
+    from pathlib import Path
+    out_path = Path(__file__).resolve().parent / "compliance_rules.json"
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(json_str)
 
