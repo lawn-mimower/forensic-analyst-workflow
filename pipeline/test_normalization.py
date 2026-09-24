@@ -114,6 +114,7 @@ def _extract_excel_tables(file_path: Path) -> list[ExtractedTable]:
         tbl = ExtractedTable(
             df=df,
             source_file=str(file_path),
+            source_file_type=file_path.suffix.lower().lstrip("."),
             sheet_name=sheet_name,
             table_index=idx,
             page_number=None,
@@ -148,6 +149,7 @@ def _extract_pdf_tables(file_path: Path) -> list[ExtractedTable]:
             tbl = ExtractedTable(
                 df=df,
                 source_file=str(file_path),
+                source_file_type=file_path.suffix.lower().lstrip("."),
                 sheet_name="",
                 table_index=idx,
                 page_number=None,
@@ -181,6 +183,7 @@ def _extract_pdf_tables(file_path: Path) -> list[ExtractedTable]:
             tbl = ExtractedTable(
                 df=df,
                 source_file=str(file_path),
+                source_file_type=file_path.suffix.lower().lstrip("."),
                 sheet_name="",
                 table_index=idx,
                 page_number=ct.page if hasattr(ct, "page") else None,
@@ -226,6 +229,7 @@ def _extract_pdf_tables(file_path: Path) -> list[ExtractedTable]:
     tbl = ExtractedTable(
         df=stub_df,
         source_file=str(file_path),
+        source_file_type=file_path.suffix.lower().lstrip("."),
         sheet_name="",
         table_index=0,
         page_number=1,
@@ -263,6 +267,7 @@ def extract_tables(file_path: Path) -> list[ExtractedTable]:
                 ExtractedTable(
                     df=df,
                     source_file=str(file_path),
+                    source_file_type=file_path.suffix.lower().lstrip("."),
                     extraction_method="pandas_csv",
                     extraction_confidence=0.90,
                 )
