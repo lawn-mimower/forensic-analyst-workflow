@@ -180,4 +180,4 @@ tests/                      offline and live tests; fixtures/ holds the syntheti
 user_documents/             your own documents (git-ignored)
 ```
 
-Licence: not yet specified.
+Licence: MIT — see LICENSE.
