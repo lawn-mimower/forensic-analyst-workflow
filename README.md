@@ -128,7 +128,7 @@ Core dependencies (see `requirements.txt` for the full list):
 |---|---|
 | `lightrag-hku` | Knowledge graph construction and retrieval |
 | `mistralai` | Mistral API client (KG building LLM) |
-| `google-generativeai` | Gemini API client (reasoning/adjudication LLM) |
+| `google-genai` | Gemini API client (reasoning/adjudication LLM) |
 | `sentence-transformers` | Local embeddings (`all-MiniLM-L6-v2`) |
 | `agno` | Agent framework for the chatbot |
 | `docling` | PDF/Excel to Markdown conversion |
@@ -137,11 +137,33 @@ Core dependencies (see `requirements.txt` for the full list):
 
 ### Environment Variables
 
-Create a `.env` file in the project root with:
+Create a `.env` file in the project root (see `.env.example`) with:
 
 ```
 GEMINI_API_KEY=your_gemini_api_key
 MISTRAL_API_KEY=your_mistral_api_key
+```
+
+Install the dependencies with `pip install -r requirements.txt` and run all commands below from the project root.
+
+### Running Tests
+
+```bash
+# Offline suite (LLM calls are replaced with deterministic fakes; no API keys needed)
+pytest
+
+# Skip the tests that load local models (Docling, sentence-transformers)
+pytest -m "not slow"
+
+# Live end-to-end run against Mistral + Gemini (needs both API keys)
+pytest -m e2e
+```
+
+The tests use a small fictional company, Acme Widgets Private Limited (`tests/fixtures/`).
+To try the notebook or CLI on the same sample data, write sample XLSX/PDF files into `user_documents/` with:
+
+```bash
+python tests/fixtures/build_fixtures.py
 ```
 
 ---
