@@ -16,6 +16,7 @@ import asyncio
 import importlib.util
 import json
 import logging
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -35,10 +36,13 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
+from frontend.pipeline_runner import default_output_dir  # noqa: E402
 from skills.shared.model_config_agno import get_agent_model  # noqa: E402
 
-# SQLite database for agent sessions and memory
-_AGENT_DB_PATH = _PROJECT_ROOT / "data" / "forensic_agent.db"
+# SQLite database for agent sessions and memory (override with FORENSIC_AGENT_DB)
+_AGENT_DB_PATH = Path(
+    os.environ.get("FORENSIC_AGENT_DB") or _PROJECT_ROOT / "data" / "forensic_agent.db"
+)
 
 
 # ---------------------------------------------------------------------------
@@ -144,7 +148,7 @@ class ForensicToolkit(Toolkit):
         )
         self.output_dir = Path(output_dir) if output_dir else (
             Path(db_path).parent / "skill_results" if db_path else
-            _PROJECT_ROOT / "pipeline" / "test_output" / "skill_results"
+            default_output_dir() / "skill_results"
         )
         self.output_dir.mkdir(parents=True, exist_ok=True)
 

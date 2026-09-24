@@ -38,7 +38,11 @@ from frontend.forensic_agent import (  # noqa: E402
     ForensicToolkit,
     _AGENT_DB_PATH,
 )
-from frontend.pipeline_runner import PipelineResult, run_pipeline  # noqa: E402
+from frontend.pipeline_runner import (  # noqa: E402
+    PipelineResult,
+    default_output_dir,
+    run_pipeline,
+)
 from frontend.viz_helpers import (  # noqa: E402
     anomaly_scatter,
     anomaly_summary_table,
@@ -178,7 +182,7 @@ with st.sidebar:
     st.subheader("Or: Use Existing Database")
     existing_db = st.text_input(
         "Path to DuckDB file",
-        value=str(_PROJECT_ROOT / "pipeline/test_output/test_forensic_mistral.duckdb"),
+        value=str(default_output_dir() / "test_forensic_mistral.duckdb"),
     )
     use_existing = st.button("Load Existing DB", type="secondary")
 

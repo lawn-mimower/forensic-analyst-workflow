@@ -7,6 +7,7 @@ Returns paths to the DuckDB database and skill output JSON files.
 
 from __future__ import annotations
 
+import os
 import pickle
 import subprocess
 import sys
@@ -19,6 +20,14 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 # Ensure project root is importable
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
+
+
+def default_output_dir() -> Path:
+    """Where pipeline runs write DuckDB, table caches and skill JSON.
+
+    Defaults to pipeline/test_output; override with FORENSIC_OUTPUT_DIR.
+    """
+    return Path(os.environ.get("FORENSIC_OUTPUT_DIR") or _PROJECT_ROOT / "pipeline" / "test_output")
 
 
 @dataclass
@@ -154,7 +163,8 @@ def run_pipeline(
     entity_name, fiscal_year : str
         Passed to the normalizer.
     output_dir : Path | None
-        Where to write DuckDB and skill JSON.  Defaults to pipeline/test_output.
+        Where to write DuckDB and skill JSON.  Defaults to
+        ``default_output_dir()`` (pipeline/test_output or FORENSIC_OUTPUT_DIR).
     case_id : str | None
         Case ID for audit trail.
     on_progress : callable | None
@@ -165,7 +175,7 @@ def run_pipeline(
     PipelineResult
     """
     result = PipelineResult()
-    _out = output_dir or (_PROJECT_ROOT / "pipeline" / "test_output")
+    _out = Path(output_dir) if output_dir else default_output_dir()
     _out.mkdir(parents=True, exist_ok=True)
 
     suffix = "_mistral" if extractor == "mistral" else ""
