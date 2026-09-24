@@ -94,8 +94,8 @@ def benford_summary_table(data: dict[str, Any]) -> pd.DataFrame:
     rows = []
     for name, test in tests.items():
         if "error" in test:
-            rows.append({"Test": name, "Verdict": test["error"], "MAD": None,
-                         "p-value": None, "Flagged": 0})
+            rows.append({"Test": name.replace("_", " ").title(), "Verdict": test["error"],
+                         "MAD": None, "p-value": None, "Flagged Digits": 0})
         else:
             rows.append({
                 "Test": name.replace("_", " ").title(),
@@ -115,12 +115,12 @@ def duplicate_summary_table(data: dict[str, Any]) -> pd.DataFrame:
     """Create a summary of duplicate detection findings."""
     summary = data.get("summary", {})
     rows = [
-        {"Metric": "Total Records Analyzed", "Value": summary.get("total_records_analyzed", 0)},
-        {"Metric": "Exact Duplicate Groups", "Value": summary.get("exact_duplicate_groups", 0)},
-        {"Metric": "Exact Duplicate Rows", "Value": summary.get("exact_duplicate_rows", 0)},
-        {"Metric": "Near-Amount Matches", "Value": summary.get("near_amount_matches", 0)},
-        {"Metric": "Fuzzy-Name Matches", "Value": summary.get("fuzzy_name_matches", 0)},
-        {"Metric": "Cross-Period Matches", "Value": summary.get("cross_period_matches", 0)},
+        {"Metric": "Total Records Analyzed", "Value": str(summary.get("total_records_analyzed", 0))},
+        {"Metric": "Exact Duplicate Groups", "Value": str(summary.get("exact_duplicate_groups", 0))},
+        {"Metric": "Exact Duplicate Rows", "Value": str(summary.get("exact_duplicate_rows", 0))},
+        {"Metric": "Near-Amount Matches", "Value": str(summary.get("near_amount_matches", 0))},
+        {"Metric": "Fuzzy-Name Matches", "Value": str(summary.get("fuzzy_name_matches", 0))},
+        {"Metric": "Cross-Period Matches", "Value": str(summary.get("cross_period_matches", 0))},
         {"Metric": "Round Number % (ends 00)", "Value": f"{summary.get('round_number_pct_ends_00', 0):.1f}%"},
     ]
     return pd.DataFrame(rows)
@@ -334,17 +334,21 @@ def network_graph_plotly(data: dict[str, Any]) -> go.Figure | None:
 
 
 def network_stats_table(data: dict[str, Any]) -> pd.DataFrame:
-    """Network graph statistics as a DataFrame."""
+    """Network graph statistics as a DataFrame.
+
+    Values are rendered as text so the mixed int/float/bool column can be
+    serialised to Arrow by ``st.dataframe``.
+    """
     stats = data.get("graph_stats", {})
     rows = [
-        {"Metric": "Nodes", "Value": stats.get("n_nodes", 0)},
-        {"Metric": "Edges", "Value": stats.get("n_edges", 0)},
+        {"Metric": "Nodes", "Value": str(stats.get("n_nodes", 0))},
+        {"Metric": "Edges", "Value": str(stats.get("n_edges", 0))},
         {"Metric": "Density", "Value": f"{stats.get('density', 0):.4f}"},
-        {"Metric": "Connected", "Value": stats.get("is_connected", False)},
-        {"Metric": "Components", "Value": stats.get("n_components", 0)},
-        {"Metric": "Communities", "Value": len(data.get("communities", []))},
-        {"Metric": "Cycles", "Value": len(data.get("cycles", []))},
-        {"Metric": "Hubs", "Value": len(data.get("hubs", []))},
+        {"Metric": "Connected", "Value": "Yes" if stats.get("is_connected", False) else "No"},
+        {"Metric": "Components", "Value": str(stats.get("n_components", 0))},
+        {"Metric": "Communities", "Value": str(len(data.get("communities", [])))},
+        {"Metric": "Cycles", "Value": str(len(data.get("cycles", [])))},
+        {"Metric": "Hubs", "Value": str(len(data.get("hubs", [])))},
     ]
     return pd.DataFrame(rows)
 
