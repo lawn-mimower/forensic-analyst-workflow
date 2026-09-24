@@ -1,0 +1,837 @@
+Date,Voucher No,Account,Party,Amount
+2024-04-01,PV/24-25/0001,Housekeeping,Clean Sweep Facility Services,498.12
+2024-04-01,PV/24-25/0002,Repairs and maintenance,Unity Electricals,304000.00
+2024-04-02,PV/24-25/0003,Printing and stationery,Quickprint Solutions,117.55
+2024-04-02,PV/24-25/0004,Printing and stationery,Quickprint Solutions,13127.36
+2024-04-03,PV/24-25/0005,Miscellaneous expenses,Office Mart,36428.18
+2024-04-03,PV/24-25/0006,Power and fuel,GreenGrid Energy Services,128.19
+2024-04-04,PV/24-25/0007,Housekeeping,Clean Sweep Facility Services,294.01
+2024-04-04,PV/24-25/0008,Repairs and maintenance,Sai Civil Works,241.30
+2024-04-05,PV/24-25/0009,Legal and professional fees,Kapoor & Sen Legal Associates,959000.00
+2024-04-05,PV/24-25/0010,Power and fuel,Suryoday Power Services,643715.53
+2024-04-05,PV/24-25/0011,Rent,Varghese Holdings Private Limited,122000.00
+2024-04-05,PV/24-25/0012,Security charges,Metro Watch Security,50000.00
+2024-04-06,PV/24-25/0013,Printing and stationery,Metro Stationers,30000.00
+2024-04-06,PV/24-25/0014,Repairs and maintenance,Precision Machine Care,102691.64
+2024-04-07,PV/24-25/0015,Freight and forwarding,Swift Roadlines,921.34
+2024-04-08,PV/24-25/0016,Legal and professional fees,Kapoor & Sen Legal Associates,4354.10
+2024-04-08,PV/24-25/0017,Travelling and conveyance,Skyway Travels,4000.00
+2024-04-09,PV/24-25/0018,Communication expenses,Bluewave Communications,302000.00
+2024-04-09,PV/24-25/0019,Insurance,Pioneer Insurance Brokers,1249.36
+2024-04-09,PV/24-25/0020,Printing and stationery,Quickprint Solutions,11000.00
+2024-04-10,PV/24-25/0021,Miscellaneous expenses,Canteen Services Co-op,295.12
+2024-04-10,PV/24-25/0022,Travelling and conveyance,Hotel Residency Inn,2498.16
+2024-04-11,PV/24-25/0023,Freight and forwarding,Coastline Cargo Movers,395000.00
+2024-04-12,PV/24-25/0024,Communication expenses,Bluewave Communications,162.97
+2024-04-12,PV/24-25/0025,Housekeeping,Clean Sweep Facility Services,1432.05
+2024-04-12,PV/24-25/0026,Housekeeping,Clean Sweep Facility Services,12000.00
+2024-04-12,PV/24-25/0027,Repairs and maintenance,Apex Tools & Spares,379354.55
+2024-04-13,PV/24-25/0028,Housekeeping,Clean Sweep Facility Services,426871.91
+2024-04-13,PV/24-25/0029,Insurance,Pioneer Insurance Brokers,5408.26
+2024-04-13,PV/24-25/0030,Travelling and conveyance,City Cab Services,137.90
+2024-04-13,PV/24-25/0031,Travelling and conveyance,Skyway Travels,244269.85
+2024-04-14,PV/24-25/0032,Legal and professional fees,Ledger Tax Consultants,25479.26
+2024-04-14,PV/24-25/0033,Legal and professional fees,Ledger Tax Consultants,91000.00
+2024-04-14,PV/24-25/0034,Miscellaneous expenses,Sundry Vendors,1928.47
+2024-04-16,PV/24-25/0035,Freight and forwarding,Coastline Cargo Movers,923.96
+2024-04-17,PV/24-25/0036,Housekeeping,Clean Sweep Facility Services,12000.00
+2024-04-17,PV/24-25/0037,Insurance,Pioneer Insurance Brokers,6000.00
+2024-04-18,PV/24-25/0038,Communication expenses,NetLink Broadband,4000.00
+2024-04-18,PV/24-25/0039,Housekeeping,Clean Sweep Facility Services,44000.00
+2024-04-18,PV/24-25/0040,Insurance,Pioneer Insurance Brokers,22000.00
+2024-04-20,PV/24-25/0041,Communication expenses,NetLink Broadband,692574.95
+2024-04-20,PV/24-25/0042,Repairs and maintenance,Unity Electricals,171.32
+2024-04-21,PV/24-25/0043,Power and fuel,Suryoday Power Services,2000.00
+2024-04-21,PV/24-25/0044,Repairs and maintenance,Unity Electricals,123000.00
+2024-04-22,PV/24-25/0045,Legal and professional fees,Brightpath HR Advisory,806.24
+2024-04-22,PV/24-25/0046,Power and fuel,Urja Diesel Suppliers,146000.00
+2024-04-23,PV/24-25/0047,Freight and forwarding,Ganga Freight Carriers,18000.00
+2024-04-25,PV/24-25/0048,Cold storage charges,Periyar Cold Storage LLP,192863.79
+2024-04-25,PV/24-25/0049,Insurance,Pioneer Insurance Brokers,218000.00
+2024-04-25,PV/24-25/0050,Repairs and maintenance,Sai Civil Works,227.93
+2024-04-26,PV/24-25/0051,Printing and stationery,Quickprint Solutions,6700.67
+2024-04-26,PV/24-25/0052,Travelling and conveyance,Hotel Residency Inn,117288.65
+2024-04-27,PV/24-25/0053,Freight and forwarding,Ganga Freight Carriers,21526.06
+2024-04-27,PV/24-25/0054,Housekeeping,Clean Sweep Facility Services,161.79
+2024-04-27,PV/24-25/0055,Power and fuel,Suryoday Power Services,10000.00
+2024-04-27,PV/24-25/0056,Power and fuel,Suryoday Power Services,53000.00
+2024-04-27,PV/24-25/0057,Travelling and conveyance,City Cab Services,291319.21
+2024-04-29,PV/24-25/0058,Insurance,Pioneer Insurance Brokers,129.82
+2024-04-29,PV/24-25/0059,Legal and professional fees,Ledger Tax Consultants,20344.42
+2024-04-29,PV/24-25/0060,Printing and stationery,Metro Stationers,502.53
+2024-04-30,PV/24-25/0061,Communication expenses,Bluewave Communications,282356.73
+2024-04-30,PV/24-25/0062,Communication expenses,NetLink Broadband,741.93
+2024-05-01,PV/24-25/0063,Communication expenses,NetLink Broadband,686391.64
+2024-05-01,PV/24-25/0064,Housekeeping,Clean Sweep Facility Services,100.60
+2024-05-01,PV/24-25/0065,Power and fuel,Suryoday Power Services,1494.14
+2024-05-01,PV/24-25/0066,Travelling and conveyance,Skyway Travels,127.09
+2024-05-02,PV/24-25/0067,Miscellaneous expenses,Office Mart,27000.00
+2024-05-02,PV/24-25/0068,Repairs and maintenance,Unity Electricals,7000.00
+2024-05-02,PV/24-25/0069,Repairs and maintenance,Unity Electricals,107000.00
+2024-05-03,PV/24-25/0070,Housekeeping,Clean Sweep Facility Services,385.91
+2024-05-03,PV/24-25/0071,Insurance,Pioneer Insurance Brokers,12829.81
+2024-05-04,PV/24-25/0072,Printing and stationery,Metro Stationers,200000.00
+2024-05-05,PV/24-25/0073,Housekeeping,Clean Sweep Facility Services,798.69
+2024-05-05,PV/24-25/0074,Miscellaneous expenses,Canteen Services Co-op,396.73
+2024-05-05,PV/24-25/0075,Power and fuel,Suryoday Power Services,329617.40
+2024-05-05,PV/24-25/0076,Power and fuel,Urja Diesel Suppliers,123.32
+2024-05-05,PV/24-25/0077,Rent,Varghese Holdings Private Limited,122000.00
+2024-05-05,PV/24-25/0078,Security charges,Metro Watch Security,50000.00
+2024-05-06,PV/24-25/0079,Printing and stationery,Metro Stationers,58000.00
+2024-05-07,PV/24-25/0080,Communication expenses,Bluewave Communications,262.71
+2024-05-07,PV/24-25/0081,Communication expenses,Bluewave Communications,49622.52
+2024-05-07,PV/24-25/0082,Housekeeping,Clean Sweep Facility Services,599266.14
+2024-05-08,PV/24-25/0083,Communication expenses,NetLink Broadband,149.64
+2024-05-08,PV/24-25/0084,Housekeeping,Clean Sweep Facility Services,17602.42
+2024-05-08,PV/24-25/0085,Insurance,Pioneer Insurance Brokers,7000.00
+2024-05-09,PV/24-25/0086,Housekeeping,Clean Sweep Facility Services,95000.00
+2024-05-09,PV/24-25/0087,Printing and stationery,Metro Stationers,128.28
+2024-05-10,PV/24-25/0088,Miscellaneous expenses,Canteen Services Co-op,75000.00
+2024-05-11,PV/24-25/0089,Freight and forwarding,Swift Roadlines,1350.96
+2024-05-12,PV/24-25/0090,Travelling and conveyance,Hotel Residency Inn,480.14
+2024-05-13,PV/24-25/0091,Freight and forwarding,Ganga Freight Carriers,9547.16
+2024-05-13,PV/24-25/0092,Housekeeping,Clean Sweep Facility Services,634000.00
+2024-05-13,PV/24-25/0093,Miscellaneous expenses,Canteen Services Co-op,841.35
+2024-05-14,PV/24-25/0094,Insurance,Pioneer Insurance Brokers,26000.00
+2024-05-14,PV/24-25/0095,Travelling and conveyance,Hotel Residency Inn,38000.00
+2024-05-16,PV/24-25/0096,Communication expenses,Bluewave Communications,120.74
+2024-05-16,PV/24-25/0097,Communication expenses,NetLink Broadband,5683.17
+2024-05-16,PV/24-25/0098,Freight and forwarding,Swift Roadlines,15000.00
+2024-05-16,PV/24-25/0099,Repairs and maintenance,Sai Civil Works,17813.96
+2024-05-17,PV/24-25/0100,Repairs and maintenance,Sai Civil Works,133.65
+2024-05-18,PV/24-25/0101,Legal and professional fees,Brightpath HR Advisory,146.12
+2024-05-18,PV/24-25/0102,Travelling and conveyance,City Cab Services,105.05
+2024-05-19,PV/24-25/0103,Legal and professional fees,Ledger Tax Consultants,4821.21
+2024-05-19,PV/24-25/0104,Printing and stationery,Metro Stationers,7000.00
+2024-05-19,PV/24-25/0105,Repairs and maintenance,Sai Civil Works,11000.00
+2024-05-19,PV/24-25/0106,Travelling and conveyance,Hotel Residency Inn,682.37
+2024-05-21,PV/24-25/0107,Repairs and maintenance,Unity Electricals,265.02
+2024-05-22,PV/24-25/0108,Communication expenses,Bluewave Communications,19723.22
+2024-05-22,PV/24-25/0109,Miscellaneous expenses,Office Mart,11286.77
+2024-05-22,PV/24-25/0110,Power and fuel,GreenGrid Energy Services,252.17
+2024-05-22,PV/24-25/0111,Repairs and maintenance,Precision Machine Care,64000.00
+2024-05-23,PV/24-25/0112,Insurance,Pioneer Insurance Brokers,4000.00
+2024-05-23,PV/24-25/0113,Miscellaneous expenses,Office Mart,89000.00
+2024-05-23,PV/24-25/0114,Power and fuel,Urja Diesel Suppliers,423.01
+2024-05-23,PV/24-25/0115,Repairs and maintenance,Sai Civil Works,344000.00
+2024-05-23,PV/24-25/0116,Travelling and conveyance,Hotel Residency Inn,121.96
+2024-05-24,PV/24-25/0117,Freight and forwarding,Coastline Cargo Movers,47000.00
+2024-05-24,PV/24-25/0118,Freight and forwarding,Swift Roadlines,192.13
+2024-05-24,PV/24-25/0119,Housekeeping,Clean Sweep Facility Services,37966.62
+2024-05-24,PV/24-25/0120,Legal and professional fees,Brightpath HR Advisory,841.62
+2024-05-24,PV/24-25/0121,Legal and professional fees,Kapoor & Sen Legal Associates,592.68
+2024-05-24,PV/24-25/0122,Power and fuel,GreenGrid Energy Services,4000.00
+2024-05-25,PV/24-25/0123,Miscellaneous expenses,Office Mart,53631.94
+2024-05-26,PV/24-25/0124,Legal and professional fees,Brightpath HR Advisory,357.06
+2024-05-26,PV/24-25/0125,Legal and professional fees,Kapoor & Sen Legal Associates,9000.00
+2024-05-26,PV/24-25/0126,Legal and professional fees,Ledger Tax Consultants,282.21
+2024-05-27,PV/24-25/0127,Housekeeping,Clean Sweep Facility Services,5000.00
+2024-05-27,PV/24-25/0128,Legal and professional fees,Brightpath HR Advisory,30386.05
+2024-05-27,PV/24-25/0129,Travelling and conveyance,Hotel Residency Inn,460000.00
+2024-05-28,PV/24-25/0130,Communication expenses,NetLink Broadband,526.22
+2024-05-28,PV/24-25/0131,Miscellaneous expenses,Canteen Services Co-op,5000.00
+2024-05-29,PV/24-25/0132,Travelling and conveyance,City Cab Services,105.50
+2024-05-30,PV/24-25/0133,Freight and forwarding,Coastline Cargo Movers,376.67
+2024-05-30,PV/24-25/0134,Legal and professional fees,Kapoor & Sen Legal Associates,110456.50
+2024-05-30,PV/24-25/0135,Miscellaneous expenses,Office Mart,8486.64
+2024-05-30,PV/24-25/0136,Power and fuel,Suryoday Power Services,800.55
+2024-05-31,PV/24-25/0137,Freight and forwarding,Swift Roadlines,436000.00
+2024-06-02,PV/24-25/0138,Insurance,Pioneer Insurance Brokers,173000.00
+2024-06-02,PV/24-25/0139,Travelling and conveyance,Skyway Travels,62919.65
+2024-06-03,PV/24-25/0140,Freight and forwarding,Ganga Freight Carriers,474.19
+2024-06-03,PV/24-25/0141,Freight and forwarding,Ganga Freight Carriers,1002.06
+2024-06-05,PV/24-25/0142,Freight and forwarding,Coastline Cargo Movers,1933.11
+2024-06-05,PV/24-25/0143,Freight and forwarding,Swift Roadlines,7578.08
+2024-06-05,PV/24-25/0144,Housekeeping,Clean Sweep Facility Services,2408.99
+2024-06-05,PV/24-25/0145,Rent,Varghese Holdings Private Limited,122000.00
+2024-06-05,PV/24-25/0146,Security charges,Metro Watch Security,50000.00
+2024-06-07,PV/24-25/0147,Freight and forwarding,Swift Roadlines,97000.00
+2024-06-07,PV/24-25/0148,Insurance,Pioneer Insurance Brokers,47896.53
+2024-06-07,PV/24-25/0149,Power and fuel,Urja Diesel Suppliers,277.16
+2024-06-07,PV/24-25/0150,Printing and stationery,Quickprint Solutions,107144.43
+2024-06-07,PV/24-25/0151,Repairs and maintenance,Apex Tools & Spares,34000.00
+2024-06-07,PV/24-25/0152,Repairs and maintenance,Sai Civil Works,103452.91
+2024-06-09,PV/24-25/0153,Freight and forwarding,Ganga Freight Carriers,49000.00
+2024-06-09,PV/24-25/0154,Power and fuel,Suryoday Power Services,3000.00
+2024-06-10,PV/24-25/0155,Communication expenses,Bluewave Communications,684.43
+2024-06-10,PV/24-25/0156,Freight and forwarding,Swift Roadlines,272.04
+2024-06-10,PV/24-25/0157,Housekeeping,Clean Sweep Facility Services,5024.46
+2024-06-10,PV/24-25/0158,Repairs and maintenance,Precision Machine Care,14929.52
+2024-06-11,PV/24-25/0159,Insurance,Pioneer Insurance Brokers,445.62
+2024-06-12,PV/24-25/0160,Freight and forwarding,Ganga Freight Carriers,1183.08
+2024-06-12,PV/24-25/0161,Housekeeping,Clean Sweep Facility Services,150000.00
+2024-06-12,PV/24-25/0162,Insurance,Pioneer Insurance Brokers,1060.06
+2024-06-12,PV/24-25/0163,Legal and professional fees,Brightpath HR Advisory,641.98
+2024-06-12,PV/24-25/0164,Legal and professional fees,Kapoor & Sen Legal Associates,216405.36
+2024-06-12,PV/24-25/0165,Power and fuel,Suryoday Power Services,4000.00
+2024-06-13,PV/24-25/0166,Freight and forwarding,Swift Roadlines,5015.51
+2024-06-14,PV/24-25/0167,Travelling and conveyance,Hotel Residency Inn,2000.00
+2024-06-15,PV/24-25/0168,Communication expenses,Bluewave Communications,42000.00
+2024-06-16,PV/24-25/0169,Communication expenses,NetLink Broadband,347.81
+2024-06-16,PV/24-25/0170,Insurance,Pioneer Insurance Brokers,287.89
+2024-06-16,PV/24-25/0171,Travelling and conveyance,Skyway Travels,12000.00
+2024-06-17,PV/24-25/0172,Legal and professional fees,Kapoor & Sen Legal Associates,139638.64
+2024-06-17,PV/24-25/0173,Repairs and maintenance,Apex Tools & Spares,21000.00
+2024-06-18,PV/24-25/0174,Freight and forwarding,Ganga Freight Carriers,1670.84
+2024-06-18,PV/24-25/0175,Freight and forwarding,Swift Roadlines,3000.00
+2024-06-18,PV/24-25/0176,Printing and stationery,Metro Stationers,2453.08
+2024-06-19,PV/24-25/0177,Freight and forwarding,Swift Roadlines,1334.14
+2024-06-20,PV/24-25/0178,Legal and professional fees,Ledger Tax Consultants,601.98
+2024-06-21,PV/24-25/0179,Cold storage charges,Periyar Cold Storage LLP,555983.95
+2024-06-21,PV/24-25/0180,Freight and forwarding,Coastline Cargo Movers,145.43
+2024-06-21,PV/24-25/0181,Legal and professional fees,Ledger Tax Consultants,225.87
+2024-06-21,PV/24-25/0182,Power and fuel,GreenGrid Energy Services,5000.00
+2024-06-22,PV/24-25/0183,Communication expenses,Bluewave Communications,286184.37
+2024-06-23,PV/24-25/0184,Freight and forwarding,Coastline Cargo Movers,478000.00
+2024-06-23,PV/24-25/0185,Housekeeping,Clean Sweep Facility Services,34046.02
+2024-06-23,PV/24-25/0186,Miscellaneous expenses,Sundry Vendors,123000.00
+2024-06-23,PV/24-25/0187,Power and fuel,GreenGrid Energy Services,609000.00
+2024-06-25,PV/24-25/0188,Repairs and maintenance,Sai Civil Works,226.79
+2024-06-27,PV/24-25/0189,Legal and professional fees,Brightpath HR Advisory,9000.00
+2024-06-27,PV/24-25/0190,Travelling and conveyance,City Cab Services,35000.00
+2024-06-28,PV/24-25/0191,Legal and professional fees,Brightpath HR Advisory,92612.16
+2024-06-29,PV/24-25/0192,Printing and stationery,Metro Stationers,1921.50
+2024-06-29,PV/24-25/0193,Printing and stationery,Quickprint Solutions,210.45
+2024-06-30,PV/24-25/0194,Travelling and conveyance,Hotel Residency Inn,201.29
+2024-07-01,PV/24-25/0195,Miscellaneous expenses,Sundry Vendors,6701.80
+2024-07-01,PV/24-25/0196,Miscellaneous expenses,Sundry Vendors,9409.06
+2024-07-01,PV/24-25/0197,Power and fuel,Suryoday Power Services,121.11
+2024-07-01,PV/24-25/0198,Printing and stationery,Metro Stationers,388.99
+2024-07-02,PV/24-25/0199,Housekeeping,Clean Sweep Facility Services,339410.80
+2024-07-02,PV/24-25/0200,Legal and professional fees,Kapoor & Sen Legal Associates,442000.00
+2024-07-02,PV/24-25/0201,Power and fuel,Suryoday Power Services,10964.96
+2024-07-02,PV/24-25/0202,Repairs and maintenance,Precision Machine Care,8836.63
+2024-07-02,PV/24-25/0203,Travelling and conveyance,Skyway Travels,696.38
+2024-07-02,PV/24-25/0204,Travelling and conveyance,Skyway Travels,526018.89
+2024-07-03,PV/24-25/0205,Repairs and maintenance,Apex Tools & Spares,827.79
+2024-07-03,PV/24-25/0206,Repairs and maintenance,Sai Civil Works,913.93
+2024-07-03,PV/24-25/0207,Travelling and conveyance,City Cab Services,5883.00
+2024-07-04,PV/24-25/0208,Cold storage charges,Periyar Cold Storage LLP,405154.86
+2024-07-04,PV/24-25/0209,Printing and stationery,Metro Stationers,4000.00
+2024-07-05,PV/24-25/0210,Housekeeping,Clean Sweep Facility Services,570.34
+2024-07-05,PV/24-25/0211,Printing and stationery,Metro Stationers,32526.38
+2024-07-05,PV/24-25/0212,Rent,Varghese Holdings Private Limited,122000.00
+2024-07-05,PV/24-25/0213,Security charges,Metro Watch Security,50000.00
+2024-07-06,PV/24-25/0214,Communication expenses,Bluewave Communications,4807.22
+2024-07-06,PV/24-25/0215,Travelling and conveyance,Skyway Travels,493436.07
+2024-07-07,PV/24-25/0216,Insurance,Pioneer Insurance Brokers,119.40
+2024-07-07,PV/24-25/0217,Legal and professional fees,Kapoor & Sen Legal Associates,32000.00
+2024-07-07,PV/24-25/0218,Repairs and maintenance,Unity Electricals,6336.66
+2024-07-09,PV/24-25/0219,Housekeeping,Clean Sweep Facility Services,455281.63
+2024-07-09,PV/24-25/0220,Legal and professional fees,Brightpath HR Advisory,696000.00
+2024-07-09,PV/24-25/0221,Miscellaneous expenses,Canteen Services Co-op,140000.00
+2024-07-10,PV/24-25/0222,Power and fuel,GreenGrid Energy Services,37000.00
+2024-07-10,PV/24-25/0223,Printing and stationery,Metro Stationers,370000.00
+2024-07-10,PV/24-25/0224,Printing and stationery,Quickprint Solutions,327000.00
+2024-07-10,PV/24-25/0225,Travelling and conveyance,Skyway Travels,263631.80
+2024-07-12,PV/24-25/0226,Travelling and conveyance,Skyway Travels,1247.19
+2024-07-13,PV/24-25/0227,Communication expenses,NetLink Broadband,350763.87
+2024-07-13,PV/24-25/0228,Printing and stationery,Quickprint Solutions,361000.00
+2024-07-13,PV/24-25/0229,Travelling and conveyance,Hotel Residency Inn,4580.78
+2024-07-15,PV/24-25/0230,Freight and forwarding,Coastline Cargo Movers,566.69
+2024-07-15,PV/24-25/0231,Legal and professional fees,Brightpath HR Advisory,173.85
+2024-07-15,PV/24-25/0232,Miscellaneous expenses,Sundry Vendors,60000.00
+2024-07-16,PV/24-25/0233,Communication expenses,Bluewave Communications,320000.00
+2024-07-16,PV/24-25/0234,Housekeeping,Clean Sweep Facility Services,614080.28
+2024-07-16,PV/24-25/0235,Insurance,Pioneer Insurance Brokers,1216.34
+2024-07-16,PV/24-25/0236,Legal and professional fees,Brightpath HR Advisory,1110.20
+2024-07-16,PV/24-25/0237,Miscellaneous expenses,Canteen Services Co-op,2967.93
+2024-07-16,PV/24-25/0238,Miscellaneous expenses,Office Mart,954488.23
+2024-07-16,PV/24-25/0239,Repairs and maintenance,Precision Machine Care,205.11
+2024-07-16,PV/24-25/0240,Repairs and maintenance,Unity Electricals,1200.48
+2024-07-17,PV/24-25/0241,Housekeeping,Clean Sweep Facility Services,41867.79
+2024-07-17,PV/24-25/0242,Legal and professional fees,Kapoor & Sen Legal Associates,876.77
+2024-07-17,PV/24-25/0243,Power and fuel,GreenGrid Energy Services,12000.00
+2024-07-18,PV/24-25/0244,Power and fuel,Urja Diesel Suppliers,1755.52
+2024-07-18,PV/24-25/0245,Printing and stationery,Quickprint Solutions,9838.25
+2024-07-18,PV/24-25/0246,Printing and stationery,Quickprint Solutions,107984.06
+2024-07-19,PV/24-25/0247,Insurance,Pioneer Insurance Brokers,151196.82
+2024-07-19,PV/24-25/0248,Repairs and maintenance,Sai Civil Works,213555.81
+2024-07-20,PV/24-25/0249,Insurance,Pioneer Insurance Brokers,390.97
+2024-07-20,PV/24-25/0250,Insurance,Pioneer Insurance Brokers,252095.24
+2024-07-20,PV/24-25/0251,Power and fuel,GreenGrid Energy Services,31966.76
+2024-07-21,PV/24-25/0252,Housekeeping,Clean Sweep Facility Services,4589.50
+2024-07-22,PV/24-25/0253,Freight and forwarding,Swift Roadlines,310.59
+2024-07-23,PV/24-25/0254,Housekeeping,Clean Sweep Facility Services,1941.16
+2024-07-26,PV/24-25/0255,Insurance,Pioneer Insurance Brokers,2612.02
+2024-07-26,PV/24-25/0256,Legal and professional fees,Brightpath HR Advisory,14000.00
+2024-07-26,PV/24-25/0257,Legal and professional fees,Ledger Tax Consultants,65000.00
+2024-07-26,PV/24-25/0258,Repairs and maintenance,Apex Tools & Spares,267000.00
+2024-07-26,PV/24-25/0259,Travelling and conveyance,City Cab Services,199.73
+2024-07-27,PV/24-25/0260,Communication expenses,NetLink Broadband,41863.41
+2024-07-27,PV/24-25/0261,Insurance,Pioneer Insurance Brokers,136.92
+2024-07-28,PV/24-25/0262,Legal and professional fees,Brightpath HR Advisory,42802.58
+2024-07-28,PV/24-25/0263,Repairs and maintenance,Sai Civil Works,10000.00
+2024-07-28,PV/24-25/0264,Travelling and conveyance,Hotel Residency Inn,37000.00
+2024-07-30,PV/24-25/0265,Communication expenses,Bluewave Communications,317336.98
+2024-07-30,PV/24-25/0266,Insurance,Pioneer Insurance Brokers,1311.58
+2024-07-30,PV/24-25/0267,Travelling and conveyance,Skyway Travels,709.78
+2024-07-31,PV/24-25/0268,Freight and forwarding,Swift Roadlines,234.94
+2024-07-31,PV/24-25/0269,Printing and stationery,Metro Stationers,30341.86
+2024-08-01,PV/24-25/0270,Freight and forwarding,Ganga Freight Carriers,5322.38
+2024-08-01,PV/24-25/0271,Freight and forwarding,Ganga Freight Carriers,23000.00
+2024-08-01,PV/24-25/0272,Housekeeping,Clean Sweep Facility Services,10512.07
+2024-08-01,PV/24-25/0273,Printing and stationery,Quickprint Solutions,22000.00
+2024-08-02,PV/24-25/0274,Communication expenses,NetLink Broadband,356.56
+2024-08-02,PV/24-25/0275,Travelling and conveyance,Hotel Residency Inn,959.82
+2024-08-05,PV/24-25/0276,Power and fuel,Suryoday Power Services,494.90
+2024-08-05,PV/24-25/0277,Printing and stationery,Quickprint Solutions,550.61
+2024-08-05,PV/24-25/0278,Printing and stationery,Quickprint Solutions,470000.00
+2024-08-05,PV/24-25/0279,Rent,Varghese Holdings Private Limited,122000.00
+2024-08-05,PV/24-25/0280,Security charges,Metro Watch Security,50000.00
+2024-08-06,PV/24-25/0281,Freight and forwarding,Coastline Cargo Movers,22275.21
+2024-08-06,PV/24-25/0282,Legal and professional fees,Ledger Tax Consultants,247.92
+2024-08-06,PV/24-25/0283,Legal and professional fees,Ledger Tax Consultants,346000.00
+2024-08-06,PV/24-25/0284,Repairs and maintenance,Unity Electricals,694.23
+2024-08-07,PV/24-25/0285,Repairs and maintenance,Precision Machine Care,1804.40
+2024-08-07,PV/24-25/0286,Travelling and conveyance,Hotel Residency Inn,4000.00
+2024-08-08,PV/24-25/0287,Communication expenses,NetLink Broadband,777.72
+2024-08-08,PV/24-25/0288,Freight and forwarding,Swift Roadlines,736000.00
+2024-08-09,PV/24-25/0289,Travelling and conveyance,Skyway Travels,160791.57
+2024-08-10,PV/24-25/0290,Communication expenses,Bluewave Communications,17000.00
+2024-08-10,PV/24-25/0291,Freight and forwarding,Ganga Freight Carriers,1324.36
+2024-08-10,PV/24-25/0292,Freight and forwarding,Swift Roadlines,18000.00
+2024-08-10,PV/24-25/0293,Insurance,Pioneer Insurance Brokers,231.78
+2024-08-10,PV/24-25/0294,Legal and professional fees,Brightpath HR Advisory,6000.00
+2024-08-10,PV/24-25/0295,Power and fuel,GreenGrid Energy Services,243849.66
+2024-08-10,PV/24-25/0296,Repairs and maintenance,Sai Civil Works,14000.00
+2024-08-11,PV/24-25/0297,Legal and professional fees,Kapoor & Sen Legal Associates,1995.86
+2024-08-11,PV/24-25/0298,Power and fuel,Urja Diesel Suppliers,527216.97
+2024-08-11,PV/24-25/0299,Travelling and conveyance,City Cab Services,3000.00
+2024-08-13,PV/24-25/0300,Freight and forwarding,Coastline Cargo Movers,119000.00
+2024-08-13,PV/24-25/0301,Insurance,Pioneer Insurance Brokers,23000.00
+2024-08-13,PV/24-25/0302,Insurance,Pioneer Insurance Brokers,445000.00
+2024-08-13,PV/24-25/0303,Miscellaneous expenses,Canteen Services Co-op,1097.56
+2024-08-13,PV/24-25/0304,Miscellaneous expenses,Sundry Vendors,147000.00
+2024-08-13,PV/24-25/0305,Power and fuel,Suryoday Power Services,1685.03
+2024-08-13,PV/24-25/0306,Power and fuel,Urja Diesel Suppliers,937000.00
+2024-08-14,PV/24-25/0307,Miscellaneous expenses,Sundry Vendors,322.66
+2024-08-15,PV/24-25/0308,Cold storage charges,Periyar Cold Storage LLP,378746.57
+2024-08-15,PV/24-25/0309,Communication expenses,NetLink Broadband,8058.08
+2024-08-15,PV/24-25/0310,Printing and stationery,Quickprint Solutions,41756.03
+2024-08-16,PV/24-25/0311,Miscellaneous expenses,Office Mart,29000.00
+2024-08-17,PV/24-25/0312,Communication expenses,NetLink Broadband,6429.59
+2024-08-17,PV/24-25/0313,Housekeeping,Clean Sweep Facility Services,425.38
+2024-08-17,PV/24-25/0314,Insurance,Pioneer Insurance Brokers,143.26
+2024-08-17,PV/24-25/0315,Miscellaneous expenses,Sundry Vendors,359.20
+2024-08-18,PV/24-25/0316,Miscellaneous expenses,Sundry Vendors,268228.87
+2024-08-19,PV/24-25/0317,Insurance,Pioneer Insurance Brokers,199.68
+2024-08-20,PV/24-25/0318,Legal and professional fees,Kapoor & Sen Legal Associates,22000.00
+2024-08-20,PV/24-25/0319,Power and fuel,Suryoday Power Services,78100.99
+2024-08-20,PV/24-25/0320,Travelling and conveyance,Hotel Residency Inn,502000.00
+2024-08-21,PV/24-25/0321,Communication expenses,Bluewave Communications,136.07
+2024-08-21,PV/24-25/0322,Communication expenses,Bluewave Communications,425.21
+2024-08-21,PV/24-25/0323,Legal and professional fees,Kapoor & Sen Legal Associates,123.91
+2024-08-21,PV/24-25/0324,Power and fuel,Urja Diesel Suppliers,125000.00
+2024-08-22,PV/24-25/0325,Communication expenses,NetLink Broadband,353.23
+2024-08-24,PV/24-25/0326,Cold storage charges,Periyar Cold Storage LLP,379734.15
+2024-08-24,PV/24-25/0327,Freight and forwarding,Swift Roadlines,224718.26
+2024-08-24,PV/24-25/0328,Miscellaneous expenses,Office Mart,6787.94
+2024-08-25,PV/24-25/0329,Communication expenses,Bluewave Communications,123.69
+2024-08-25,PV/24-25/0330,Repairs and maintenance,Apex Tools & Spares,1010.30
+2024-08-25,PV/24-25/0331,Travelling and conveyance,Hotel Residency Inn,1867.33
+2024-08-26,PV/24-25/0332,Freight and forwarding,Swift Roadlines,3000.00
+2024-08-26,PV/24-25/0333,Housekeeping,Clean Sweep Facility Services,1484.61
+2024-08-26,PV/24-25/0334,Miscellaneous expenses,Canteen Services Co-op,120746.05
+2024-08-26,PV/24-25/0335,Miscellaneous expenses,Canteen Services Co-op,123000.00
+2024-08-26,PV/24-25/0336,Power and fuel,GreenGrid Energy Services,1090.60
+2024-08-26,PV/24-25/0337,Printing and stationery,Metro Stationers,655757.19
+2024-08-27,PV/24-25/0338,Housekeeping,Clean Sweep Facility Services,402000.00
+2024-08-27,PV/24-25/0339,Insurance,Pioneer Insurance Brokers,3000.00
+2024-08-28,PV/24-25/0340,Power and fuel,GreenGrid Energy Services,6565.01
+2024-08-29,PV/24-25/0341,Legal and professional fees,Brightpath HR Advisory,151374.06
+2024-08-29,PV/24-25/0342,Miscellaneous expenses,Sundry Vendors,334000.00
+2024-08-30,PV/24-25/0343,Insurance,Pioneer Insurance Brokers,635002.38
+2024-08-30,PV/24-25/0344,Power and fuel,Urja Diesel Suppliers,375.71
+2024-08-30,PV/24-25/0345,Power and fuel,Urja Diesel Suppliers,477091.73
+2024-08-31,PV/24-25/0346,Communication expenses,Bluewave Communications,133.26
+2024-08-31,PV/24-25/0347,Freight and forwarding,Swift Roadlines,15000.00
+2024-09-01,PV/24-25/0348,Housekeeping,Clean Sweep Facility Services,379000.00
+2024-09-01,PV/24-25/0349,Miscellaneous expenses,Office Mart,115.29
+2024-09-01,PV/24-25/0350,Miscellaneous expenses,Office Mart,1459.91
+2024-09-02,PV/24-25/0351,Freight and forwarding,Ganga Freight Carriers,654000.00
+2024-09-02,PV/24-25/0352,Housekeeping,Clean Sweep Facility Services,1403.49
+2024-09-02,PV/24-25/0353,Power and fuel,GreenGrid Energy Services,14000.00
+2024-09-02,PV/24-25/0354,Repairs and maintenance,Precision Machine Care,4721.65
+2024-09-03,PV/24-25/0355,Legal and professional fees,Brightpath HR Advisory,197000.00
+2024-09-04,PV/24-25/0356,Insurance,Pioneer Insurance Brokers,1471.28
+2024-09-05,PV/24-25/0357,Insurance,Pioneer Insurance Brokers,1057.50
+2024-09-05,PV/24-25/0358,Printing and stationery,Metro Stationers,27616.54
+2024-09-05,PV/24-25/0359,Rent,Varghese Holdings Private Limited,122000.00
+2024-09-05,PV/24-25/0360,Security charges,Metro Watch Security,50000.00
+2024-09-05,PV/24-25/0361,Travelling and conveyance,Hotel Residency Inn,37000.00
+2024-09-06,PV/24-25/0362,Insurance,Pioneer Insurance Brokers,2815.18
+2024-09-06,PV/24-25/0363,Power and fuel,Suryoday Power Services,1369.33
+2024-09-07,PV/24-25/0364,Legal and professional fees,Brightpath HR Advisory,12081.57
+2024-09-07,PV/24-25/0365,Miscellaneous expenses,Office Mart,43000.00
+2024-09-08,PV/24-25/0366,Power and fuel,Urja Diesel Suppliers,2000.00
+2024-09-08,PV/24-25/0367,Power and fuel,Urja Diesel Suppliers,9000.00
+2024-09-08,PV/24-25/0368,Power and fuel,Urja Diesel Suppliers,13000.00
+2024-09-08,PV/24-25/0369,Repairs and maintenance,Precision Machine Care,3000.00
+2024-09-08,PV/24-25/0370,Travelling and conveyance,City Cab Services,135.01
+2024-09-08,PV/24-25/0371,Travelling and conveyance,City Cab Services,303.91
+2024-09-09,PV/24-25/0372,Communication expenses,NetLink Broadband,2529.76
+2024-09-09,PV/24-25/0373,Miscellaneous expenses,Canteen Services Co-op,2572.27
+2024-09-09,PV/24-25/0374,Power and fuel,GreenGrid Energy Services,30000.00
+2024-09-09,PV/24-25/0375,Repairs and maintenance,Apex Tools & Spares,282000.00
+2024-09-09,PV/24-25/0376,Repairs and maintenance,Sai Civil Works,43588.90
+2024-09-10,PV/24-25/0377,Freight and forwarding,Swift Roadlines,49000.00
+2024-09-10,PV/24-25/0378,Power and fuel,Urja Diesel Suppliers,22000.00
+2024-09-10,PV/24-25/0379,Travelling and conveyance,City Cab Services,137.65
+2024-09-12,PV/24-25/0380,Communication expenses,Bluewave Communications,61000.00
+2024-09-12,PV/24-25/0381,Communication expenses,Bluewave Communications,284832.89
+2024-09-12,PV/24-25/0382,Miscellaneous expenses,Office Mart,922000.00
+2024-09-14,PV/24-25/0383,Housekeeping,Clean Sweep Facility Services,83699.05
+2024-09-14,PV/24-25/0384,Power and fuel,GreenGrid Energy Services,824.39
+2024-09-15,PV/24-25/0385,Miscellaneous expenses,Canteen Services Co-op,20000.00
+2024-09-15,PV/24-25/0386,Miscellaneous expenses,Sundry Vendors,3000.00
+2024-09-15,PV/24-25/0387,Power and fuel,Suryoday Power Services,246.16
+2024-09-15,PV/24-25/0388,Power and fuel,Urja Diesel Suppliers,16000.00
+2024-09-15,PV/24-25/0389,Repairs and maintenance,Sai Civil Works,193000.00
+2024-09-16,PV/24-25/0390,Printing and stationery,Metro Stationers,889000.00
+2024-09-17,PV/24-25/0391,Housekeeping,Clean Sweep Facility Services,35000.00
+2024-09-17,PV/24-25/0392,Insurance,Pioneer Insurance Brokers,284000.00
+2024-09-17,PV/24-25/0393,Legal and professional fees,Kapoor & Sen Legal Associates,539101.52
+2024-09-17,PV/24-25/0394,Printing and stationery,Quickprint Solutions,503532.28
+2024-09-18,PV/24-25/0395,Insurance,Pioneer Insurance Brokers,5110.73
+2024-09-18,PV/24-25/0396,Repairs and maintenance,Sai Civil Works,993.17
+2024-09-19,PV/24-25/0397,Freight and forwarding,Ganga Freight Carriers,174852.53
+2024-09-19,PV/24-25/0398,Miscellaneous expenses,Canteen Services Co-op,432000.00
+2024-09-19,PV/24-25/0399,Power and fuel,Suryoday Power Services,2000.00
+2024-09-20,PV/24-25/0400,Freight and forwarding,Swift Roadlines,3200.54
+2024-09-20,PV/24-25/0401,Housekeeping,Clean Sweep Facility Services,552354.90
+2024-09-20,PV/24-25/0402,Repairs and maintenance,Precision Machine Care,125.38
+2024-09-21,PV/24-25/0403,Printing and stationery,Quickprint Solutions,2067.00
+2024-09-21,PV/24-25/0404,Travelling and conveyance,City Cab Services,11731.61
+2024-09-22,PV/24-25/0405,Communication expenses,NetLink Broadband,730.60
+2024-09-22,PV/24-25/0406,Legal and professional fees,Brightpath HR Advisory,557175.02
+2024-09-23,PV/24-25/0407,Housekeeping,Clean Sweep Facility Services,124.78
+2024-09-24,PV/24-25/0408,Miscellaneous expenses,Canteen Services Co-op,120.98
+2024-09-24,PV/24-25/0409,Printing and stationery,Metro Stationers,8000.00
+2024-09-25,PV/24-25/0410,Legal and professional fees,Brightpath HR Advisory,281.64
+2024-09-25,PV/24-25/0411,Printing and stationery,Metro Stationers,22000.00
+2024-09-26,PV/24-25/0412,Legal and professional fees,Kapoor & Sen Legal Associates,81000.00
+2024-09-26,PV/24-25/0413,Miscellaneous expenses,Office Mart,326951.53
+2024-09-27,PV/24-25/0414,Communication expenses,NetLink Broadband,344000.00
+2024-09-28,PV/24-25/0415,Power and fuel,Urja Diesel Suppliers,9148.80
+2024-09-29,PV/24-25/0416,Communication expenses,Bluewave Communications,1132.48
+2024-09-29,PV/24-25/0417,Miscellaneous expenses,Canteen Services Co-op,16000.00
+2024-09-30,PV/24-25/0418,Communication expenses,NetLink Broadband,95000.00
+2024-09-30,PV/24-25/0419,Housekeeping,Clean Sweep Facility Services,9000.00
+2024-09-30,PV/24-25/0420,Miscellaneous expenses,Office Mart,5000.00
+2024-09-30,PV/24-25/0421,Miscellaneous expenses,Office Mart,6477.89
+2024-09-30,PV/24-25/0422,Power and fuel,Suryoday Power Services,76000.00
+2024-09-30,PV/24-25/0423,Printing and stationery,Quickprint Solutions,14000.00
+2024-10-01,PV/24-25/0424,Housekeeping,Clean Sweep Facility Services,2000.00
+2024-10-01,PV/24-25/0425,Miscellaneous expenses,Canteen Services Co-op,125442.17
+2024-10-01,PV/24-25/0426,Miscellaneous expenses,Sundry Vendors,172.21
+2024-10-01,PV/24-25/0427,Repairs and maintenance,Sai Civil Works,7000.00
+2024-10-02,PV/24-25/0428,Legal and professional fees,Ledger Tax Consultants,24000.00
+2024-10-02,PV/24-25/0429,Printing and stationery,Quickprint Solutions,48070.84
+2024-10-03,PV/24-25/0430,Legal and professional fees,Kapoor & Sen Legal Associates,1486.17
+2024-10-04,PV/24-25/0431,Insurance,Pioneer Insurance Brokers,470.94
+2024-10-05,PV/24-25/0432,Insurance,Pioneer Insurance Brokers,85000.00
+2024-10-05,PV/24-25/0433,Legal and professional fees,Brightpath HR Advisory,305000.00
+2024-10-05,PV/24-25/0434,Rent,Varghese Holdings Private Limited,122000.00
+2024-10-05,PV/24-25/0435,Security charges,Metro Watch Security,50000.00
+2024-10-06,PV/24-25/0436,Repairs and maintenance,Unity Electricals,784.53
+2024-10-07,PV/24-25/0437,Insurance,Pioneer Insurance Brokers,380.57
+2024-10-07,PV/24-25/0438,Insurance,Pioneer Insurance Brokers,32000.00
+2024-10-07,PV/24-25/0439,Miscellaneous expenses,Canteen Services Co-op,172.66
+2024-10-08,PV/24-25/0440,Power and fuel,GreenGrid Energy Services,862.94
+2024-10-08,PV/24-25/0441,Printing and stationery,Metro Stationers,303.09
+2024-10-09,PV/24-25/0442,Legal and professional fees,Kapoor & Sen Legal Associates,10000.00
+2024-10-09,PV/24-25/0443,Legal and professional fees,Ledger Tax Consultants,607000.00
+2024-10-09,PV/24-25/0444,Printing and stationery,Quickprint Solutions,469000.00
+2024-10-09,PV/24-25/0445,Repairs and maintenance,Precision Machine Care,35000.00
+2024-10-10,PV/24-25/0446,Housekeeping,Clean Sweep Facility Services,87000.00
+2024-10-10,PV/24-25/0447,Miscellaneous expenses,Office Mart,302.90
+2024-10-10,PV/24-25/0448,Power and fuel,GreenGrid Energy Services,1142.39
+2024-10-10,PV/24-25/0449,Repairs and maintenance,Sai Civil Works,4000.00
+2024-10-13,PV/24-25/0450,Legal and professional fees,Brightpath HR Advisory,7000.00
+2024-10-13,PV/24-25/0451,Miscellaneous expenses,Canteen Services Co-op,22367.19
+2024-10-13,PV/24-25/0452,Power and fuel,GreenGrid Energy Services,292000.00
+2024-10-13,PV/24-25/0453,Power and fuel,Urja Diesel Suppliers,152826.33
+2024-10-13,PV/24-25/0454,Repairs and maintenance,Apex Tools & Spares,963098.38
+2024-10-14,PV/24-25/0455,Communication expenses,Bluewave Communications,234.41
+2024-10-14,PV/24-25/0456,Housekeeping,Clean Sweep Facility Services,103.84
+2024-10-16,PV/24-25/0457,Power and fuel,Suryoday Power Services,111.51
+2024-10-17,PV/24-25/0458,Communication expenses,Bluewave Communications,29357.15
+2024-10-18,PV/24-25/0459,Housekeeping,Clean Sweep Facility Services,4000.00
+2024-10-18,PV/24-25/0460,Housekeeping,Clean Sweep Facility Services,59687.07
+2024-10-18,PV/24-25/0461,Insurance,Pioneer Insurance Brokers,50133.71
+2024-10-18,PV/24-25/0462,Power and fuel,GreenGrid Energy Services,363741.65
+2024-10-20,PV/24-25/0463,Insurance,Pioneer Insurance Brokers,261.19
+2024-10-20,PV/24-25/0464,Insurance,Pioneer Insurance Brokers,1322.23
+2024-10-20,PV/24-25/0465,Miscellaneous expenses,Office Mart,3309.32
+2024-10-20,PV/24-25/0466,Travelling and conveyance,Hotel Residency Inn,112.13
+2024-10-21,PV/24-25/0467,Legal and professional fees,Brightpath HR Advisory,7000.00
+2024-10-21,PV/24-25/0468,Travelling and conveyance,Hotel Residency Inn,74927.26
+2024-10-23,PV/24-25/0469,Freight and forwarding,Swift Roadlines,62741.69
+2024-10-25,PV/24-25/0470,Legal and professional fees,Brightpath HR Advisory,243.31
+2024-10-25,PV/24-25/0471,Miscellaneous expenses,Canteen Services Co-op,14000.00
+2024-10-25,PV/24-25/0472,Miscellaneous expenses,Sundry Vendors,156000.00
+2024-10-26,PV/24-25/0473,Printing and stationery,Quickprint Solutions,284.79
+2024-10-26,PV/24-25/0474,Printing and stationery,Quickprint Solutions,873.80
+2024-10-27,PV/24-25/0475,Housekeeping,Clean Sweep Facility Services,332000.00
+2024-10-28,PV/24-25/0476,Freight and forwarding,Swift Roadlines,820.95
+2024-10-28,PV/24-25/0477,Legal and professional fees,Kapoor & Sen Legal Associates,415540.12
+2024-10-29,PV/24-25/0478,Freight and forwarding,Ganga Freight Carriers,598.08
+2024-10-29,PV/24-25/0479,Printing and stationery,Quickprint Solutions,67764.60
+2024-10-30,PV/24-25/0480,Communication expenses,Bluewave Communications,20000.00
+2024-10-31,PV/24-25/0481,Freight and forwarding,Ganga Freight Carriers,1401.58
+2024-10-31,PV/24-25/0482,Power and fuel,Urja Diesel Suppliers,20278.94
+2024-10-31,PV/24-25/0483,Power and fuel,Urja Diesel Suppliers,436000.00
+2024-10-31,PV/24-25/0484,Printing and stationery,Quickprint Solutions,1723.91
+2024-10-31,PV/24-25/0485,Repairs and maintenance,Apex Tools & Spares,467165.78
+2024-11-01,PV/24-25/0486,Cold storage charges,Periyar Cold Storage LLP,501907.42
+2024-11-01,PV/24-25/0487,Miscellaneous expenses,Sundry Vendors,89749.31
+2024-11-02,PV/24-25/0488,Repairs and maintenance,Apex Tools & Spares,385.92
+2024-11-02,PV/24-25/0489,Travelling and conveyance,Skyway Travels,9000.00
+2024-11-03,PV/24-25/0490,Freight and forwarding,Coastline Cargo Movers,135.00
+2024-11-03,PV/24-25/0491,Legal and professional fees,Ledger Tax Consultants,3000.00
+2024-11-05,PV/24-25/0492,Housekeeping,Clean Sweep Facility Services,108295.91
+2024-11-05,PV/24-25/0493,Power and fuel,GreenGrid Energy Services,493529.44
+2024-11-05,PV/24-25/0494,Rent,Varghese Holdings Private Limited,122000.00
+2024-11-05,PV/24-25/0495,Security charges,Metro Watch Security,50000.00
+2024-11-06,PV/24-25/0496,Freight and forwarding,Swift Roadlines,403019.40
+2024-11-06,PV/24-25/0497,Housekeeping,Clean Sweep Facility Services,176057.94
+2024-11-06,PV/24-25/0498,Insurance,Pioneer Insurance Brokers,202000.00
+2024-11-07,PV/24-25/0499,Insurance,Pioneer Insurance Brokers,8317.24
+2024-11-07,PV/24-25/0500,Miscellaneous expenses,Sundry Vendors,246.03
+2024-11-07,PV/24-25/0501,Power and fuel,GreenGrid Energy Services,64000.00
+2024-11-07,PV/24-25/0502,Repairs and maintenance,Unity Electricals,922874.40
+2024-11-08,PV/24-25/0503,Communication expenses,Bluewave Communications,179000.00
+2024-11-08,PV/24-25/0504,Housekeeping,Clean Sweep Facility Services,262000.00
+2024-11-08,PV/24-25/0505,Housekeeping,Clean Sweep Facility Services,766560.70
+2024-11-08,PV/24-25/0506,Legal and professional fees,Brightpath HR Advisory,58000.00
+2024-11-08,PV/24-25/0507,Printing and stationery,Metro Stationers,33396.21
+2024-11-09,PV/24-25/0508,Communication expenses,Bluewave Communications,28000.00
+2024-11-09,PV/24-25/0509,Insurance,Pioneer Insurance Brokers,123000.00
+2024-11-09,PV/24-25/0510,Printing and stationery,Metro Stationers,243.63
+2024-11-11,PV/24-25/0511,Insurance,Pioneer Insurance Brokers,117895.89
+2024-11-11,PV/24-25/0512,Legal and professional fees,Brightpath HR Advisory,106.21
+2024-11-11,PV/24-25/0513,Power and fuel,Urja Diesel Suppliers,977.49
+2024-11-12,PV/24-25/0514,Power and fuel,Urja Diesel Suppliers,25000.00
+2024-11-12,PV/24-25/0515,Printing and stationery,Quickprint Solutions,11000.00
+2024-11-12,PV/24-25/0516,Repairs and maintenance,Sai Civil Works,115.23
+2024-11-12,PV/24-25/0517,Travelling and conveyance,Skyway Travels,682602.10
+2024-11-13,PV/24-25/0518,Communication expenses,NetLink Broadband,342571.36
+2024-11-13,PV/24-25/0519,Housekeeping,Clean Sweep Facility Services,219973.30
+2024-11-13,PV/24-25/0520,Legal and professional fees,Brightpath HR Advisory,825374.56
+2024-11-13,PV/24-25/0521,Legal and professional fees,Kapoor & Sen Legal Associates,7257.78
+2024-11-16,PV/24-25/0522,Miscellaneous expenses,Canteen Services Co-op,158.79
+2024-11-17,PV/24-25/0523,Cold storage charges,Periyar Cold Storage LLP,276298.93
+2024-11-17,PV/24-25/0524,Communication expenses,Bluewave Communications,780.88
+2024-11-17,PV/24-25/0525,Repairs and maintenance,Precision Machine Care,1024.63
+2024-11-17,PV/24-25/0526,Repairs and maintenance,Sai Civil Works,2000.00
+2024-11-18,PV/24-25/0527,Travelling and conveyance,City Cab Services,274000.00
+2024-11-19,PV/24-25/0528,Power and fuel,Suryoday Power Services,12000.00
+2024-11-20,PV/24-25/0529,Power and fuel,Urja Diesel Suppliers,379.18
+2024-11-20,PV/24-25/0530,Repairs and maintenance,Sai Civil Works,677.83
+2024-11-21,PV/24-25/0531,Power and fuel,Suryoday Power Services,40225.23
+2024-11-21,PV/24-25/0532,Printing and stationery,Metro Stationers,134000.00
+2024-11-21,PV/24-25/0533,Printing and stationery,Quickprint Solutions,1015.17
+2024-11-21,PV/24-25/0534,Repairs and maintenance,Apex Tools & Spares,93964.79
+2024-11-22,PV/24-25/0535,Communication expenses,NetLink Broadband,12986.82
+2024-11-22,PV/24-25/0536,Insurance,Pioneer Insurance Brokers,14475.22
+2024-11-22,PV/24-25/0537,Miscellaneous expenses,Canteen Services Co-op,689.21
+2024-11-22,PV/24-25/0538,Miscellaneous expenses,Canteen Services Co-op,606000.00
+2024-11-22,PV/24-25/0539,Printing and stationery,Quickprint Solutions,174613.81
+2024-11-22,PV/24-25/0540,Travelling and conveyance,Skyway Travels,70912.33
+2024-11-23,PV/24-25/0541,Insurance,Pioneer Insurance Brokers,24000.00
+2024-11-24,PV/24-25/0542,Travelling and conveyance,Skyway Travels,328.40
+2024-11-25,PV/24-25/0543,Housekeeping,Clean Sweep Facility Services,50832.04
+2024-11-25,PV/24-25/0544,Legal and professional fees,Kapoor & Sen Legal Associates,1466.64
+2024-11-25,PV/24-25/0545,Repairs and maintenance,Sai Civil Works,6000.00
+2024-11-26,PV/24-25/0546,Insurance,Pioneer Insurance Brokers,14907.99
+2024-11-26,PV/24-25/0547,Miscellaneous expenses,Canteen Services Co-op,27432.34
+2024-11-27,PV/24-25/0548,Housekeeping,Clean Sweep Facility Services,44908.98
+2024-11-27,PV/24-25/0549,Housekeeping,Clean Sweep Facility Services,282000.00
+2024-11-27,PV/24-25/0550,Legal and professional fees,Kapoor & Sen Legal Associates,557.24
+2024-11-27,PV/24-25/0551,Legal and professional fees,Ledger Tax Consultants,385000.00
+2024-11-27,PV/24-25/0552,Power and fuel,Suryoday Power Services,20530.35
+2024-11-28,PV/24-25/0553,Housekeeping,Clean Sweep Facility Services,18962.65
+2024-11-28,PV/24-25/0554,Legal and professional fees,Kapoor & Sen Legal Associates,91989.31
+2024-11-28,PV/24-25/0555,Power and fuel,Urja Diesel Suppliers,2080.84
+2024-11-28,PV/24-25/0556,Travelling and conveyance,City Cab Services,113000.00
+2024-11-29,PV/24-25/0557,Insurance,Pioneer Insurance Brokers,21000.00
+2024-11-29,PV/24-25/0558,Miscellaneous expenses,Office Mart,252000.00
+2024-11-29,PV/24-25/0559,Repairs and maintenance,Sai Civil Works,363.73
+2024-11-30,PV/24-25/0560,Power and fuel,GreenGrid Energy Services,574.74
+2024-11-30,PV/24-25/0561,Travelling and conveyance,Hotel Residency Inn,421.94
+2024-12-01,PV/24-25/0562,Insurance,Pioneer Insurance Brokers,10000.00
+2024-12-01,PV/24-25/0563,Miscellaneous expenses,Office Mart,2000.00
+2024-12-01,PV/24-25/0564,Repairs and maintenance,Precision Machine Care,373000.00
+2024-12-02,PV/24-25/0565,Freight and forwarding,Coastline Cargo Movers,222.49
+2024-12-03,PV/24-25/0566,Communication expenses,NetLink Broadband,43610.34
+2024-12-03,PV/24-25/0567,Power and fuel,Urja Diesel Suppliers,2079.76
+2024-12-04,PV/24-25/0568,Power and fuel,Urja Diesel Suppliers,95674.87
+2024-12-05,PV/24-25/0569,Miscellaneous expenses,Sundry Vendors,219.33
+2024-12-05,PV/24-25/0570,Rent,Varghese Holdings Private Limited,122000.00
+2024-12-05,PV/24-25/0571,Security charges,Metro Watch Security,50000.00
+2024-12-06,PV/24-25/0572,Miscellaneous expenses,Canteen Services Co-op,698251.08
+2024-12-06,PV/24-25/0573,Repairs and maintenance,Apex Tools & Spares,1198.25
+2024-12-06,PV/24-25/0574,Repairs and maintenance,Precision Machine Care,282.56
+2024-12-06,PV/24-25/0575,Repairs and maintenance,Unity Electricals,407.79
+2024-12-06,PV/24-25/0576,Travelling and conveyance,Skyway Travels,12000.00
+2024-12-07,PV/24-25/0577,Legal and professional fees,Kapoor & Sen Legal Associates,13317.52
+2024-12-08,PV/24-25/0578,Freight and forwarding,Swift Roadlines,277000.00
+2024-12-09,PV/24-25/0579,Insurance,Pioneer Insurance Brokers,87000.00
+2024-12-09,PV/24-25/0580,Repairs and maintenance,Unity Electricals,179589.60
+2024-12-09,PV/24-25/0581,Travelling and conveyance,City Cab Services,383.70
+2024-12-10,PV/24-25/0582,Freight and forwarding,Coastline Cargo Movers,24000.00
+2024-12-10,PV/24-25/0583,Miscellaneous expenses,Canteen Services Co-op,12101.41
+2024-12-10,PV/24-25/0584,Travelling and conveyance,City Cab Services,496793.99
+2024-12-11,PV/24-25/0585,Power and fuel,Suryoday Power Services,21000.00
+2024-12-12,PV/24-25/0586,Communication expenses,NetLink Broadband,259.49
+2024-12-12,PV/24-25/0587,Housekeeping,Clean Sweep Facility Services,24000.00
+2024-12-12,PV/24-25/0588,Miscellaneous expenses,Canteen Services Co-op,388.49
+2024-12-13,PV/24-25/0589,Housekeeping,Clean Sweep Facility Services,3000.00
+2024-12-13,PV/24-25/0590,Housekeeping,Clean Sweep Facility Services,36691.80
+2024-12-13,PV/24-25/0591,Insurance,Pioneer Insurance Brokers,501346.22
+2024-12-14,PV/24-25/0592,Cold storage charges,Periyar Cold Storage LLP,404685.94
+2024-12-14,PV/24-25/0593,Communication expenses,Bluewave Communications,417000.00
+2024-12-14,PV/24-25/0594,Legal and professional fees,Kapoor & Sen Legal Associates,7067.43
+2024-12-14,PV/24-25/0595,Printing and stationery,Quickprint Solutions,310000.00
+2024-12-14,PV/24-25/0596,Travelling and conveyance,Hotel Residency Inn,1780.09
+2024-12-14,PV/24-25/0597,Travelling and conveyance,Skyway Travels,52000.00
+2024-12-15,PV/24-25/0598,Housekeeping,Clean Sweep Facility Services,12000.00
+2024-12-16,PV/24-25/0599,Communication expenses,Bluewave Communications,157419.98
+2024-12-16,PV/24-25/0600,Miscellaneous expenses,Office Mart,933000.00
+2024-12-17,PV/24-25/0601,Legal and professional fees,Brightpath HR Advisory,298.65
+2024-12-17,PV/24-25/0602,Power and fuel,Suryoday Power Services,1606.64
+2024-12-17,PV/24-25/0603,Power and fuel,Suryoday Power Services,56586.09
+2024-12-17,PV/24-25/0604,Repairs and maintenance,Precision Machine Care,7038.77
+2024-12-18,PV/24-25/0605,Freight and forwarding,Ganga Freight Carriers,500.68
+2024-12-18,PV/24-25/0606,Housekeeping,Clean Sweep Facility Services,53000.00
+2024-12-18,PV/24-25/0607,Power and fuel,Urja Diesel Suppliers,308.67
+2024-12-19,PV/24-25/0608,Insurance,Pioneer Insurance Brokers,8239.63
+2024-12-19,PV/24-25/0609,Printing and stationery,Metro Stationers,94921.46
+2024-12-20,PV/24-25/0610,Freight and forwarding,Coastline Cargo Movers,3727.80
+2024-12-20,PV/24-25/0611,Freight and forwarding,Coastline Cargo Movers,491363.71
+2024-12-20,PV/24-25/0612,Power and fuel,GreenGrid Energy Services,7000.00
+2024-12-21,PV/24-25/0613,Repairs and maintenance,Apex Tools & Spares,109000.00
+2024-12-24,PV/24-25/0614,Power and fuel,GreenGrid Energy Services,2243.06
+2024-12-24,PV/24-25/0615,Printing and stationery,Metro Stationers,5000.00
+2024-12-24,PV/24-25/0616,Repairs and maintenance,Precision Machine Care,11000.00
+2024-12-24,PV/24-25/0617,Travelling and conveyance,Hotel Residency Inn,90966.71
+2024-12-25,PV/24-25/0618,Legal and professional fees,Ledger Tax Consultants,469.63
+2024-12-25,PV/24-25/0619,Repairs and maintenance,Sai Civil Works,159908.03
+2024-12-26,PV/24-25/0620,Miscellaneous expenses,Sundry Vendors,563.23
+2024-12-26,PV/24-25/0621,Power and fuel,Urja Diesel Suppliers,162.08
+2024-12-26,PV/24-25/0622,Printing and stationery,Quickprint Solutions,104.84
+2024-12-27,PV/24-25/0623,Housekeeping,Clean Sweep Facility Services,207000.00
+2024-12-27,PV/24-25/0624,Insurance,Pioneer Insurance Brokers,118587.98
+2024-12-27,PV/24-25/0625,Power and fuel,GreenGrid Energy Services,58000.00
+2024-12-27,PV/24-25/0626,Travelling and conveyance,City Cab Services,7000.00
+2024-12-28,PV/24-25/0627,Printing and stationery,Metro Stationers,13000.00
+2024-12-29,PV/24-25/0628,Legal and professional fees,Kapoor & Sen Legal Associates,676.94
+2024-12-29,PV/24-25/0629,Miscellaneous expenses,Canteen Services Co-op,5000.00
+2024-12-29,PV/24-25/0630,Power and fuel,GreenGrid Energy Services,1743.79
+2024-12-30,PV/24-25/0631,Printing and stationery,Metro Stationers,2777.30
+2024-12-31,PV/24-25/0632,Housekeeping,Clean Sweep Facility Services,211887.99
+2024-12-31,PV/24-25/0633,Legal and professional fees,Brightpath HR Advisory,2992.73
+2024-12-31,PV/24-25/0634,Repairs and maintenance,Precision Machine Care,39000.00
+2025-01-01,PV/24-25/0635,Legal and professional fees,Kapoor & Sen Legal Associates,639.71
+2025-01-01,PV/24-25/0636,Miscellaneous expenses,Sundry Vendors,55000.00
+2025-01-01,PV/24-25/0637,Repairs and maintenance,Precision Machine Care,43864.93
+2025-01-02,PV/24-25/0638,Communication expenses,Bluewave Communications,130000.00
+2025-01-02,PV/24-25/0639,Freight and forwarding,Ganga Freight Carriers,7368.55
+2025-01-03,PV/24-25/0640,Communication expenses,Bluewave Communications,1068.39
+2025-01-03,PV/24-25/0641,Power and fuel,GreenGrid Energy Services,960.25
+2025-01-03,PV/24-25/0642,Repairs and maintenance,Apex Tools & Spares,1489.89
+2025-01-04,PV/24-25/0643,Legal and professional fees,Kapoor & Sen Legal Associates,211.33
+2025-01-04,PV/24-25/0644,Power and fuel,GreenGrid Energy Services,589.33
+2025-01-04,PV/24-25/0645,Printing and stationery,Metro Stationers,550.69
+2025-01-04,PV/24-25/0646,Printing and stationery,Metro Stationers,4000.00
+2025-01-04,PV/24-25/0647,Travelling and conveyance,City Cab Services,232333.47
+2025-01-05,PV/24-25/0648,Rent,Varghese Holdings Private Limited,122000.00
+2025-01-05,PV/24-25/0649,Security charges,Metro Watch Security,50000.00
+2025-01-06,PV/24-25/0650,Freight and forwarding,Swift Roadlines,317.74
+2025-01-06,PV/24-25/0651,Insurance,Pioneer Insurance Brokers,35430.51
+2025-01-06,PV/24-25/0652,Printing and stationery,Metro Stationers,95000.00
+2025-01-07,PV/24-25/0653,Communication expenses,Bluewave Communications,148.55
+2025-01-07,PV/24-25/0654,Legal and professional fees,Ledger Tax Consultants,31000.00
+2025-01-07,PV/24-25/0655,Miscellaneous expenses,Sundry Vendors,30000.00
+2025-01-07,PV/24-25/0656,Power and fuel,GreenGrid Energy Services,204.78
+2025-01-07,PV/24-25/0657,Printing and stationery,Quickprint Solutions,102000.00
+2025-01-07,PV/24-25/0658,Travelling and conveyance,City Cab Services,4000.00
+2025-01-09,PV/24-25/0659,Freight and forwarding,Coastline Cargo Movers,39000.00
+2025-01-09,PV/24-25/0660,Power and fuel,Urja Diesel Suppliers,2000.00
+2025-01-10,PV/24-25/0661,Printing and stationery,Metro Stationers,460190.95
+2025-01-10,PV/24-25/0662,Printing and stationery,Quickprint Solutions,27000.00
+2025-01-10,PV/24-25/0663,Repairs and maintenance,Unity Electricals,231.67
+2025-01-10,PV/24-25/0664,Travelling and conveyance,City Cab Services,8000.00
+2025-01-11,PV/24-25/0665,Freight and forwarding,Coastline Cargo Movers,2000.00
+2025-01-12,PV/24-25/0666,Cold storage charges,Periyar Cold Storage LLP,349497.31
+2025-01-12,PV/24-25/0667,Legal and professional fees,Ledger Tax Consultants,385.45
+2025-01-12,PV/24-25/0668,Miscellaneous expenses,Canteen Services Co-op,934404.63
+2025-01-13,PV/24-25/0669,Power and fuel,GreenGrid Energy Services,786.05
+2025-01-14,PV/24-25/0670,Printing and stationery,Quickprint Solutions,3321.78
+2025-01-15,PV/24-25/0671,Communication expenses,NetLink Broadband,951.72
+2025-01-17,PV/24-25/0672,Legal and professional fees,Kapoor & Sen Legal Associates,193703.23
+2025-01-17,PV/24-25/0673,Legal and professional fees,Ledger Tax Consultants,4000.00
+2025-01-17,PV/24-25/0674,Miscellaneous expenses,Sundry Vendors,426852.15
+2025-01-17,PV/24-25/0675,Repairs and maintenance,Apex Tools & Spares,683.72
+2025-01-17,PV/24-25/0676,Travelling and conveyance,Hotel Residency Inn,511.33
+2025-01-18,PV/24-25/0677,Freight and forwarding,Coastline Cargo Movers,1328.91
+2025-01-18,PV/24-25/0678,Freight and forwarding,Swift Roadlines,2957.58
+2025-01-18,PV/24-25/0679,Housekeeping,Clean Sweep Facility Services,9088.46
+2025-01-19,PV/24-25/0680,Communication expenses,NetLink Broadband,2555.19
+2025-01-19,PV/24-25/0681,Freight and forwarding,Ganga Freight Carriers,6000.00
+2025-01-19,PV/24-25/0682,Freight and forwarding,Swift Roadlines,2000.07
+2025-01-19,PV/24-25/0683,Repairs and maintenance,Sai Civil Works,2741.16
+2025-01-19,PV/24-25/0684,Travelling and conveyance,City Cab Services,417907.58
+2025-01-20,PV/24-25/0685,Housekeeping,Clean Sweep Facility Services,382000.00
+2025-01-21,PV/24-25/0686,Freight and forwarding,Coastline Cargo Movers,2342.69
+2025-01-21,PV/24-25/0687,Power and fuel,Urja Diesel Suppliers,8918.99
+2025-01-21,PV/24-25/0688,Travelling and conveyance,Hotel Residency Inn,545000.00
+2025-01-22,PV/24-25/0689,Freight and forwarding,Ganga Freight Carriers,4418.02
+2025-01-22,PV/24-25/0690,Repairs and maintenance,Sai Civil Works,1513.15
+2025-01-22,PV/24-25/0691,Travelling and conveyance,Skyway Travels,51000.00
+2025-01-24,PV/24-25/0692,Printing and stationery,Metro Stationers,284000.00
+2025-01-24,PV/24-25/0693,Repairs and maintenance,Sai Civil Works,198.62
+2025-01-24,PV/24-25/0694,Travelling and conveyance,Skyway Travels,15000.00
+2025-01-25,PV/24-25/0695,Housekeeping,Clean Sweep Facility Services,333.59
+2025-01-25,PV/24-25/0696,Power and fuel,Urja Diesel Suppliers,546000.00
+2025-01-26,PV/24-25/0697,Repairs and maintenance,Sai Civil Works,107328.90
+2025-01-27,PV/24-25/0698,Communication expenses,Bluewave Communications,6619.23
+2025-01-27,PV/24-25/0699,Housekeeping,Clean Sweep Facility Services,10877.78
+2025-01-28,PV/24-25/0700,Insurance,Pioneer Insurance Brokers,162584.04
+2025-01-30,PV/24-25/0701,Legal and professional fees,Brightpath HR Advisory,85000.00
+2025-01-30,PV/24-25/0702,Miscellaneous expenses,Office Mart,205.10
+2025-01-30,PV/24-25/0703,Miscellaneous expenses,Office Mart,6000.00
+2025-01-30,PV/24-25/0704,Printing and stationery,Quickprint Solutions,41977.92
+2025-01-31,PV/24-25/0705,Communication expenses,Bluewave Communications,1893.51
+2025-01-31,PV/24-25/0706,Legal and professional fees,Brightpath HR Advisory,1240.78
+2025-01-31,PV/24-25/0707,Travelling and conveyance,Hotel Residency Inn,21000.00
+2025-02-01,PV/24-25/0708,Miscellaneous expenses,Office Mart,61940.96
+2025-02-02,PV/24-25/0709,Insurance,Pioneer Insurance Brokers,495246.11
+2025-02-03,PV/24-25/0710,Insurance,Pioneer Insurance Brokers,28000.00
+2025-02-04,PV/24-25/0711,Insurance,Pioneer Insurance Brokers,6000.00
+2025-02-04,PV/24-25/0712,Insurance,Pioneer Insurance Brokers,119000.00
+2025-02-05,PV/24-25/0713,Communication expenses,Bluewave Communications,134.94
+2025-02-05,PV/24-25/0714,Rent,Varghese Holdings Private Limited,122000.00
+2025-02-05,PV/24-25/0715,Security charges,Metro Watch Security,50000.00
+2025-02-06,PV/24-25/0716,Legal and professional fees,Kapoor & Sen Legal Associates,612000.00
+2025-02-07,PV/24-25/0717,Legal and professional fees,Ledger Tax Consultants,4000.00
+2025-02-08,PV/24-25/0718,Housekeeping,Clean Sweep Facility Services,1829.13
+2025-02-08,PV/24-25/0719,Legal and professional fees,Ledger Tax Consultants,24000.00
+2025-02-09,PV/24-25/0720,Power and fuel,Urja Diesel Suppliers,85000.00
+2025-02-10,PV/24-25/0721,Insurance,Pioneer Insurance Brokers,252000.00
+2025-02-10,PV/24-25/0722,Power and fuel,GreenGrid Energy Services,1013.66
+2025-02-11,PV/24-25/0723,Legal and professional fees,Kapoor & Sen Legal Associates,17116.53
+2025-02-12,PV/24-25/0724,Freight and forwarding,Coastline Cargo Movers,543665.40
+2025-02-12,PV/24-25/0725,Miscellaneous expenses,Office Mart,112.32
+2025-02-12,PV/24-25/0726,Repairs and maintenance,Precision Machine Care,11109.69
+2025-02-12,PV/24-25/0727,Repairs and maintenance,Sai Civil Works,390544.04
+2025-02-12,PV/24-25/0728,Travelling and conveyance,Hotel Residency Inn,906.61
+2025-02-13,PV/24-25/0729,Communication expenses,NetLink Broadband,13000.00
+2025-02-13,PV/24-25/0730,Repairs and maintenance,Unity Electricals,7000.00
+2025-02-14,PV/24-25/0731,Repairs and maintenance,Sai Civil Works,286782.17
+2025-02-15,PV/24-25/0732,Freight and forwarding,Swift Roadlines,32222.55
+2025-02-16,PV/24-25/0733,Housekeeping,Clean Sweep Facility Services,6168.74
+2025-02-16,PV/24-25/0734,Insurance,Pioneer Insurance Brokers,8000.00
+2025-02-16,PV/24-25/0735,Repairs and maintenance,Apex Tools & Spares,818.54
+2025-02-17,PV/24-25/0736,Housekeeping,Clean Sweep Facility Services,3000.00
+2025-02-17,PV/24-25/0737,Power and fuel,Suryoday Power Services,21098.07
+2025-02-17,PV/24-25/0738,Travelling and conveyance,Skyway Travels,9492.79
+2025-02-18,PV/24-25/0739,Freight and forwarding,Coastline Cargo Movers,428000.00
+2025-02-19,PV/24-25/0740,Legal and professional fees,Kapoor & Sen Legal Associates,3000.00
+2025-02-19,PV/24-25/0741,Travelling and conveyance,Hotel Residency Inn,3777.19
+2025-02-21,PV/24-25/0742,Freight and forwarding,Swift Roadlines,2000.00
+2025-02-21,PV/24-25/0743,Legal and professional fees,Brightpath HR Advisory,228.94
+2025-02-21,PV/24-25/0744,Repairs and maintenance,Sai Civil Works,2272.81
+2025-02-22,PV/24-25/0745,Freight and forwarding,Ganga Freight Carriers,518791.85
+2025-02-22,PV/24-25/0746,Legal and professional fees,Kapoor & Sen Legal Associates,4000.00
+2025-02-22,PV/24-25/0747,Legal and professional fees,Ledger Tax Consultants,2712.30
+2025-02-22,PV/24-25/0748,Miscellaneous expenses,Office Mart,494.33
+2025-02-22,PV/24-25/0749,Miscellaneous expenses,Office Mart,37000.00
+2025-02-22,PV/24-25/0750,Printing and stationery,Metro Stationers,2000.00
+2025-02-23,PV/24-25/0751,Cold storage charges,Periyar Cold Storage LLP,279021.65
+2025-02-23,PV/24-25/0752,Freight and forwarding,Swift Roadlines,234.29
+2025-02-24,PV/24-25/0753,Communication expenses,Bluewave Communications,9000.00
+2025-02-24,PV/24-25/0754,Insurance,Pioneer Insurance Brokers,3000.00
+2025-02-24,PV/24-25/0755,Miscellaneous expenses,Canteen Services Co-op,698.52
+2025-02-25,PV/24-25/0756,Insurance,Pioneer Insurance Brokers,105.74
+2025-02-25,PV/24-25/0757,Power and fuel,Urja Diesel Suppliers,735.88
+2025-02-26,PV/24-25/0758,Insurance,Pioneer Insurance Brokers,114.27
+2025-02-26,PV/24-25/0759,Insurance,Pioneer Insurance Brokers,6909.15
+2025-02-26,PV/24-25/0760,Legal and professional fees,Kapoor & Sen Legal Associates,190000.00
+2025-02-26,PV/24-25/0761,Miscellaneous expenses,Sundry Vendors,182.95
+2025-02-26,PV/24-25/0762,Travelling and conveyance,Hotel Residency Inn,166000.00
+2025-02-27,PV/24-25/0763,Power and fuel,Urja Diesel Suppliers,19000.00
+2025-02-28,PV/24-25/0764,Housekeeping,Clean Sweep Facility Services,383920.50
+2025-03-01,PV/24-25/0765,Communication expenses,NetLink Broadband,137.30
+2025-03-01,PV/24-25/0766,Freight and forwarding,Coastline Cargo Movers,68000.00
+2025-03-01,PV/24-25/0767,Insurance,Pioneer Insurance Brokers,319931.69
+2025-03-01,PV/24-25/0768,Miscellaneous expenses,Sundry Vendors,49829.94
+2025-03-02,PV/24-25/0769,Communication expenses,Bluewave Communications,366305.83
+2025-03-02,PV/24-25/0770,Freight and forwarding,Coastline Cargo Movers,231.55
+2025-03-02,PV/24-25/0771,Freight and forwarding,Coastline Cargo Movers,291.59
+2025-03-02,PV/24-25/0772,Repairs and maintenance,Precision Machine Care,638.56
+2025-03-02,PV/24-25/0773,Repairs and maintenance,Sai Civil Works,612000.00
+2025-03-04,PV/24-25/0774,Freight and forwarding,Coastline Cargo Movers,9518.56
+2025-03-04,PV/24-25/0775,Power and fuel,Urja Diesel Suppliers,11947.15
+2025-03-04,PV/24-25/0776,Printing and stationery,Metro Stationers,830.80
+2025-03-05,PV/24-25/0777,Printing and stationery,Metro Stationers,807922.50
+2025-03-05,PV/24-25/0778,Rent,Varghese Holdings Private Limited,122000.00
+2025-03-05,PV/24-25/0779,Security charges,Metro Watch Security,50000.00
+2025-03-05,PV/24-25/0780,Travelling and conveyance,Skyway Travels,472000.00
+2025-03-06,PV/24-25/0781,Communication expenses,NetLink Broadband,51000.00
+2025-03-06,PV/24-25/0782,Printing and stationery,Quickprint Solutions,1322.39
+2025-03-07,PV/24-25/0783,Communication expenses,NetLink Broadband,3000.00
+2025-03-07,PV/24-25/0784,Freight and forwarding,Coastline Cargo Movers,22273.35
+2025-03-07,PV/24-25/0785,Insurance,Pioneer Insurance Brokers,904857.76
+2025-03-08,PV/24-25/0786,Cold storage charges,Periyar Cold Storage LLP,203356.88
+2025-03-08,PV/24-25/0787,Freight and forwarding,Swift Roadlines,4000.00
+2025-03-08,PV/24-25/0788,Insurance,Pioneer Insurance Brokers,137.92
+2025-03-08,PV/24-25/0789,Printing and stationery,Metro Stationers,4455.07
+2025-03-08,PV/24-25/0790,Repairs and maintenance,Precision Machine Care,613.24
+2025-03-09,PV/24-25/0791,Communication expenses,NetLink Broadband,305.42
+2025-03-09,PV/24-25/0792,Insurance,Pioneer Insurance Brokers,289.49
+2025-03-09,PV/24-25/0793,Legal and professional fees,Ledger Tax Consultants,551.90
+2025-03-09,PV/24-25/0794,Miscellaneous expenses,Canteen Services Co-op,18000.00
+2025-03-09,PV/24-25/0795,Power and fuel,Suryoday Power Services,60000.00
+2025-03-09,PV/24-25/0796,Printing and stationery,Metro Stationers,60188.77
+2025-03-10,PV/24-25/0797,Power and fuel,GreenGrid Energy Services,1116.50
+2025-03-10,PV/24-25/0798,Printing and stationery,Metro Stationers,308.33
+2025-03-13,PV/24-25/0799,Miscellaneous expenses,Office Mart,4737.30
+2025-03-14,PV/24-25/0800,Communication expenses,NetLink Broadband,441.74
+2025-03-14,PV/24-25/0801,Housekeeping,Clean Sweep Facility Services,117000.00
+2025-03-15,PV/24-25/0802,Cold storage charges,Periyar Cold Storage LLP,290748.55
+2025-03-15,PV/24-25/0803,Freight and forwarding,Coastline Cargo Movers,422.25
+2025-03-16,PV/24-25/0804,Communication expenses,Bluewave Communications,522000.00
+2025-03-16,PV/24-25/0805,Legal and professional fees,Brightpath HR Advisory,22959.70
+2025-03-17,PV/24-25/0806,Freight and forwarding,Ganga Freight Carriers,15000.00
+2025-03-17,PV/24-25/0807,Freight and forwarding,Swift Roadlines,106.71
+2025-03-18,PV/24-25/0808,Communication expenses,Bluewave Communications,176.80
+2025-03-18,PV/24-25/0809,Freight and forwarding,Coastline Cargo Movers,1785.63
+2025-03-18,PV/24-25/0810,Insurance,Pioneer Insurance Brokers,14517.88
+2025-03-19,PV/24-25/0811,Legal and professional fees,Ledger Tax Consultants,13000.00
+2025-03-19,PV/24-25/0812,Miscellaneous expenses,Office Mart,1895.49
+2025-03-20,PV/24-25/0813,Communication expenses,Bluewave Communications,2000.00
+2025-03-20,PV/24-25/0814,Communication expenses,Bluewave Communications,214000.00
+2025-03-20,PV/24-25/0815,Housekeeping,Clean Sweep Facility Services,77000.00
+2025-03-20,PV/24-25/0816,Miscellaneous expenses,Canteen Services Co-op,9000.00
+2025-03-21,PV/24-25/0817,Communication expenses,Bluewave Communications,30444.61
+2025-03-21,PV/24-25/0818,Repairs and maintenance,Precision Machine Care,384.17
+2025-03-23,PV/24-25/0819,Freight and forwarding,Ganga Freight Carriers,66285.32
+2025-03-23,PV/24-25/0820,Insurance,Pioneer Insurance Brokers,874807.93
+2025-03-24,PV/24-25/0821,Freight and forwarding,Coastline Cargo Movers,524777.86
+2025-03-24,PV/24-25/0822,Housekeeping,Clean Sweep Facility Services,280.55
+2025-03-24,PV/24-25/0823,Printing and stationery,Quickprint Solutions,307635.73
+2025-03-24,PV/24-25/0824,Repairs and maintenance,Apex Tools & Spares,50000.00
+2025-03-26,PV/24-25/0825,Insurance,Pioneer Insurance Brokers,457.21
+2025-03-26,PV/24-25/0826,Legal and professional fees,Brightpath HR Advisory,52000.00
+2025-03-26,PV/24-25/0827,Power and fuel,Suryoday Power Services,797.69
+2025-03-27,PV/24-25/0828,Repairs and maintenance,Unity Electricals,986.25
+2025-03-28,PV/24-25/0829,Communication expenses,Bluewave Communications,5869.35
+2025-03-28,PV/24-25/0830,Power and fuel,Urja Diesel Suppliers,34932.77
+2025-03-29,PV/24-25/0831,Communication expenses,Bluewave Communications,854.61
+2025-03-29,PV/24-25/0832,Legal and professional fees,Ledger Tax Consultants,1354.96
+2025-03-30,PV/24-25/0833,Communication expenses,NetLink Broadband,52000.00
+2025-03-30,PV/24-25/0834,Travelling and conveyance,Skyway Travels,8000.00
+2025-03-31,PV/24-25/0835,Communication expenses,Bluewave Communications,405000.00
+2025-03-31,PV/24-25/0836,Miscellaneous expenses,Canteen Services Co-op,789227.26

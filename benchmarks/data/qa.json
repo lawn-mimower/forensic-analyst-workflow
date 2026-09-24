@@ -1,0 +1,289 @@
+[
+  {
+    "id": "kestrel-q1",
+    "company": "kestrel",
+    "category": "lookup",
+    "question": "What was Kestrel Polymers Private Limited's revenue from operations for FY 2024-25, in Rs. lakhs?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 4386.4
+  },
+  {
+    "id": "kestrel-q2",
+    "company": "kestrel",
+    "category": "calculation",
+    "question": "By how many Rs. lakhs did Kestrel Polymers Private Limited's employee benefits expense increase from FY 2023-24 to FY 2024-25?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 51.15
+  },
+  {
+    "id": "kestrel-q3",
+    "company": "kestrel",
+    "category": "related_party",
+    "question": "For what consideration, in Rs. lakhs, did Kestrel Polymers Private Limited sell land and building to a related party in FY 2024-25?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 480.0
+  },
+  {
+    "id": "kestrel-q4",
+    "company": "kestrel",
+    "category": "related_party",
+    "question": "Which related party bought land and building from Kestrel Polymers Private Limited during FY 2024-25?",
+    "answer_type": "text",
+    "gold": "Kestrel Estates LLP",
+    "aliases": [
+      "Kestrel Estates LLP",
+      "Kestrel Estates"
+    ]
+  },
+  {
+    "id": "kestrel-q5",
+    "company": "kestrel",
+    "category": "multi_hop",
+    "question": "The related party that bought land and building from Kestrel Polymers Private Limited in FY 2024-25 is connected to which director of the company?",
+    "answer_type": "text",
+    "gold": "Rohan Kulkarni",
+    "aliases": [
+      "Rohan Kulkarni"
+    ]
+  },
+  {
+    "id": "kestrel-q6",
+    "company": "kestrel",
+    "category": "lookup",
+    "question": "Which firm is the statutory auditor of Kestrel Polymers Private Limited?",
+    "answer_type": "text",
+    "gold": "Sahyadri Audit Partners LLP",
+    "aliases": [
+      "Sahyadri Audit Partners LLP",
+      "Sahyadri Audit Partners"
+    ]
+  },
+  {
+    "id": "tarangini-q1",
+    "company": "tarangini",
+    "category": "lookup",
+    "question": "What was Tarangini Foods Private Limited's profit for the year for FY 2024-25, in Rs. lakhs?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 217.9
+  },
+  {
+    "id": "tarangini-q2",
+    "company": "tarangini",
+    "category": "calculation",
+    "question": "By what percentage did Tarangini Foods Private Limited's revenue from operations grow in FY 2024-25 compared with FY 2023-24?",
+    "answer_type": "number",
+    "unit": "percent",
+    "gold": 9.07
+  },
+  {
+    "id": "tarangini-q3",
+    "company": "tarangini",
+    "category": "related_party",
+    "question": "What value of raw materials, in Rs. lakhs, did Tarangini Foods Private Limited purchase from Hegde Agro Farms LLP in FY 2024-25?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 118.4
+  },
+  {
+    "id": "tarangini-q4",
+    "company": "tarangini",
+    "category": "multi_hop",
+    "question": "Tarangini Foods Private Limited bought packing materials from a firm in which one of its directors is a partner. Which director?",
+    "answer_type": "text",
+    "gold": "Anjali Hegde",
+    "aliases": [
+      "Anjali Hegde"
+    ]
+  },
+  {
+    "id": "tarangini-q5",
+    "company": "tarangini",
+    "category": "multi_hop",
+    "question": "What value of packing materials, in Rs. lakhs, did Tarangini Foods Private Limited purchase in FY 2024-25 from the firm in which its director Anjali Hegde is a partner?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 61.84
+  },
+  {
+    "id": "tarangini-q6",
+    "company": "tarangini",
+    "category": "lookup",
+    "question": "What were Tarangini Foods Private Limited's trade receivables as at 31 March 2025, in Rs. lakhs?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 431.1
+  },
+  {
+    "id": "northfield-q1",
+    "company": "northfield",
+    "category": "lookup",
+    "question": "What was Northfield Fabricators Private Limited's cost of materials consumed in FY 2024-25, in Rs. lakhs?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 410.25
+  },
+  {
+    "id": "northfield-q2",
+    "company": "northfield",
+    "category": "calculation",
+    "question": "What was Northfield Fabricators Private Limited's gross margin in FY 2023-24, defined as revenue from operations minus cost of materials consumed, as a percentage of revenue from operations?",
+    "answer_type": "number",
+    "unit": "percent",
+    "gold": 28.57
+  },
+  {
+    "id": "northfield-q3",
+    "company": "northfield",
+    "category": "calculation",
+    "question": "By how many Rs. lakhs did Northfield Fabricators Private Limited's inventories increase between 31 March 2024 and 31 March 2025?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 75.45
+  },
+  {
+    "id": "northfield-q4",
+    "company": "northfield",
+    "category": "multi_hop",
+    "question": "From whom did Northfield Fabricators Private Limited accept a loan in cash during FY 2024-25?",
+    "answer_type": "text",
+    "gold": "Venkat Raman",
+    "aliases": [
+      "Venkat Raman"
+    ]
+  },
+  {
+    "id": "northfield-q5",
+    "company": "northfield",
+    "category": "related_party",
+    "question": "What was the amount, in Rs. lakhs, of the unsecured loan Northfield Fabricators Private Limited accepted in cash during FY 2024-25?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 4.5
+  },
+  {
+    "id": "northfield-q6",
+    "company": "northfield",
+    "category": "lookup",
+    "question": "Who is the Managing Director of Northfield Fabricators Private Limited?",
+    "answer_type": "text",
+    "gold": "Prakash Iyer",
+    "aliases": [
+      "Prakash Iyer"
+    ]
+  },
+  {
+    "id": "vardhan-q1",
+    "company": "vardhan",
+    "category": "lookup",
+    "question": "What were Vardhan Precision Castings Private Limited's finance costs in FY 2023-24, in Rs. lakhs?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 151.2
+  },
+  {
+    "id": "vardhan-q2",
+    "company": "vardhan",
+    "category": "calculation",
+    "question": "By how many Rs. lakhs did Vardhan Precision Castings Private Limited's revenue from operations increase in FY 2024-25 compared with FY 2023-24?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 422.25
+  },
+  {
+    "id": "vardhan-q3",
+    "company": "vardhan",
+    "category": "related_party",
+    "question": "What was the value, in Rs. lakhs, of the machinery Vardhan Precision Castings Private Limited purchased from Vardhan Engineering Works in FY 2024-25?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 352.8
+  },
+  {
+    "id": "vardhan-q4",
+    "company": "vardhan",
+    "category": "related_party",
+    "question": "On what date did the members of Vardhan Precision Castings Private Limited approve the purchase of machinery from Vardhan Engineering Works?",
+    "answer_type": "date",
+    "gold": "2024-08-20"
+  },
+  {
+    "id": "vardhan-q5",
+    "company": "vardhan",
+    "category": "multi_hop",
+    "question": "Vardhan Engineering Works is a related party of Vardhan Precision Castings Private Limited through which director?",
+    "answer_type": "text",
+    "gold": "Harsh Vardhan Shah",
+    "aliases": [
+      "Harsh Vardhan Shah"
+    ]
+  },
+  {
+    "id": "vardhan-q6",
+    "company": "vardhan",
+    "category": "lookup",
+    "question": "What was Vardhan Precision Castings Private Limited's property, plant and equipment as at 31 March 2025, in Rs. lakhs?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 2440.8
+  },
+  {
+    "id": "meridian-q1",
+    "company": "meridian",
+    "category": "lookup",
+    "question": "What were Meridian Agro Exports Private Limited's trade receivables as at 31 March 2025, in Rs. lakhs?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 1102.8
+  },
+  {
+    "id": "meridian-q2",
+    "company": "meridian",
+    "category": "calculation",
+    "question": "By what percentage did Meridian Agro Exports Private Limited's trade receivables increase between 31 March 2024 and 31 March 2025?",
+    "answer_type": "number",
+    "unit": "percent",
+    "gold": 95.05
+  },
+  {
+    "id": "meridian-q3",
+    "company": "meridian",
+    "category": "related_party",
+    "question": "What rent, in Rs. lakhs, did Meridian Agro Exports Private Limited pay to Varghese Holdings Private Limited in FY 2024-25?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 14.64
+  },
+  {
+    "id": "meridian-q4",
+    "company": "meridian",
+    "category": "multi_hop",
+    "question": "Meridian Agro Exports Private Limited pays cold storage charges to an LLP in which one of its directors is a designated partner. Which director?",
+    "answer_type": "text",
+    "gold": "Maria Varghese",
+    "aliases": [
+      "Maria Varghese"
+    ]
+  },
+  {
+    "id": "meridian-q5",
+    "company": "meridian",
+    "category": "multi_hop",
+    "question": "How much, in Rs. lakhs, did Meridian Agro Exports Private Limited pay in FY 2024-25 to the LLP in which its director Maria Varghese is a designated partner?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 42.18
+  },
+  {
+    "id": "meridian-q6",
+    "company": "meridian",
+    "category": "lookup",
+    "question": "What was Meridian Agro Exports Private Limited's other income in FY 2024-25, in Rs. lakhs?",
+    "answer_type": "number",
+    "unit": "lakhs",
+    "gold": 64.2
+  }
+]

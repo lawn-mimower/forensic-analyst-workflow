@@ -1,0 +1,709 @@
+{
+  "description": "Synthetic companies with planted issues. All names and figures are invented.",
+  "units": "Statement figures in Rs. lakhs; ledger amounts in rupees.",
+  "issue_types": {
+    "rpt_threshold_no_approval": "A related-party transaction above the Companies Act materiality threshold (e.g. 10% of net worth or turnover) without the required shareholder approval, or reported as not requiring approval",
+    "rp_omitted_from_schedule": "Transactions with a party related to a director that are missing from the related-party disclosure note",
+    "duplicate_entries": "The same voucher or payment recorded more than once",
+    "round_number_entries": "An unusually high share of round-number amounts in the ledger",
+    "benford_nonconformity": "Ledger amounts whose leading digits deviate from Benford's law, e.g. many amounts clustered just below an approval limit",
+    "caro_missing": "The auditor's report omits the Companies (Auditor's Report) Order (CARO) statement although the company is not exempt",
+    "ratio_anomaly": "A financial ratio that moves abnormally year on year (e.g. gross margin, receivable days) without a matching change in the business",
+    "cash_loan_269ss": "A loan or deposit of Rs. 20,000 or more accepted in cash (section 269SS)",
+    "unusual_large_payment": "A single payment far larger than the rest of the ledger"
+  },
+  "companies": [
+    {
+      "slug": "kestrel",
+      "name": "Kestrel Polymers Private Limited",
+      "files": [
+        "annual_report.md",
+        "annual_report.pdf",
+        "financials.xlsx",
+        "general_ledger.csv"
+      ],
+      "planted_issues": [
+        "rpt_threshold_no_approval",
+        "caro_missing",
+        "duplicate_entries",
+        "unusual_large_payment"
+      ],
+      "decoys": [],
+      "approval_limit_rupees": 100000,
+      "caro_statement_present": false,
+      "ledger": {
+        "rows": 829,
+        "large_payment": 18500000.0,
+        "duplicate_pairs": [
+          {
+            "date": "2024-09-15",
+            "account": "Communication expenses",
+            "party": "Bluewave Communications",
+            "amount": 2541.02
+          },
+          {
+            "date": "2024-07-07",
+            "account": "Legal and professional fees",
+            "party": "Ledger Tax Consultants",
+            "amount": 5348.89
+          },
+          {
+            "date": "2024-11-29",
+            "account": "Printing and stationery",
+            "party": "Quickprint Solutions",
+            "amount": 293.23
+          },
+          {
+            "date": "2025-03-18",
+            "account": "Insurance",
+            "party": "Pioneer Insurance Brokers",
+            "amount": 2248.92
+          }
+        ]
+      },
+      "statements": {
+        "pnl": {
+          "FY 2024-25": {
+            "revenue": 4386.4,
+            "other_income": 42.15,
+            "materials": 2548.7,
+            "employee": 612.35,
+            "finance": 118.6,
+            "depreciation": 205.45,
+            "other_exp": 698.45,
+            "total_income": 4428.55,
+            "total_expenses": 4183.55,
+            "pbt": 245.0,
+            "tax": 61.67,
+            "pat": 183.33
+          },
+          "FY 2023-24": {
+            "revenue": 3978.25,
+            "other_income": 36.8,
+            "materials": 2301.45,
+            "employee": 561.2,
+            "finance": 124.9,
+            "depreciation": 188.3,
+            "other_exp": 452.1,
+            "total_income": 4015.05,
+            "total_expenses": 3627.95,
+            "pbt": 387.1,
+            "tax": 97.43,
+            "pat": 289.67
+          }
+        },
+        "balance_sheet": {
+          "31 Mar 2025": {
+            "share_capital": 400.0,
+            "lt_borrowings": 640.0,
+            "st_borrowings": 385.5,
+            "trade_payables": 512.3,
+            "other_cl": 164.2,
+            "ppe": 1640.6,
+            "inventories": 604.8,
+            "receivables": 812.45,
+            "cash": 148.95,
+            "other_equity": 1695.73,
+            "other_ca": 590.93,
+            "total_el": 3797.73,
+            "total_assets": 3797.73,
+            "net_worth": 2095.73
+          },
+          "31 Mar 2024": {
+            "share_capital": 400.0,
+            "lt_borrowings": 720.0,
+            "st_borrowings": 342.0,
+            "trade_payables": 468.75,
+            "other_cl": 151.6,
+            "ppe": 1705.3,
+            "inventories": 548.2,
+            "receivables": 735.1,
+            "cash": 160.2,
+            "other_equity": 1512.4,
+            "other_ca": 445.95,
+            "total_el": 3594.75,
+            "total_assets": 3594.75,
+            "net_worth": 1912.4
+          }
+        }
+      },
+      "director_interests": [
+        {
+          "director": "Rohan Kulkarni",
+          "entity": "Kestrel Estates LLP",
+          "interest": "Designated partner"
+        },
+        {
+          "director": "Rohan Kulkarni",
+          "entity": "Kulkarni Resins LLP",
+          "interest": "Partner"
+        },
+        {
+          "director": "Vivek Joshi",
+          "entity": "Godavari Tooling Private Limited",
+          "interest": "Director"
+        }
+      ],
+      "related_party_transactions": [
+        {
+          "party": "Rohan Kulkarni",
+          "nature": "Managerial remuneration",
+          "FY 2024-25": 48.0,
+          "FY 2023-24": 42.0
+        },
+        {
+          "party": "Sneha Kulkarni",
+          "nature": "Rent for office premises",
+          "FY 2024-25": 9.6,
+          "FY 2023-24": 9.6
+        },
+        {
+          "party": "Kestrel Estates LLP",
+          "nature": "Sale of land and building",
+          "FY 2024-25": 480.0,
+          "FY 2023-24": 0.0
+        },
+        {
+          "party": "Kulkarni Resins LLP",
+          "nature": "Purchase of raw materials",
+          "FY 2024-25": 186.4,
+          "FY 2023-24": 172.1
+        }
+      ]
+    },
+    {
+      "slug": "tarangini",
+      "name": "Tarangini Foods Private Limited",
+      "files": [
+        "annual_report.md",
+        "annual_report.pdf",
+        "financials.xlsx",
+        "general_ledger.csv"
+      ],
+      "planted_issues": [
+        "rp_omitted_from_schedule",
+        "round_number_entries",
+        "benford_nonconformity"
+      ],
+      "decoys": [],
+      "approval_limit_rupees": 50000,
+      "caro_statement_present": true,
+      "ledger": {
+        "rows": 858,
+        "round_number_rows": 244,
+        "just_below_limit_rows": 120
+      },
+      "statements": {
+        "pnl": {
+          "FY 2024-25": {
+            "revenue": 2964.8,
+            "other_income": 18.4,
+            "materials": 1690.25,
+            "employee": 402.15,
+            "finance": 64.3,
+            "depreciation": 96.7,
+            "other_exp": 438.6,
+            "total_income": 2983.2,
+            "total_expenses": 2692.0,
+            "pbt": 291.2,
+            "tax": 73.3,
+            "pat": 217.9
+          },
+          "FY 2023-24": {
+            "revenue": 2718.35,
+            "other_income": 15.95,
+            "materials": 1552.6,
+            "employee": 371.8,
+            "finance": 70.25,
+            "depreciation": 91.45,
+            "other_exp": 401.65,
+            "total_income": 2734.3,
+            "total_expenses": 2487.75,
+            "pbt": 246.55,
+            "tax": 62.06,
+            "pat": 184.49
+          }
+        },
+        "balance_sheet": {
+          "31 Mar 2025": {
+            "share_capital": 250.0,
+            "lt_borrowings": 310.0,
+            "st_borrowings": 220.4,
+            "trade_payables": 356.85,
+            "other_cl": 98.4,
+            "ppe": 905.2,
+            "inventories": 402.6,
+            "receivables": 431.1,
+            "cash": 86.25,
+            "other_equity": 1083.2,
+            "other_ca": 493.7,
+            "total_el": 2318.85,
+            "total_assets": 2318.85,
+            "net_worth": 1333.2
+          },
+          "31 Mar 2024": {
+            "share_capital": 250.0,
+            "lt_borrowings": 355.0,
+            "st_borrowings": 198.6,
+            "trade_payables": 331.2,
+            "other_cl": 90.15,
+            "ppe": 872.4,
+            "inventories": 371.95,
+            "receivables": 396.4,
+            "cash": 79.8,
+            "other_equity": 865.3,
+            "other_ca": 369.7,
+            "total_el": 2090.25,
+            "total_assets": 2090.25,
+            "net_worth": 1115.3
+          }
+        }
+      },
+      "director_interests": [
+        {
+          "director": "Suresh Hegde",
+          "entity": "Hegde Agro Farms LLP",
+          "interest": "Partner"
+        },
+        {
+          "director": "Anjali Hegde",
+          "entity": "Nandi Print & Pack",
+          "interest": "Partner (50% share)"
+        },
+        {
+          "director": "Farhan Qureshi",
+          "entity": "Deccan Snack Distributors Private Limited",
+          "interest": "Director"
+        }
+      ],
+      "related_party_transactions": [
+        {
+          "party": "Suresh Hegde",
+          "nature": "Managerial remuneration",
+          "FY 2024-25": 36.0,
+          "FY 2023-24": 33.0
+        },
+        {
+          "party": "Anjali Hegde",
+          "nature": "Remuneration",
+          "FY 2024-25": 18.0,
+          "FY 2023-24": 16.35
+        },
+        {
+          "party": "Hegde Agro Farms LLP",
+          "nature": "Purchase of raw materials",
+          "FY 2024-25": 118.4,
+          "FY 2023-24": 109.75
+        }
+      ]
+    },
+    {
+      "slug": "northfield",
+      "name": "Northfield Fabricators Private Limited",
+      "files": [
+        "annual_report.md",
+        "annual_report.pdf",
+        "financials.xlsx",
+        "general_ledger.csv"
+      ],
+      "planted_issues": [
+        "duplicate_entries",
+        "ratio_anomaly",
+        "cash_loan_269ss"
+      ],
+      "decoys": [],
+      "approval_limit_rupees": 75000,
+      "caro_statement_present": true,
+      "ledger": {
+        "rows": 829,
+        "duplicate_pairs": [
+          {
+            "date": "2025-01-06",
+            "account": "Printing and stationery",
+            "party": "Quickprint Solutions",
+            "amount": 187018.43
+          },
+          {
+            "date": "2025-03-28",
+            "account": "Miscellaneous expenses",
+            "party": "Canteen Services Co-op",
+            "amount": 1408.25
+          },
+          {
+            "date": "2024-10-29",
+            "account": "Communication expenses",
+            "party": "Bluewave Communications",
+            "amount": 845044.74
+          },
+          {
+            "date": "2024-07-04",
+            "account": "Travelling and conveyance",
+            "party": "Skyway Travels",
+            "amount": 352699.0
+          },
+          {
+            "date": "2024-06-19",
+            "account": "Communication expenses",
+            "party": "NetLink Broadband",
+            "amount": 28479.79
+          }
+        ]
+      },
+      "statements": {
+        "pnl": {
+          "FY 2024-25": {
+            "revenue": 846.1,
+            "other_income": 3.2,
+            "materials": 410.25,
+            "employee": 118.4,
+            "finance": 5.1,
+            "depreciation": 14.35,
+            "other_exp": 64.6,
+            "total_income": 849.3,
+            "total_expenses": 612.7,
+            "pbt": 236.6,
+            "tax": 59.55,
+            "pat": 177.05
+          },
+          "FY 2023-24": {
+            "revenue": 812.4,
+            "other_income": 2.85,
+            "materials": 580.3,
+            "employee": 112.75,
+            "finance": 5.85,
+            "depreciation": 13.9,
+            "other_exp": 61.2,
+            "total_income": 815.25,
+            "total_expenses": 774.0,
+            "pbt": 41.25,
+            "tax": 10.38,
+            "pat": 30.87
+          }
+        },
+        "balance_sheet": {
+          "31 Mar 2025": {
+            "share_capital": 20.0,
+            "lt_borrowings": 42.0,
+            "st_borrowings": 28.5,
+            "trade_payables": 88.3,
+            "other_cl": 26.2,
+            "ppe": 148.6,
+            "inventories": 171.85,
+            "receivables": 142.3,
+            "cash": 21.4,
+            "other_equity": 363.45,
+            "other_ca": 84.3,
+            "total_el": 568.45,
+            "total_assets": 568.45,
+            "net_worth": 383.45
+          },
+          "31 Mar 2024": {
+            "share_capital": 20.0,
+            "lt_borrowings": 50.0,
+            "st_borrowings": 24.0,
+            "trade_payables": 92.15,
+            "other_cl": 24.6,
+            "ppe": 139.25,
+            "inventories": 96.4,
+            "receivables": 135.8,
+            "cash": 17.85,
+            "other_equity": 186.4,
+            "other_ca": 7.85,
+            "total_el": 397.15,
+            "total_assets": 397.15,
+            "net_worth": 206.4
+          }
+        }
+      },
+      "director_interests": [
+        {
+          "director": "Prakash Iyer",
+          "entity": "Hosur Laser Cutting Works",
+          "interest": "Proprietor"
+        }
+      ],
+      "related_party_transactions": [
+        {
+          "party": "Prakash Iyer",
+          "nature": "Managerial remuneration",
+          "FY 2024-25": 24.0,
+          "FY 2023-24": 24.0
+        },
+        {
+          "party": "Lakshmi Iyer",
+          "nature": "Remuneration",
+          "FY 2024-25": 12.0,
+          "FY 2023-24": 12.0
+        },
+        {
+          "party": "Venkat Raman",
+          "nature": "Unsecured loan accepted",
+          "FY 2024-25": 4.5,
+          "FY 2023-24": 0.0
+        }
+      ]
+    },
+    {
+      "slug": "vardhan",
+      "name": "Vardhan Precision Castings Private Limited",
+      "files": [
+        "annual_report.md",
+        "annual_report.pdf",
+        "financials.xlsx",
+        "general_ledger.csv"
+      ],
+      "planted_issues": [],
+      "decoys": [
+        "Material related-party purchase (Rs. 352.80 lakhs, above 10% of net worth) that WAS approved by special resolution and disclosed in Form AOC-2",
+        "A negative statement: no loan or deposit was accepted in cash",
+        "Director-linked vendor (Vardhan Engineering Works) that appears in the ledger AND in the related-party note"
+      ],
+      "approval_limit_rupees": 100000,
+      "caro_statement_present": true,
+      "ledger": {
+        "rows": 827
+      },
+      "statements": {
+        "pnl": {
+          "FY 2024-25": {
+            "revenue": 5124.6,
+            "other_income": 51.3,
+            "materials": 3105.4,
+            "employee": 688.2,
+            "finance": 142.75,
+            "depreciation": 236.4,
+            "other_exp": 521.65,
+            "total_income": 5175.9,
+            "total_expenses": 4694.4,
+            "pbt": 481.5,
+            "tax": 121.19,
+            "pat": 360.31
+          },
+          "FY 2023-24": {
+            "revenue": 4702.35,
+            "other_income": 47.1,
+            "materials": 2842.75,
+            "employee": 640.35,
+            "finance": 151.2,
+            "depreciation": 221.85,
+            "other_exp": 482.95,
+            "total_income": 4749.45,
+            "total_expenses": 4339.1,
+            "pbt": 410.35,
+            "tax": 103.29,
+            "pat": 307.06
+          }
+        },
+        "balance_sheet": {
+          "31 Mar 2025": {
+            "share_capital": 600.0,
+            "lt_borrowings": 850.0,
+            "st_borrowings": 410.2,
+            "trade_payables": 620.45,
+            "other_cl": 188.3,
+            "ppe": 2440.8,
+            "inventories": 702.35,
+            "receivables": 915.6,
+            "cash": 204.1,
+            "other_equity": 2500.91,
+            "other_ca": 907.01,
+            "total_el": 5169.86,
+            "total_assets": 5169.86,
+            "net_worth": 3100.91
+          },
+          "31 Mar 2024": {
+            "share_capital": 600.0,
+            "lt_borrowings": 920.0,
+            "st_borrowings": 385.4,
+            "trade_payables": 571.3,
+            "other_cl": 176.45,
+            "ppe": 2105.6,
+            "inventories": 648.9,
+            "receivables": 842.25,
+            "cash": 190.35,
+            "other_equity": 2140.6,
+            "other_ca": 1006.65,
+            "total_el": 4793.75,
+            "total_assets": 4793.75,
+            "net_worth": 2740.6
+          }
+        }
+      },
+      "director_interests": [
+        {
+          "director": "Harsh Vardhan Shah",
+          "entity": "Vardhan Engineering Works",
+          "interest": "Partner"
+        },
+        {
+          "director": "Nisha Shah",
+          "entity": "Shah Alloys LLP",
+          "interest": "Designated partner"
+        },
+        {
+          "director": "Imran Patel",
+          "entity": "Saurashtra Pumps Private Limited",
+          "interest": "Director"
+        }
+      ],
+      "related_party_transactions": [
+        {
+          "party": "Harsh Vardhan Shah",
+          "nature": "Managerial remuneration",
+          "FY 2024-25": 60.0,
+          "FY 2023-24": 54.0
+        },
+        {
+          "party": "Nisha Shah",
+          "nature": "Remuneration",
+          "FY 2024-25": 24.0,
+          "FY 2023-24": 21.0
+        },
+        {
+          "party": "Vardhan Engineering Works",
+          "nature": "Purchase of machinery",
+          "FY 2024-25": 352.8,
+          "FY 2023-24": 0.0
+        },
+        {
+          "party": "Vardhan Engineering Works",
+          "nature": "Repairs and maintenance services",
+          "FY 2024-25": 3.24,
+          "FY 2023-24": 2.8
+        },
+        {
+          "party": "Shah Alloys LLP",
+          "nature": "Purchase of raw materials",
+          "FY 2024-25": 214.35,
+          "FY 2023-24": 198.1
+        }
+      ]
+    },
+    {
+      "slug": "meridian",
+      "name": "Meridian Agro Exports Private Limited",
+      "files": [
+        "annual_report.md",
+        "annual_report.pdf",
+        "financials.xlsx",
+        "general_ledger.csv"
+      ],
+      "planted_issues": [
+        "rp_omitted_from_schedule",
+        "caro_missing",
+        "round_number_entries",
+        "ratio_anomaly"
+      ],
+      "decoys": [],
+      "approval_limit_rupees": 100000,
+      "caro_statement_present": false,
+      "ledger": {
+        "rows": 836,
+        "round_number_rows": 280
+      },
+      "statements": {
+        "pnl": {
+          "FY 2024-25": {
+            "revenue": 3648.9,
+            "other_income": 64.2,
+            "materials": 2446.3,
+            "employee": 318.45,
+            "finance": 96.8,
+            "depreciation": 74.25,
+            "other_exp": 402.85,
+            "total_income": 3713.1,
+            "total_expenses": 3338.65,
+            "pbt": 374.45,
+            "tax": 94.25,
+            "pat": 280.2
+          },
+          "FY 2023-24": {
+            "revenue": 3442.35,
+            "other_income": 58.75,
+            "materials": 2340.8,
+            "employee": 296.2,
+            "finance": 88.45,
+            "depreciation": 70.1,
+            "other_exp": 381.75,
+            "total_income": 3501.1,
+            "total_expenses": 3177.3,
+            "pbt": 323.8,
+            "tax": 81.5,
+            "pat": 242.3
+          }
+        },
+        "balance_sheet": {
+          "31 Mar 2025": {
+            "share_capital": 300.0,
+            "lt_borrowings": 280.0,
+            "st_borrowings": 640.25,
+            "trade_payables": 368.4,
+            "other_cl": 112.6,
+            "ppe": 612.4,
+            "inventories": 546.2,
+            "receivables": 1102.8,
+            "cash": 58.9,
+            "other_equity": 1304.7,
+            "other_ca": 685.65,
+            "total_el": 3005.95,
+            "total_assets": 3005.95,
+            "net_worth": 1604.7
+          },
+          "31 Mar 2024": {
+            "share_capital": 300.0,
+            "lt_borrowings": 310.0,
+            "st_borrowings": 402.1,
+            "trade_payables": 351.75,
+            "other_cl": 104.3,
+            "ppe": 596.85,
+            "inventories": 521.35,
+            "receivables": 565.4,
+            "cash": 71.25,
+            "other_equity": 1024.5,
+            "other_ca": 737.8,
+            "total_el": 2492.65,
+            "total_assets": 2492.65,
+            "net_worth": 1324.5
+          }
+        }
+      },
+      "director_interests": [
+        {
+          "director": "Thomas Varghese",
+          "entity": "Varghese Holdings Private Limited",
+          "interest": "Director and shareholder"
+        },
+        {
+          "director": "Maria Varghese",
+          "entity": "Periyar Cold Storage LLP",
+          "interest": "Designated partner"
+        },
+        {
+          "director": "Ravi Menon",
+          "entity": "Coastal Freight Forwarders Private Limited",
+          "interest": "Director"
+        }
+      ],
+      "related_party_transactions": [
+        {
+          "party": "Thomas Varghese",
+          "nature": "Managerial remuneration",
+          "FY 2024-25": 42.0,
+          "FY 2023-24": 39.0
+        },
+        {
+          "party": "Maria Varghese",
+          "nature": "Remuneration",
+          "FY 2024-25": 18.0,
+          "FY 2023-24": 18.0
+        },
+        {
+          "party": "Varghese Holdings Private Limited",
+          "nature": "Rent for warehouse",
+          "FY 2024-25": 14.64,
+          "FY 2023-24": 14.64
+        }
+      ]
+    }
+  ]
+}
