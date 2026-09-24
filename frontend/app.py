@@ -118,7 +118,7 @@ with st.sidebar:
 
     col_new, col_resume = st.columns(2)
     with col_new:
-        if st.button("New Investigation", use_container_width=True):
+        if st.button("New Investigation", width="stretch"):
             st.session_state.session_id = str(uuid.uuid4())
             st.session_state.messages = []
             st.session_state.pipeline_result = None
@@ -132,7 +132,7 @@ with st.sidebar:
             placeholder="paste session ID",
             label_visibility="collapsed",
         )
-        if st.button("Resume", use_container_width=True) and resume_id:
+        if st.button("Resume", width="stretch") and resume_id:
             st.session_state.session_id = resume_id.strip()
             st.session_state.messages = []
             st.rerun()
@@ -332,11 +332,11 @@ with tab_benford:
             )
             fig = benford_chart(bdata, selected_test)
             if fig:
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
 
         st.subheader("Test Summary")
         st.dataframe(
-            benford_summary_table(bdata), use_container_width=True, hide_index=True
+            benford_summary_table(bdata), width="stretch", hide_index=True
         )
 
         if overview["suggestions"]:
@@ -358,7 +358,7 @@ with tab_dup:
 
         st.subheader("Summary")
         st.dataframe(
-            duplicate_summary_table(ddata), use_container_width=True, hide_index=True
+            duplicate_summary_table(ddata), width="stretch", hide_index=True
         )
 
         finding_types = [
@@ -369,7 +369,7 @@ with tab_dup:
             df = duplicate_details_table(ddata, ft)
             if df is not None and not df.empty:
                 st.subheader(ft.replace("_", " ").title())
-                st.dataframe(df, use_container_width=True, hide_index=True)
+                st.dataframe(df, width="stretch", hide_index=True)
 
         if overview["suggestions"]:
             st.subheader("Investigation Suggestions")
@@ -390,18 +390,18 @@ with tab_ratio:
 
         fig = ratio_bar_chart(rdata)
         if fig:
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
         yoy_df = ratio_yoy_table(rdata)
         if yoy_df is not None:
             st.subheader("Year-on-Year Growth")
-            st.dataframe(yoy_df, use_container_width=True, hide_index=True)
+            st.dataframe(yoy_df, width="stretch", hide_index=True)
 
         flagged = rdata.get("flagged_changes", [])
         if flagged:
             st.subheader("Flagged Changes")
             st.dataframe(
-                pd.DataFrame(flagged), use_container_width=True, hide_index=True
+                pd.DataFrame(flagged), width="stretch", hide_index=True
             )
 
         if overview["suggestions"]:
@@ -423,12 +423,12 @@ with tab_anomaly:
 
         st.subheader("Method Summary")
         st.dataframe(
-            anomaly_summary_table(adata), use_container_width=True, hide_index=True
+            anomaly_summary_table(adata), width="stretch", hide_index=True
         )
 
         fig = anomaly_scatter(adata)
         if fig:
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
         anomalies = adata.get("anomalies", [])
         if anomalies:
@@ -436,7 +436,7 @@ with tab_anomaly:
             anom_df = pd.DataFrame(anomalies)
             if "is_consensus_anomaly" in anom_df.columns:
                 anom_df = anom_df.sort_values("is_consensus_anomaly", ascending=False)
-            st.dataframe(anom_df, use_container_width=True, hide_index=True)
+            st.dataframe(anom_df, width="stretch", hide_index=True)
 
         if overview["suggestions"]:
             st.subheader("Investigation Suggestions")
@@ -459,20 +459,20 @@ with tab_network:
         with col1:
             fig = network_graph_plotly(ndata)
             if fig:
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
             else:
                 st.info("No network graph to display.")
         with col2:
             st.subheader("Graph Stats")
             st.dataframe(
-                network_stats_table(ndata), use_container_width=True, hide_index=True
+                network_stats_table(ndata), width="stretch", hide_index=True
             )
 
         communities = ndata.get("communities", [])
         if communities:
             st.subheader("Communities")
             st.dataframe(
-                pd.DataFrame(communities), use_container_width=True, hide_index=True
+                pd.DataFrame(communities), width="stretch", hide_index=True
             )
 
         if overview["suggestions"]:
