@@ -16,6 +16,14 @@ forensic_data.duckdb
 forensic_data.duckdb.wal
 forensic_data.sqlite
 
+# Forensic pipeline outputs, skill sweep results and agent sessions
+pipeline/test_output/
+skills/*/outputs/
+data/
+*.duckdb
+*.duckdb.wal
+*.pkl
+
 # Input documents (keep the folder, never commit the files)
 user_documents/*
 !user_documents/.gitkeep
