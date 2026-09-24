@@ -182,3 +182,171 @@ def small_laws(monkeypatch):
     }
     monkeypatch.setattr(lightrag_init, "_laws_data", trimmed)
     return trimmed
+
+
+# ---------------------------------------------------------------------------
+# Forensic pipeline fixtures (table extraction -> DuckDB -> analysis skills)
+# ---------------------------------------------------------------------------
+SKILL_SCRIPTS = {
+    "benfords-analysis": PROJECT_ROOT / "skills" / "benfords-analysis" / "scripts" / "benfords.py",
+    "duplicate-detector": PROJECT_ROOT / "skills" / "duplicate-detector" / "scripts" / "duplicate_detector.py",
+    "ratio-analyzer": PROJECT_ROOT / "skills" / "ratio-analyzer" / "scripts" / "ratio_analyzer.py",
+    "anomaly-detector": PROJECT_ROOT / "skills" / "anomaly-detector" / "scripts" / "anomaly_detector.py",
+    "network-analyzer": PROJECT_ROOT / "skills" / "network-analyzer" / "scripts" / "network_analyzer.py",
+}
+
+
+@pytest.fixture(scope="session")
+def ledger_csv(tmp_path_factory, _builders) -> Path:
+    return _builders.build_ledger_csv(
+        tmp_path_factory.mktemp("docs") / "acme_general_ledger_fy2024-25.csv"
+    )
+
+
+@pytest.fixture(scope="session")
+def related_parties_xlsx(tmp_path_factory, _builders) -> Path:
+    return _builders.build_related_parties_xlsx(
+        tmp_path_factory.mktemp("docs") / "acme_related_parties_fy2025.xlsx"
+    )
+
+
+@pytest.fixture(scope="session")
+def forensic_docs(sample_xlsx, ledger_csv, related_parties_xlsx) -> list[Path]:
+    """Statements, general ledger and related-party schedule for Acme Widgets."""
+    return [sample_xlsx, ledger_csv, related_parties_xlsx]
+
+
+@pytest.fixture(scope="session")
+def forensic_db(tmp_path_factory, forensic_docs) -> Path:
+    """DuckDB workbench built by TableExtractor + DataNormalizer (read-only use)."""
+    pytest.importorskip("duckdb")
+    from pipeline.data_normalizer import DataNormalizer
+    from pipeline.table_extractor import TableExtractor
+
+    extractor = TableExtractor()
+    tables = [t for doc in forensic_docs for t in extractor.extract_all(doc)]
+    db_path = tmp_path_factory.mktemp("workbench") / "acme_case.duckdb"
+    normalizer = DataNormalizer(db_path=db_path)
+    result = normalizer.normalize_and_load(
+        tables, entity_name="Acme Widgets Private Limited", fiscal_year="2024-25"
+    )
+    normalizer.close()
+    assert not result.errors, result.errors
+    return db_path
+
+
+@pytest.fixture
+def forensic_db_copy(forensic_db, tmp_path) -> Path:
+    """A writable copy of the workbench for tests that create views."""
+    import shutil
+
+    dest = tmp_path / forensic_db.name
+    shutil.copy(forensic_db, dest)
+    return dest
+
+
+def run_skill(name: str, db_path: Path, output: Path, *args: str) -> tuple[int, dict, str]:
+    """Run a skill script the way the pipeline does; return (exit code, JSON, stderr)."""
+    import subprocess
+
+    proc = subprocess.run(
+        [sys.executable, str(SKILL_SCRIPTS[name]), "--db", str(db_path),
+         "--output", str(output), *args],
+        capture_output=True, text=True, timeout=300, cwd=str(PROJECT_ROOT),
+    )
+    data = json.loads(output.read_text()) if output.exists() else {}
+    return proc.returncode, data, proc.stderr
+
+
+@pytest.fixture
+def skill_runner():
+    return run_skill
+
+
+@pytest.fixture(scope="session")
+def pipeline_run(tmp_path_factory, forensic_docs):
+    """One full run_pipeline() pass (docling backend, no LLM) shared by tests."""
+    pytest.importorskip("duckdb")
+    from frontend.pipeline_runner import run_pipeline
+
+    out = tmp_path_factory.mktemp("pipeline_out")
+    return run_pipeline(
+        list(forensic_docs),
+        extractor="docling",
+        entity_name="Acme Widgets Private Limited",
+        fiscal_year="2024-25",
+        output_dir=out,
+        case_id="ACME-TEST",
+    )
+
+
+def fake_ocr_response() -> dict:
+    """A Mistral OCR response (as cached on disk) for a two-page statement."""
+    pnl = (
+        "<table><tr><th>Particulars</th><th>Note</th><th>FY 2024-25</th><th>FY 2023-24</th></tr>"
+        "<tr><td>Revenue from operations</td><td>18</td><td>850.00</td><td>720.00</td></tr>"
+        "<tr><td>Other income</td><td>19</td><td>12.50</td><td>9.00</td></tr>"
+        "<tr><td>Total income</td><td></td><td>862.50</td><td>729.00</td></tr>"
+        "<tr><td>Cost of materials consumed</td><td>20</td><td>410.00</td><td>355.00</td></tr>"
+        "<tr><td>Employee benefits expense</td><td>21</td><td>145.00</td><td>128.00</td></tr>"
+        "<tr><td>Total expenses</td><td></td><td>725.50</td><td>638.00</td></tr>"
+        "<tr><td>Profit for the year</td><td></td><td>102.50</td><td>68.00</td></tr></table>"
+    )
+    rpt = (
+        "<table><tr><th>Name of related party</th><th>Nature of transaction</th>"
+        "<th colspan='2'>Amount</th></tr>"
+        "<tr><td>Jane Doe</td><td>Rent</td><td>6.00</td><td>6.00</td></tr>"
+        "<tr><td>Acme Holdings Private Limited</td><td>Purchases</td><td>120.00</td><td>95.50</td></tr></table>"
+    )
+    return {
+        "model": "mistral-ocr-latest",
+        "pages": [
+            {
+                "index": 0,
+                "markdown": (
+                    "# Acme Widgets Private Limited\n\n"
+                    "Statement of Profit and Loss for the year ended 31 March 2025\n\n"
+                    "(All amounts in Rs. lakhs)\n\n[tbl-0.html](tbl-0.html)\n\n3"
+                ),
+                "tables": [{"id": "tbl-0.html", "content": pnl}],
+                "header": None,
+                "footer": None,
+            },
+            {
+                "index": 1,
+                "markdown": (
+                    "Acme Widgets Private Limited\n\n"
+                    "Notes to the financial statements\n\n"
+                    "## 30 Related party transactions\n\n[tbl-1.html](tbl-1.html)"
+                ),
+                "tables": [{"id": "tbl-1.html", "content": rpt}],
+                "header": None,
+                "footer": "Fictional sample data",
+            },
+        ],
+    }
+
+
+@pytest.fixture
+def ocr_response() -> dict:
+    return fake_ocr_response()
+
+
+@pytest.fixture
+def offline_mistral(monkeypatch, tmp_path):
+    """Serve fake OCR responses instead of calling the Mistral API.
+
+    Returns the list of files that would have been uploaded.
+    """
+    from pipeline.mistral_extractor import MistralTableExtractor
+
+    calls: list[Path] = []
+
+    def fake_call_api(self, file_path):
+        calls.append(Path(file_path))
+        return fake_ocr_response()
+
+    monkeypatch.setenv("MISTRAL_API_KEY", "test-key-not-used")
+    monkeypatch.setenv("MISTRAL_OCR_CACHE_DIR", str(tmp_path / "ocr_cache"))
+    monkeypatch.setattr(MistralTableExtractor, "_call_api", fake_call_api)
+    return calls

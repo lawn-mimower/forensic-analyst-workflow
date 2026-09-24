@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Build small sample documents (XLSX and PDF) for a fictional company,
+Build small sample documents (XLSX, CSV and PDF) for a fictional company,
 Acme Widgets Private Limited, used by the test suite.
 
 Usage:
@@ -11,6 +11,8 @@ With no argument the files are written to user_documents/.
 
 from __future__ import annotations
 
+import csv
+import random
 import sys
 from pathlib import Path
 
@@ -37,6 +39,77 @@ BALANCE_SHEET_ROWS = [
     ("Trade receivables", 165.00, 140.00),
     ("Cash and cash equivalents", 72.50, 55.00),
 ]
+
+
+# Related-party schedule (Rs. lakhs). A positive amount is money received by
+# the company, a negative amount money paid out; Widget Tools LLP has both.
+RELATED_PARTY_ROWS = [
+    ("Jane Doe", "Director", "Rent paid", 6.00, 6.00),
+    ("Richard Roe", "Relative of director", "Loan accepted", 3.00, 0.00),
+    ("Acme Holdings Private Limited", "Holding company", "Purchase of materials", 120.00, 95.50),
+    ("Widget Tools LLP", "Entity controlled by director", "Sales", -42.00, -38.00),
+    ("Widget Tools LLP", "Entity controlled by director", "Purchase of tooling", 10.00, 7.50),
+    ("Sample Advisors LLP", "Entity controlled by director", "Consultancy fees", 18.00, 4.00),
+]
+
+LEDGER_ACCOUNTS = [
+    "Travel and conveyance", "Repairs and maintenance", "Freight outward",
+    "Power and fuel", "Professional fees", "Printing and stationery",
+    "Advertisement", "Insurance", "Rates and taxes", "Office supplies",
+]
+
+# Planted findings in the general ledger (absolute rupees)
+LEDGER_EXACT_DUPLICATE = ("Office supplies", 45210.00)
+LEDGER_FUZZY_PAIR = (("Office Supplies Expense", 18990.00), ("Office Supplies Expenses", 18990.00))
+LEDGER_NEAR_PAIR = (("Freight outward", 12500.00), ("Freight outward", 12540.00))
+LEDGER_OUTLIER = ("Consultancy - Sample Advisors LLP", 98500000.00)
+
+
+def ledger_rows(n: int = 240, seed: int = 7) -> list[tuple[str, float]]:
+    """General-ledger expense lines with log-uniform (Benford-like) amounts
+    plus the planted duplicates, near-duplicates and one large outlier."""
+    rng = random.Random(seed)
+    rows = [
+        (rng.choice(LEDGER_ACCOUNTS), round(10 ** rng.uniform(2, 6), 2))
+        for _ in range(n)
+    ]
+    rows += [LEDGER_EXACT_DUPLICATE, LEDGER_EXACT_DUPLICATE]
+    rows += list(LEDGER_FUZZY_PAIR) + list(LEDGER_NEAR_PAIR)
+    rows.append(LEDGER_OUTLIER)
+    return rows
+
+
+def build_ledger_csv(path: str | Path, n: int = 240, seed: int = 7) -> Path:
+    """Write a general ledger extract for FY 2024-25 (amounts in rupees)."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(["Particulars", "Amount"])
+        for name, amount in ledger_rows(n, seed):
+            writer.writerow([name, f"{amount:.2f}"])
+    return path
+
+
+def build_related_parties_xlsx(path: str | Path) -> Path:
+    """Write a related-party transactions schedule with two fiscal years."""
+    from openpyxl import Workbook
+
+    path = Path(path)
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Related Party Transactions"
+    ws.append([COMPANY])
+    ws.append(["Related party transactions (All amounts in Rs. lakhs)"])
+    ws.append([])
+    ws.append(["Name of Related Party", "Relationship", "Nature of Transaction",
+               "FY 2024-25", "FY 2023-24"])
+    for row in RELATED_PARTY_ROWS:
+        ws.append(list(row))
+    wb.properties.creator = "Acme Widgets test fixtures"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    wb.save(path)
+    return path
 
 
 def build_xlsx(path: str | Path) -> Path:
@@ -125,10 +198,14 @@ def build_pdf(path: str | Path) -> Path:
 def main() -> None:
     root = Path(__file__).resolve().parents[2]
     out_dir = Path(sys.argv[1]) if len(sys.argv) > 1 else root / "user_documents"
-    xlsx = build_xlsx(out_dir / "acme_widgets_fy2025.xlsx")
-    pdf = build_pdf(out_dir / "acme_widgets_pnl_fy2025.pdf")
-    print(f"Wrote {xlsx}")
-    print(f"Wrote {pdf}")
+    written = [
+        build_xlsx(out_dir / "acme_widgets_fy2025.xlsx"),
+        build_pdf(out_dir / "acme_widgets_pnl_fy2025.pdf"),
+        build_ledger_csv(out_dir / "acme_general_ledger_fy2024-25.csv"),
+        build_related_parties_xlsx(out_dir / "acme_related_parties_fy2025.xlsx"),
+    ]
+    for path in written:
+        print(f"Wrote {path}")
 
 
 if __name__ == "__main__":
