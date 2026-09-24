@@ -1,0 +1,21 @@
+# Secrets and local environments
+.env
+.venv/
+venv/
+
+# Python / tooling caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Knowledge graph storage and pipeline outputs
+rag_storage/
+skills/compliance-checker/outputs/
+forensic_data.duckdb
+forensic_data.duckdb.wal
+forensic_data.sqlite
+
+# Input documents (keep the folder, never commit the files)
+user_documents/*
+!user_documents/.gitkeep
