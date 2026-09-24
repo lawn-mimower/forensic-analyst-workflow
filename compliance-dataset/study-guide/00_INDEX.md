@@ -21,9 +21,6 @@ A structured study guide for forensic analysts checking Indian company documents
 | [06_PIPELINE_MAPPING.md](./06_PIPELINE_MAPPING.md) | How each resource maps to your 19 pipeline categories + suggested additions |
 | [07_READING_ORDER.md](./07_READING_ORDER.md) | Recommended reading sequence by skill level and time available |
 
-## Downloaded Resources
+## Source Material
 
-| Folder | Contents |
-|---|---|
-| `../pdfs/` | 12 successfully downloaded PDFs from ICAI, ICSI, BPRD, FIU |
-| `../structured-data/` | CivicTech India Legal JSON (IPC, CrPC, etc.) + manual download URLs |
+The guide refers to downloaded ICAI, ICSI, BPRD and FIU publications by file name (for example `pdfs/ICAI_CARO_2020_Guidance_Note.pdf`). Those PDFs are not included in this repository, and neither is the IPC/CrPC JSON data referenced as `structured-data/Indian-Law-Penal-Code-Json/`; download them from the issuing bodies. `../structured-data/manual_download_urls.json` lists sources that need a manual download.
