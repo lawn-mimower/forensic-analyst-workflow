@@ -148,15 +148,8 @@ def _generate_markdown(report: dict, profile: dict) -> str:
     meta = report["report_metadata"]
     lines = []
 
-    # Extract entity name from summary (first line heuristic)
-    summary = meta.get("document_summary", "")
-    entity = "Unknown Entity"
-    for keyword in ["ExampleCo", "EXAMPLECO", "EXCO"]:
-        if keyword.lower() in summary.lower():
-            entity = "Example Engineering Private Limited"
-            break
-
-    lines.append(f"# Compliance Report: {entity}")
+    entity = meta.get("entity_name")
+    lines.append(f"# Compliance Report: {entity}" if entity else "# Compliance Report")
     lines.append("")
     lines.append(f"**Generated**: {meta['generated_at']}")
     lines.append(f"**Overall Score**: {overall['score_pct']} | "
