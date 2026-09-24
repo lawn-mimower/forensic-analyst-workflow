@@ -10,7 +10,7 @@ JSON schemas for all intermediate and final outputs of the compliance checker pi
   "applicable_category_keys": ["companies_act_2013", "income_tax_act_1961", "..."],
   "applicable_category_names": ["Companies Act, 2013", "Income Tax Act, 1961", "..."],
   "total_applicable": 5,
-  "total_available": 17
+  "total_available": 19
 }
 ```
 
@@ -111,7 +111,8 @@ Valid verdict values: `COMPLIANT`, `VIOLATION`, `INSUFFICIENT_EVIDENCE`
 Markdown format:
 
 ```markdown
-# Compliance Report: {Entity Name}
+# Compliance Report
+**Generated**: {ISO timestamp}
 **Overall Score**: X% | **Questions**: N | **Compliant**: C | **Violations**: V | **Insufficient Evidence**: I
 
 ---

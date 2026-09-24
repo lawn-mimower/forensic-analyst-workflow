@@ -109,6 +109,7 @@ python skills/network-analyzer/scripts/network_analyzer.py \
 |---|---|---|---|
 | `--db` | Yes | -- | Path to DuckDB database |
 | `--output` | Yes | -- | Output JSON file path |
+| `--table` | No | `related_parties` | Table or view to query (e.g. `curated_related_parties`) |
 | `--filter` | No | -- | SQL WHERE clause for related_parties |
 | `--case-id` | No | -- | Case identifier for audit trail |
 
