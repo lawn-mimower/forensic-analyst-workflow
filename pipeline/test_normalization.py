@@ -210,50 +210,10 @@ def _extract_pdf_tables(file_path: Path) -> list[ExtractedTable]:
     except Exception as exc:
         print(f"  [WARN] camelot extraction failed: {exc}")
 
-    # Minimal fallback: read text and try to parse
-    print(f"  [INFO] No PDF table extractor available for {file_path.name}; creating stub table")
-    # Create a minimal stub so the normalizer can still be tested
-    stub_df = pd.DataFrame({
-        "Particulars": [
-            "Revenue from Operations",
-            "Other Income",
-            "Total Income",
-            "Cost of Materials Consumed",
-            "Employee Benefits Expense",
-            "Depreciation and Amortisation Expense",
-            "Other Expenses",
-            "Total Expenses",
-            "Profit Before Tax",
-            "Tax Expense",
-            "Profit After Tax",
-        ],
-        "FY 2023-24": [
-            1250.00, 45.50, 1295.50, 610.25, 180.40,
-            62.15, 215.70, 1068.50, 227.00, 57.15, 169.85,
-        ],
-        "FY 2022-23": [
-            1120.00, 38.20, 1158.20, 548.90, 165.30,
-            58.40, 198.60, 971.20, 187.00, 47.10, 139.90,
-        ],
-    })
-    tbl = ExtractedTable(
-        df=stub_df,
-        source_file=str(file_path),
-        source_file_type=file_path.suffix.lower().lstrip("."),
-        sheet_name="",
-        table_index=0,
-        page_number=1,
-        section_heading="Statement of Profit and Loss (₹ in Crores)",
-        surrounding_text=(
-            "sample_docs/sample_statement.pdf | "
-            "Statement of Profit and Loss for the year ended March 31, 2024 | "
-            "All amounts in Crores"
-        ),
-        extraction_method="stub_fallback",
-        extraction_confidence=0.50,
+    raise RuntimeError(
+        f"No PDF table extractor could read {file_path.name}. "
+        "Install tabula-py or camelot-py, or use the Mistral or Docling extractor."
     )
-    tables.append(tbl)
-    return tables
 
 
 def extract_tables(file_path: Path) -> list[ExtractedTable]:
