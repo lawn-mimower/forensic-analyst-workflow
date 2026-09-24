@@ -108,6 +108,25 @@ A 5-phase automated pipeline that checks an indexed financial document against a
 
 **Scoring formula**: `compliant / (compliant + violation)` -- questions marked `INSUFFICIENT_EVIDENCE` are excluded from the denominator so they do not inflate or deflate the score.
 
+### Forensic Analytics Pipeline
+
+A structured-data track next to the knowledge graph: tables are extracted from the financial statements, normalised into a DuckDB workbench and swept by five deterministic analysis skills (no LLM calls). A Streamlit app wraps the pipeline, the skill dashboards and a chat agent.
+
+| Component | Description |
+|---|---|
+| `pipeline/table_extractor.py` | Context-aware table extraction: Docling for PDF/DOCX, openpyxl for Excel (merged cells, formulas, unit annotations), pandas for CSV |
+| `pipeline/mistral_extractor.py` | Mistral OCR backend for PDFs with the same `ExtractedTable` output; raw responses are cached on disk |
+| `pipeline/data_normalizer.py` | Classifies tables, converts lakhs/crores to rupees, assigns fiscal periods and loads `source_tables`, `line_items`, `related_parties` and `analysis_results` |
+| `skills/shared/data_inspector.py`, `data_curator.py` | Data-quality profile and `curated_line_items` / `curated_related_parties` views (period consolidation, de-duplication, entity whitelist) |
+| `skills/benfords-analysis/` | First, second, first-two and last-two digit tests plus the summation test (Nigrini MAD thresholds) |
+| `skills/duplicate-detector/` | Exact, near-amount, fuzzy-name and cross-period duplicates and round-number concentration |
+| `skills/ratio-analyzer/` | Margins and expense ratios per period with year-on-year change flags |
+| `skills/anomaly-detector/` | IQR, Z-score and Isolation Forest (PyOD) outliers with a consensus flag |
+| `skills/network-analyzer/` | Related-party graph: centrality, Louvain communities, cycles and hubs |
+| `frontend/` | Streamlit app (`app.py`), pipeline runner and the Agno forensic agent with its toolkit |
+
+Every skill writes a JSON report with a 1-10 risk score and investigation suggestions.
+
 ---
 
 ## Setup and Prerequisites
@@ -228,6 +247,35 @@ python skills/compliance-checker/scripts/generate_report.py
 ```
 
 All intermediate and final outputs are written to `skills/compliance-checker/outputs/`.
+
+### 4. Forensic Pipeline and Streamlit App
+
+```bash
+# Sample documents for the fictional Acme Widgets Private Limited (written to user_documents/)
+python tests/fixtures/build_fixtures.py
+
+# Extract + normalise into DuckDB (defaults to every PDF/Excel/CSV file in user_documents/),
+# then sweep all five skills (reports go to skills/<skill>/outputs/sweep.json)
+python -m pipeline.test_normalization --entity "Acme Widgets Private Limited" --fiscal-year 2024-25 --run-skills
+
+# Use Mistral OCR for PDFs instead of Docling (needs MISTRAL_API_KEY)
+python -m pipeline.test_normalization --extractor mistral
+
+# Run a single skill against the workbench
+python skills/duplicate-detector/scripts/duplicate_detector.py \
+  --db pipeline/test_output/test_forensic.duckdb --output duplicates.json
+
+# Chat UI with upload, pipeline run and dashboards
+streamlit run frontend/app.py
+```
+
+Optional environment variables:
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `FORENSIC_OUTPUT_DIR` | `pipeline/test_output/` | DuckDB workbench, table cache and skill reports written by the app's pipeline runs |
+| `FORENSIC_AGENT_DB` | `data/forensic_agent.db` | SQLite file for the agent's sessions and memory |
+| `MISTRAL_OCR_CACHE_DIR` | `pipeline/test_output/mistral_cache/` | Cached Mistral OCR responses |
 
 ---
 
