@@ -1,0 +1,19 @@
+# Every role on a local Ollama model through its OpenAI-compatible endpoint.
+# llama3.2-ctx32k is llama3.2 (3B, Q4_K_M) with a 32k context window and
+# temperature 0; create it once with:
+#   curl http://localhost:11434/api/create -d '{"model": "llama3.2-ctx32k",
+#     "from": "llama3.2:latest", "parameters": {"num_ctx": 32768, "temperature": 0, "seed": 42}}'
+# (Ollama's /v1 endpoint ignores per-request num_ctx and truncates prompts to
+# the model's default context, 4096 tokens for llama3.2.)
+providers:
+  openai_compat:
+    base_url: "http://localhost:11434/v1"
+    default_model: "llama3.2-ctx32k"
+    rate_limit_rpm: 6000
+    timeout_s: 3600
+
+roles:
+  kg_llm:          { provider: openai_compat }
+  reasoning_llm:   { provider: openai_compat }
+  agent_llm:       { provider: openai_compat }
+  embedding:       { provider: local, model: "all-MiniLM-L6-v2", dim: 384 }

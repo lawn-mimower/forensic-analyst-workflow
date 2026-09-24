@@ -131,17 +131,17 @@ Environment variables are read from `.env` in the repository root:
 | `MISTRAL_OCR_CACHE_DIR` | Cached Mistral OCR responses (default `pipeline/test_output/mistral_cache/`) |
 | `MODEL_CONFIG_PATH` | Model config to use instead of `model_config.yaml` |
 
-`model_config.yaml` maps roles to providers (`kg_llm`: Mistral `ministral-14b-2512`; `reasoning_llm`: Gemini `gemini-3-flash-preview`; the local embedding model) and sets per-provider rate limits. Mistral, Gemini, Anthropic and `openai_compat` providers are implemented. `openai_compat` talks to any OpenAI-compatible server, such as a local Ollama (`base_url: http://localhost:11434/v1`). Set `MODEL_CONFIG_PATH` to use another config file.
+`model_config.yaml` maps roles to providers (`kg_llm`: Mistral `ministral-14b-2512`; `reasoning_llm`: Gemini `gemini-3-flash-preview`; the local embedding model) and sets per-provider rate limits. Mistral, Gemini, Anthropic and `openai_compat` providers are implemented. `openai_compat` talks to any OpenAI-compatible server, such as a local Ollama (`base_url: http://localhost:11434/v1`). Set `MODEL_CONFIG_PATH` to use another config file; `benchmarks/configs/` has one that puts every role on a local Ollama model and one for Gemini.
 
 ## Tests
 
 ```bash
-python -m pytest                  # 138 offline tests, about 40 s; no API keys
+python -m pytest                  # 180 offline tests, about 40 s; no API keys
 python -m pytest -m "not slow"    # skip the 15 tests that load Docling or the embedding model
 python -m pytest -m e2e           # live run against Mistral and Gemini; skipped unless both keys are set
 ```
 
-The offline suite swaps Mistral and Gemini for deterministic fakes and runs the real code for everything else (the first run downloads the Docling and sentence-transformers models). It covers ingestion into a real LightRAG store, all five query modes, the compliance phases singly and end to end, the table extractors (including a canned Mistral OCR response), the normaliser, the five forensic tests on a workbench built from the synthetic documents (which contain planted duplicates and an outlier), the pipeline CLIs, both agent toolkits, and the Streamlit app through Streamlit's AppTest.
+The offline suite swaps Mistral and Gemini for deterministic fakes and runs the real code for everything else (the first run downloads the Docling and sentence-transformers models). It covers ingestion into a real LightRAG store, all five query modes, the compliance phases singly and end to end, the table extractors (including a canned Mistral OCR response), the normaliser, the five forensic tests on a workbench built from the synthetic documents (which contain planted duplicates and an outlier), the pipeline CLIs, both agent toolkits, and the Streamlit app through Streamlit's AppTest. `tests/test_benchmarks.py` covers the benchmark's scoring rules, output-to-flag mappings, response cache and dataset generator.
 
 The live test indexes the fictional Markdown statement, asks one question and runs the compliance pipeline on a single law section.
 
@@ -177,6 +177,7 @@ schema/                     earlier relational schema (v1), kept for reference; 
 rag_chatbot.ipynb           index documents and chat with the knowledge-graph agent
 model_config.yaml           provider and model for each role
 tests/                      offline and live tests; fixtures/ holds the synthetic Acme Widgets documents
+benchmarks/                 synthetic benchmark data, harness, baselines and results
 user_documents/             your own documents (git-ignored)
 ```
 

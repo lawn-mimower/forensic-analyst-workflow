@@ -27,3 +27,9 @@ data/
 # Input documents (keep the folder, never commit the files)
 user_documents/*
 !user_documents/.gitkeep
+
+# Benchmark working files: cached LLM responses, knowledge-graph stores, per-item logs.
+# The synthetic benchmark dataset is committed (data/ above would otherwise match it).
+benchmarks/.cache/
+benchmarks/.work/
+!benchmarks/data/

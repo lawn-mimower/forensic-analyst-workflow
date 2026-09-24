@@ -1,0 +1,12 @@
+# Every role on gemini-2.5-flash-lite (free tier: keep the rate low).
+providers:
+  gemini:
+    api_key_env: "GEMINI_API_KEY"
+    default_model: "gemini-2.5-flash-lite"
+    rate_limit_rpm: 6
+
+roles:
+  kg_llm:          { provider: gemini }
+  reasoning_llm:   { provider: gemini }
+  agent_llm:       { provider: gemini }
+  embedding:       { provider: local, model: "all-MiniLM-L6-v2", dim: 384 }
