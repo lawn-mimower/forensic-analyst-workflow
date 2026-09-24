@@ -1,0 +1,337 @@
+{
+  "benchmark": "issue_detection",
+  "run_label": "gemini-3.1-flash-lite",
+  "complete": true,
+  "stopped_early": null,
+  "conditions": {
+    "llm_model": "gemini-3.1-flash-lite",
+    "llm_provider": "gemini",
+    "llm_endpoint": null,
+    "config": "benchmarks/configs/gemini-3.1-flash-lite.yaml",
+    "companies": [
+      "kestrel",
+      "tarangini",
+      "northfield",
+      "vardhan",
+      "meridian"
+    ],
+    "unit_of_scoring": "(company, issue type) pairs; micro-averaged precision and recall",
+    "compliance_sections": [
+      "companies_act_2013/section_143 -> caro_missing",
+      "income_tax_act_1961/section_269SS -> cash_loan_269ss",
+      "icai_standards_on_auditing/sa_550 -> rp_omitted_from_schedule"
+    ],
+    "workbench_inputs": "financials.xlsx and general_ledger.csv (the report text is not used)",
+    "llm_inputs": "annual_report.md and general_ledger.csv in one prompt",
+    "compliance_inputs": "LightRAG store built from annual_report.md"
+  },
+  "gold": {
+    "kestrel": [
+      "rpt_threshold_no_approval",
+      "caro_missing",
+      "duplicate_entries",
+      "unusual_large_payment"
+    ],
+    "tarangini": [
+      "rp_omitted_from_schedule",
+      "round_number_entries",
+      "benford_nonconformity"
+    ],
+    "northfield": [
+      "duplicate_entries",
+      "ratio_anomaly",
+      "cash_loan_269ss"
+    ],
+    "vardhan": [],
+    "meridian": [
+      "rp_omitted_from_schedule",
+      "caro_missing",
+      "round_number_entries",
+      "ratio_anomaly"
+    ]
+  },
+  "systems": {
+    "llm_whole_doc": {
+      "per_company": {
+        "kestrel": {
+          "flags": [
+            "benford_nonconformity",
+            "caro_missing",
+            "ratio_anomaly",
+            "round_number_entries",
+            "rp_omitted_from_schedule",
+            "rpt_threshold_no_approval",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "parse_error": false,
+            "n_red_flags": 7,
+            "unknown_categories": [],
+            "red_flag_categories": [
+              "rpt_threshold_no_approval",
+              "rp_omitted_from_schedule",
+              "round_number_entries",
+              "benford_nonconformity",
+              "caro_missing",
+              "ratio_anomaly",
+              "unusual_large_payment"
+            ]
+          },
+          "seconds": 106.0,
+          "llm_calls": 1,
+          "new_llm_calls": 1,
+          "prompt_tokens_est": 26909,
+          "completion_tokens_est": 437,
+          "llm_seconds": 5.9
+        },
+        "tarangini": {
+          "flags": [
+            "benford_nonconformity",
+            "round_number_entries",
+            "rp_omitted_from_schedule",
+            "rpt_threshold_no_approval",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "parse_error": false,
+            "n_red_flags": 5,
+            "unknown_categories": [],
+            "red_flag_categories": [
+              "rpt_threshold_no_approval",
+              "rp_omitted_from_schedule",
+              "round_number_entries",
+              "benford_nonconformity",
+              "unusual_large_payment"
+            ]
+          },
+          "seconds": 41.3,
+          "llm_calls": 1,
+          "new_llm_calls": 1,
+          "prompt_tokens_est": 27903,
+          "completion_tokens_est": 342,
+          "llm_seconds": 7.3
+        },
+        "northfield": {
+          "flags": [
+            "benford_nonconformity",
+            "cash_loan_269ss",
+            "ratio_anomaly",
+            "rp_omitted_from_schedule",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "parse_error": false,
+            "n_red_flags": 5,
+            "unknown_categories": [],
+            "red_flag_categories": [
+              "rp_omitted_from_schedule",
+              "benford_nonconformity",
+              "ratio_anomaly",
+              "cash_loan_269ss",
+              "unusual_large_payment"
+            ]
+          },
+          "seconds": 115.5,
+          "llm_calls": 1,
+          "new_llm_calls": 1,
+          "prompt_tokens_est": 26943,
+          "completion_tokens_est": 377,
+          "llm_seconds": 6.1
+        },
+        "vardhan": {
+          "flags": [
+            "benford_nonconformity",
+            "ratio_anomaly",
+            "rp_omitted_from_schedule",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "parse_error": false,
+            "n_red_flags": 4,
+            "unknown_categories": [],
+            "red_flag_categories": [
+              "benford_nonconformity",
+              "unusual_large_payment",
+              "ratio_anomaly",
+              "rp_omitted_from_schedule"
+            ]
+          },
+          "seconds": 10.0,
+          "llm_calls": 1,
+          "new_llm_calls": 1,
+          "prompt_tokens_est": 27243,
+          "completion_tokens_est": 316,
+          "llm_seconds": 10.0
+        },
+        "meridian": {
+          "flags": [
+            "caro_missing",
+            "ratio_anomaly",
+            "round_number_entries",
+            "rp_omitted_from_schedule",
+            "rpt_threshold_no_approval",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "parse_error": false,
+            "n_red_flags": 6,
+            "unknown_categories": [],
+            "red_flag_categories": [
+              "rpt_threshold_no_approval",
+              "rp_omitted_from_schedule",
+              "round_number_entries",
+              "caro_missing",
+              "ratio_anomaly",
+              "unusual_large_payment"
+            ]
+          },
+          "seconds": 15.5,
+          "llm_calls": 1,
+          "new_llm_calls": 1,
+          "prompt_tokens_est": 27081,
+          "completion_tokens_est": 361,
+          "llm_seconds": 15.1
+        }
+      },
+      "metrics": {
+        "companies_scored": [
+          "kestrel",
+          "meridian",
+          "northfield",
+          "tarangini",
+          "vardhan"
+        ],
+        "tp": 12,
+        "fp": 15,
+        "fn": 2,
+        "precision": 0.444,
+        "recall": 0.857,
+        "f1": 0.585,
+        "per_type": {
+          "rpt_threshold_no_approval": {
+            "planted_in": [
+              "kestrel"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "meridian",
+              "tarangini"
+            ],
+            "tp": 1,
+            "fp": 2,
+            "fn": 0
+          },
+          "rp_omitted_from_schedule": {
+            "planted_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "meridian",
+              "northfield",
+              "tarangini",
+              "vardhan"
+            ],
+            "tp": 2,
+            "fp": 3,
+            "fn": 0
+          },
+          "duplicate_entries": {
+            "planted_in": [
+              "kestrel",
+              "northfield"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 2
+          },
+          "round_number_entries": {
+            "planted_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "meridian",
+              "tarangini"
+            ],
+            "tp": 2,
+            "fp": 1,
+            "fn": 0
+          },
+          "benford_nonconformity": {
+            "planted_in": [
+              "tarangini"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "northfield",
+              "tarangini",
+              "vardhan"
+            ],
+            "tp": 1,
+            "fp": 3,
+            "fn": 0
+          },
+          "caro_missing": {
+            "planted_in": [
+              "kestrel",
+              "meridian"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "meridian"
+            ],
+            "tp": 2,
+            "fp": 0,
+            "fn": 0
+          },
+          "ratio_anomaly": {
+            "planted_in": [
+              "meridian",
+              "northfield"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "meridian",
+              "northfield",
+              "vardhan"
+            ],
+            "tp": 2,
+            "fp": 2,
+            "fn": 0
+          },
+          "cash_loan_269ss": {
+            "planted_in": [
+              "northfield"
+            ],
+            "flagged_in": [
+              "northfield"
+            ],
+            "tp": 1,
+            "fp": 0,
+            "fn": 0
+          },
+          "unusual_large_payment": {
+            "planted_in": [
+              "kestrel"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "meridian",
+              "northfield",
+              "tarangini",
+              "vardhan"
+            ],
+            "tp": 1,
+            "fp": 4,
+            "fn": 0
+          }
+        }
+      }
+    }
+  },
+  "new_llm_calls_main_process": 1
+}
