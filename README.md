@@ -1,301 +1,182 @@
 # Forensic Analyst Workflow
 
-A RAG-based financial document analysis system with automated compliance checking against Indian financial laws. Ingest PDF and Excel financial statements into a LightRAG knowledge graph, query them conversationally, and run a fully automated 5-phase compliance audit pipeline that scores documents against 17 categories of Indian regulatory requirements.
+Checking a company's financial statements for compliance gaps or signs of manipulation means reading the narrative (notes, disclosures, related-party schedules) and testing the numbers. This project does both from the same documents. The text goes into a LightRAG knowledge graph that answers questions and drives a five-phase compliance audit against Indian financial and corporate law. The tables are extracted into a DuckDB workbench, where five deterministic forensic tests (Benford's law, duplicates, ratios, anomalies, related-party networks) run without an LLM. An Agno chat agent and a Streamlit app sit on top of both.
 
----
+This is a personal proof of concept, not a finished product. No financial documents ship with the repository. You supply your own, and `tests/fixtures/` holds a small fictional company (Acme Widgets Private Limited) to try it on.
 
-## Architecture Overview
-
-The system uses a dual-LLM architecture built on top of a LightRAG knowledge graph:
-
-- **Knowledge Graph Construction and Retrieval** -- [Mistral](https://mistral.ai/) (`ministral-14b-2512`) handles entity extraction, relation building, and internal LightRAG operations. This keeps the graph-building pipeline cost-effective while maintaining quality.
-- **Reasoning and Adjudication** -- [Google Gemini](https://ai.google.dev/) (`gemini-2.5-flash`) powers the conversational chatbot agent (via [Agno](https://github.com/agno-agi/agno)) and compliance adjudication, where stronger reasoning is needed to render verdicts.
-- **Embeddings** -- Local `all-MiniLM-L6-v2` (384-dimensional, via `sentence-transformers`) for all vector operations. No embedding API costs.
-- **Document Parsing** -- [Docling](https://github.com/DS4SD/docling) converts PDF and Excel files to Markdown before indexing.
-
-LightRAG provides five retrieval modes (`local`, `global`, `hybrid`, `mix`, `naive`) over a knowledge graph stored as a GraphML file with nano-vectordb indices, enabling both entity-level lookups and cross-document thematic queries.
-
----
-
-## Project Structure
+## How it works
 
 ```
-Forensic_workflow/
-|-- rag_chatbot.ipynb                         # Main notebook: ingest documents, build KG, interactive chat
-|-- model_config.yaml                         # LLM provider/role configuration (hot-swappable)
-|-- indian_financial_fraud_compliance_laws.json # 17 categories of Indian financial/compliance laws
-|-- requirements.txt                           # Python dependencies
-|-- .env                                       # API keys (GEMINI_API_KEY, MISTRAL_API_KEY)
-|
-|-- user_documents/                            # Place input documents here (PDF, XLSX, CSV, images, etc.)
-|   +sample_docs/sample_statement.pdf     # Example input document
-|
-|-- rag_storage/                               # LightRAG knowledge graph data
-|   |-- graph_chunk_entity_relation.graphml    # Entity-relation graph
-|   |-- vdb_entities.json                      # Entity vector index
-|   |-- vdb_relationships.json                 # Relationship vector index
-|   |-- vdb_chunks.json                        # Chunk vector index
-|   +-- kv_store_*.json                        # Key-value stores (docs, chunks, cache)
-|
-|-- skills/
-|   |-- shared/
-|   |   |-- __init__.py
-|   |   |-- lightrag_init.py                   # Shared LightRAG factory, rate limiter, LLM/embedding funcs
-|   |   |-- rate_limiter.py                    # Per-provider rate limiting
-|   |   |-- llm_providers.py                   # Unified LLM provider wrappers (Mistral, Gemini, Anthropic)
-|   |   |-- llm_registry.py                    # YAML-driven role→provider mapping with hot-swap
-|   |   |-- lightrag_client.py                 # Dual-mode LightRAG client (HTTP server / direct library)
-|   |   |-- preprocessors.py                   # File-type-aware document preprocessing (Docling, openpyxl, pandas)
-|   |   |-- agent_tools.py                     # ForensicToolkit (9 agent tools)
-|   |   +-- model_config_agno.py               # Agno Model factory for agent LLM selection
-|   |
-|   |-- lightrag-query/
-|   |   |-- SKILL.md
-|   |   +-- scripts/
-|   |       +-- query.py                       # CLI for querying the knowledge graph
-|   |
-|   +-- compliance-checker/
-|       |-- SKILL.md
-|       |-- references/
-|       |   +-- output_format.md               # JSON schemas for all pipeline outputs
-|       |-- scripts/
-|       |   |-- run_pipeline.py                # Full pipeline runner (phases 0-4)
-|       |   |-- profile_document.py            # Phase 0: document profiling
-|       |   |-- atomise_laws.py                # Phase 1: generate atomic compliance questions
-|       |   |-- batch_retrieve.py              # Phase 2: parallel LightRAG context retrieval
-|       |   |-- adjudicate.py                  # Phase 3: Gemini compliance verdicts
-|       |   +-- generate_report.py             # Phase 4: score aggregation and report generation
-|       +-- outputs/
-|           |-- document_profile.json          # Phase 0 output
-|           |-- atomic_questions.json          # Phase 1 output
-|           |-- retrieved_contexts.json        # Phase 2 output
-|           |-- verdicts.json                  # Phase 3 output
-|           |-- compliance_report.json         # Phase 4 structured report
-|           +-- compliance_report.md           # Phase 4 human-readable report
-|
-+-- reports/                                   # Architecture documentation (HTML)
+                  ┌─ text ──► LightRAG knowledge graph ──► questions (local / global / hybrid / mix / naive)
+ your documents ──┤          (Mistral extracts entities,  └─► compliance audit (Gemini):
+ user_documents/  │           local MiniLM embeddings)         profile → atomise → retrieve → adjudicate → report
+                  │
+                  └─ tables ─► normalise (units, periods) ─► DuckDB workbench ─► curate ─► 5 forensic tests
+                                                                                           (JSON reports, dashboards)
+
+ Agno agent: tools over both sides plus read-only SQL on the workbench.
+ Streamlit app: upload, run the table pipeline, dashboards, chat with the agent.
 ```
 
----
+**Knowledge graph.** Documents are converted to text or Markdown (see [Inputs](#inputs)) and indexed by LightRAG. Mistral (`ministral-14b-2512`) extracts the entities and relations. Embeddings come from a local `all-MiniLM-L6-v2` model, so they need no API calls. The graph is kept in LightRAG's default file storage under `rag_storage/`.
 
-## Skills
+**Compliance audit** (`skills/compliance-checker/`). The audit runs against `indian_financial_fraud_compliance_laws.json`, which holds 19 categories and 134 sections: the Companies Act 2013, IPC/BNS, PMLA, SEBI, RBI, Income Tax, GST, FEMA, IBC, the ICAI standards and others.
 
-### LightRAG Query
-
-Query the indexed knowledge graph from the command line with configurable retrieval modes.
-
-| Mode | Best For |
+| Phase | What happens |
 |---|---|
-| `local` | Specific entity lookups (e.g., "What is ExampleCo's revenue?") |
-| `global` | Broad summaries and cross-document themes |
-| `hybrid` | Balanced -- combines local entity + global theme retrieval |
-| `mix` | All retrieval strategies merged |
-| `naive` | Simple vector similarity (baseline) |
+| 0 Profile | A global graph query summarises the document. Gemini then picks the law categories that apply (for example, SEBI only for listed companies). |
+| 1 Atomise | For each section that applies, Gemini writes 1–5 yes/no questions, each with a suggested retrieval mode and keywords. |
+| 2 Retrieve | A context-only LightRAG query runs for each question, up to 4 in parallel. |
+| 3 Adjudicate | Gemini returns `COMPLIANT`, `VIOLATION` or `INSUFFICIENT_EVIDENCE`, with reasoning and a quoted excerpt, constrained to a JSON schema. A question with no retrieved context is marked insufficient without an LLM call. |
+| 4 Report | Scores per section, per category and overall, written as JSON and Markdown. |
 
-Supports `--context-only` mode for raw retrieved chunks without LLM synthesis, which the compliance pipeline uses for Phase 2 retrieval.
+Score = compliant / (compliant + violation). Insufficient-evidence answers are left out of the denominator, so a thin document is scored only on the questions it can answer. The report lists those counts separately.
 
-### Compliance Checker
+**Forensic workbench** (`pipeline/`, `skills/*/`). Tables are extracted together with their context: heading, page or sheet, and unit annotation. Each table is classified (P&L, balance sheet, related-party schedule, ledger and so on), converted from lakhs or crores to rupees, assigned fiscal periods, and loaded into `source_tables`, `line_items` and `related_parties`. An inspector flags quality problems. A curator then builds `curated_*` views (period consolidation, de-duplication, entity whitelist) without modifying the raw tables. Five tests run on the result:
 
-A 5-phase automated pipeline that checks an indexed financial document against applicable Indian financial and compliance laws.
+| Test | Method |
+|---|---|
+| Benford's law | First-digit, second-digit, first-two-digit and last-two-digit tests plus the summation test. Uses MAD against Nigrini's thresholds, chi-squared, KS and per-digit z-scores. |
+| Duplicates | Exact, near-amount (±1 % by default), fuzzy-name (rapidfuzz) and cross-period duplicates, plus round-number concentration. |
+| Ratios | Margins and expense ratios per period. Year-on-year changes above a threshold (default 0.20) are flagged. |
+| Anomalies | IQR, z-score and Isolation Forest (PyOD). An item counts as a consensus anomaly when at least two methods agree. |
+| Related-party network | Graph of parties and amounts, with centrality, Louvain communities, cycles and hubs. |
 
-| Phase | Script | Description |
+Each test writes a JSON report with a 1–10 risk score and suggested follow-ups. The `SKILL.md` in each skill folder explains when the test applies and how to read the results.
+
+**Agent.** `frontend/forensic_agent.py` builds an Agno agent with tools for the table pipeline, inspection and curation, the five tests, knowledge-graph search and upload, and the compliance phases. It can also run read-only SQL on the workbench. Sessions and memory are stored in SQLite. The notebook uses a smaller, nine-tool agent (`skills/shared/agent_tools.py`) limited to the knowledge graph, document preview and the compliance audit.
+
+## Inputs
+
+| Format | Knowledge-graph ingestion | Table pipeline |
 |---|---|---|
-| 0 | `profile_document.py` | Runs a global LightRAG query to summarize the document, then selects applicable law categories from the 17 available |
-| 1 | `atomise_laws.py` | Breaks applicable laws into atomic yes/no compliance questions with suggested retrieval modes and keywords |
-| 2 | `batch_retrieve.py` | Parallel LightRAG context-only queries for each question (rate-limited, max 4 concurrent) |
-| 3 | `adjudicate.py` | Gemini renders per-question verdicts: `COMPLIANT`, `VIOLATION`, or `INSUFFICIENT_EVIDENCE` with reasoning and supporting excerpts |
-| 4 | `generate_report.py` | Aggregates scores at section, category, and overall levels; produces both JSON and Markdown reports |
+| PDF | Mistral OCR (default) or Docling | Docling (CLI default) or Mistral OCR (app default) |
+| XLSX, XLSM | openpyxl + pandas: per-sheet summary, Markdown table and the list of formulas | openpyxl: merged cells, formulas, unit rows, several tables per sheet |
+| CSV | pandas | pandas |
+| DOCX | Docling | Docling |
+| PPTX, HTML, Markdown, PNG/JPG/TIFF/BMP | Docling | — |
 
-**Scoring formula**: `compliant / (compliant + violation)` -- questions marked `INSUFFICIENT_EVIDENCE` are excluded from the denominator so they do not inflate or deflate the score.
+`.xls` and `.xlsb` files are not supported because openpyxl cannot read them. Convert them to `.xlsx` first. Mistral OCR responses are cached on disk, so the same PDF is not sent to the API twice.
 
-### Forensic Analytics Pipeline
+## What you can ask
 
-A structured-data track next to the knowledge graph: tables are extracted from the financial statements, normalised into a DuckDB workbench and swept by five deterministic analysis skills (no LLM calls). A Streamlit app wraps the pipeline, the skill dashboards and a chat agent.
+Against the knowledge graph (CLI, notebook or agent):
 
-| Component | Description |
+- "What was revenue from operations in FY 2024-25, and how does it compare with the previous year?"
+- "Who are the related parties and what was paid to each?"
+- "Who is the statutory auditor?"
+- "Is the company listed or unlisted, public or private?"
+
+Compliance (CLI or agent):
+
+- "Which of the 19 law categories apply to this company?"
+- "Run the compliance check." The output is a verdict for each question, with the reasoning and the excerpt it relied on, rolled up into section, category and overall scores.
+
+On the workbench (CLI, dashboards or agent):
+
+- "Do these amounts follow Benford's law? Which digit ranges stand out?"
+- "Are there duplicate, near-duplicate or suspiciously round entries?"
+- "Which line items are statistical outliers?"
+- "How did margins and expense ratios move year on year?"
+- "Which related parties are hubs, and do money flows between them form cycles?"
+- Ad-hoc questions about `line_items` or `related_parties`, which the agent answers with SQL.
+
+The agent's instructions also ask it to cross-reference findings, for example a Benford anomaly and a duplicate in the same account.
+
+## Quick start
+
+Tested with Python 3.12 and lightrag-hku 1.4.9. Run every command from the repository root.
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env            # fill in GEMINI_API_KEY and MISTRAL_API_KEY
+```
+
+**Forensic workbench on the synthetic documents (no API keys needed):**
+
+```bash
+python tests/fixtures/build_fixtures.py       # writes four fictional Acme Widgets files to user_documents/
+python -m pipeline.test_normalization --entity "Acme Widgets Private Limited" \
+    --fiscal-year 2024-25 --run-skills        # → pipeline/test_output/test_forensic.duckdb
+                                              #   and skills/<test>/outputs/sweep.json
+streamlit run frontend/app.py                 # sidebar: "Load Existing DB" → pipeline/test_output/test_forensic.duckdb
+```
+
+The dashboards need no API keys. The chat tab needs a key for the agent's model. Run without paths, `test_normalization` processes every PDF, Excel and CSV file in `user_documents/`. Pass file paths to pick specific files, and add `--extractor mistral` to read PDFs with Mistral OCR.
+
+**Knowledge graph and compliance audit (needs both keys):**
+
+Index documents with `rag_chatbot.ipynb`: add their paths to `files_to_index`, or ask the notebook agent to `upload_document`. The Streamlit agent's `run_pipeline` tool also indexes a document. Then run:
+
+```bash
+python skills/lightrag-query/scripts/query.py --query "Who are the related parties?" --mode hybrid
+python skills/lightrag-query/scripts/query.py --query "CSR expenditure" --context-only
+python skills/compliance-checker/scripts/run_pipeline.py      # outputs in skills/compliance-checker/outputs/
+```
+
+Each audit phase also runs on its own (`profile_document.py`, `atomise_laws.py`, `batch_retrieve.py`, `adjudicate.py`, `generate_report.py`) and reads the output of the phase before it.
+
+## Configuration
+
+Environment variables are read from `.env` in the repository root:
+
+| Variable | Used for |
 |---|---|
-| `pipeline/table_extractor.py` | Context-aware table extraction: Docling for PDF/DOCX, openpyxl for Excel (merged cells, formulas, unit annotations), pandas for CSV |
-| `pipeline/mistral_extractor.py` | Mistral OCR backend for PDFs with the same `ExtractedTable` output; raw responses are cached on disk |
-| `pipeline/data_normalizer.py` | Classifies tables, converts lakhs/crores to rupees, assigns fiscal periods and loads `source_tables`, `line_items`, `related_parties` and `analysis_results` |
-| `skills/shared/data_inspector.py`, `data_curator.py` | Data-quality profile and `curated_line_items` / `curated_related_parties` views (period consolidation, de-duplication, entity whitelist) |
-| `skills/benfords-analysis/` | First, second, first-two and last-two digit tests plus the summation test (Nigrini MAD thresholds) |
-| `skills/duplicate-detector/` | Exact, near-amount, fuzzy-name and cross-period duplicates and round-number concentration |
-| `skills/ratio-analyzer/` | Margins and expense ratios per period with year-on-year change flags |
-| `skills/anomaly-detector/` | IQR, Z-score and Isolation Forest (PyOD) outliers with a consensus flag |
-| `skills/network-analyzer/` | Related-party graph: centrality, Louvain communities, cycles and hubs |
-| `frontend/` | Streamlit app (`app.py`), pipeline runner and the Agno forensic agent with its toolkit |
+| `MISTRAL_API_KEY` | Building and querying the knowledge graph; Mistral OCR |
+| `GEMINI_API_KEY` | The compliance phases; the agent's default model (copied to `GOOGLE_API_KEY` if that is unset) |
+| `AGENT_MODEL_PROVIDER`, `AGENT_MODEL_ID` | The agent's model: `google` (default, `gemini-3-flash-preview`), `mistral`, `anthropic`, `groq` or `openai`, with the matching `*_API_KEY` |
+| `FORENSIC_OUTPUT_DIR` | Where app and agent runs write the workbench, table cache and test reports (default `pipeline/test_output/`) |
+| `FORENSIC_AGENT_DB` | SQLite file for agent sessions and memory (default `data/forensic_agent.db`) |
+| `MISTRAL_OCR_CACHE_DIR` | Cached Mistral OCR responses (default `pipeline/test_output/mistral_cache/`) |
 
-Every skill writes a JSON report with a 1-10 risk score and investigation suggestions.
+`model_config.yaml` maps roles to providers (`kg_llm`: Mistral `ministral-14b-2512`; `reasoning_llm`: Gemini `gemini-3-flash-preview`; the local embedding model) and sets per-provider rate limits. Mistral, Gemini and Anthropic providers are implemented.
 
----
-
-## Setup and Prerequisites
-
-### Python Environment
-
-The project uses a conda environment named `ml-env` with Python 3.12:
+## Tests
 
 ```bash
-conda activate ml-env
+python -m pytest                  # 135 offline tests, about 40 s; no API keys
+python -m pytest -m "not slow"    # skip the 15 tests that load Docling or the embedding model
+python -m pytest -m e2e           # live run against Mistral and Gemini; skipped unless both keys are set
 ```
 
-### Required Packages
+The offline suite swaps Mistral and Gemini for deterministic fakes and runs the real code for everything else (the first run downloads the Docling and sentence-transformers models). It covers ingestion into a real LightRAG store, all five query modes, the compliance phases singly and end to end, the table extractors (including a canned Mistral OCR response), the normaliser, the five forensic tests on a workbench built from the synthetic documents (which contain planted duplicates and an outlier), the pipeline CLIs, both agent toolkits, and the Streamlit app through Streamlit's AppTest.
 
-Core dependencies (see `requirements.txt` for the full list):
+The live test indexes the fictional Markdown statement, asks one question and runs the compliance pipeline on a single law section.
 
-| Package | Purpose |
-|---|---|
-| `lightrag-hku` | Knowledge graph construction and retrieval |
-| `mistralai` | Mistral API client (KG building LLM) |
-| `google-genai` | Gemini API client (reasoning/adjudication LLM) |
-| `sentence-transformers` | Local embeddings (`all-MiniLM-L6-v2`) |
-| `agno` | Agent framework for the chatbot |
-| `docling` | PDF/Excel to Markdown conversion |
-| `python-dotenv` | Environment variable management |
-| `nest-asyncio` | Async support in Jupyter notebooks |
+## Status and limitations
 
-### Environment Variables
+- This is a proof of concept. Verdicts are an LLM's reading of retrieved context, not legal or audit advice. The law file holds short summaries of each section, not the full text of the statutes.
+- The LLM-backed paths have a live test that has not been re-run recently. Those paths are graph building, question answering, the compliance audit and agent chat. The offline suite exercises the same code with fakes.
+- LightRAG logs extraction failures instead of raising them. With an invalid Mistral key, `upload_document` still reports "Indexed …" while the document's status in `rag_storage/kv_store_doc_status.json` is `failed`. Check that file after indexing.
+- LightRAG keeps process-wide state, so use one storage directory per process.
+- The CLIs default `--storage` to `./rag_storage`, relative to the current directory. The notebook and the agents use `<repo>/rag_storage`. Run the CLIs from the repository root so both point at the same store.
+- The table cache is keyed by extractor, not by file. In the app, "Use cached extraction" is ticked by default, and the agent's `run_pipeline` tool always uses the cache. Either way, a new document can get the previous run's tables. Untick the option, or delete `extracted_tables*.pkl`, when you switch documents.
+- Unit detection is pattern-based. In the synthetic workbook, the "(Rs. lakhs)" title on the P&L sheet is not picked up, so those amounts load as rupees. The same figures from the synthetic PDF ("All amounts in Rs. lakhs") are scaled correctly.
+- `--run-skills` on the CLI runs the tests on the raw tables. The app and the agent curate the data first.
+- CSV files must be comma-separated.
 
-Create a `.env` file in the project root (see `.env.example`) with:
+## Repository layout
 
 ```
-GEMINI_API_KEY=your_gemini_api_key
-MISTRAL_API_KEY=your_mistral_api_key
+frontend/                   Streamlit app, pipeline runner, Agno agent
+pipeline/                   table extraction (Docling / openpyxl / pandas, Mistral OCR), normaliser → DuckDB, CLI runners
+skills/shared/              LightRAG setup, LLM registry and providers, preprocessors, agent toolkit, inspector, curator
+skills/compliance-checker/  five-phase audit (scripts, SKILL.md, references/output_format.md)
+skills/lightrag-query/      query CLI
+skills/benfords-analysis/   ┐
+skills/duplicate-detector/  │
+skills/ratio-analyzer/      ├ forensic tests: scripts/ plus SKILL.md
+skills/anomaly-detector/    │
+skills/network-analyzer/    ┘
+indian_financial_fraud_compliance_laws.json   law sections used by the audit
+compliance-dataset/         alternative 17-category rule set built from ICAI/ICSI guidance (not wired
+                            into the audit) and study notes on the Indian compliance landscape
+schema/                     earlier relational schema (v1), kept for reference; not used by the pipeline
+rag_chatbot.ipynb           index documents and chat with the knowledge-graph agent
+model_config.yaml           provider and model for each role
+tests/                      offline and live tests; fixtures/ holds the synthetic Acme Widgets documents
+user_documents/             your own documents (git-ignored)
 ```
 
-Install the dependencies with `pip install -r requirements.txt` and run all commands below from the project root.
-
-### Running Tests
-
-```bash
-# Offline suite (LLM calls are replaced with deterministic fakes; no API keys needed)
-pytest
-
-# Skip the tests that load local models (Docling, sentence-transformers)
-pytest -m "not slow"
-
-# Live end-to-end run against Mistral + Gemini (needs both API keys)
-pytest -m e2e
-```
-
-The tests use a small fictional company, Acme Widgets Private Limited (`tests/fixtures/`).
-To try the notebook or CLI on the same sample data, write sample XLSX/PDF files into `user_documents/` with:
-
-```bash
-python tests/fixtures/build_fixtures.py
-```
-
----
-
-## Usage
-
-### 1. Document Ingestion and Chat (Notebook)
-
-Open `rag_chatbot.ipynb` and run cells sequentially:
-
-1. **Environment setup** -- loads API keys and initializes the LightRAG instance with Mistral LLM and local embeddings.
-2. **Document indexing** -- place documents in `user_documents/`, add their paths to `files_to_index`, then run the cell to preprocess (file-type-aware) and index into the knowledge graph. Or skip this and use the agent's `upload_document` tool interactively.
-3. **Interactive chat** -- starts a conversational loop powered by a Gemini agent with 9 tools (search, upload, preview, compliance check, etc.).
-
-```bash
-jupyter notebook rag_chatbot.ipynb
-```
-
-### 2. Knowledge Graph Query (CLI)
-
-```bash
-# Basic hybrid query
-python skills/lightrag-query/scripts/query.py --query "What is ExampleCo's total revenue?"
-
-# Specific mode with custom storage path
-python skills/lightrag-query/scripts/query.py \
-  --query "Who are the related parties?" \
-  --mode local \
-  --storage ./rag_storage
-
-# Raw context retrieval (no LLM synthesis)
-python skills/lightrag-query/scripts/query.py \
-  --query "CSR expenditure" \
-  --context-only
-```
-
-### 3. Compliance Audit Pipeline
-
-**Full pipeline (recommended):**
-
-```bash
-python skills/compliance-checker/scripts/run_pipeline.py --storage ./rag_storage
-```
-
-**Phase-by-phase execution:**
-
-```bash
-# Phase 0: Profile the document and select applicable law categories
-python skills/compliance-checker/scripts/profile_document.py --storage ./rag_storage
-
-# Phase 1: Generate atomic yes/no compliance questions
-python skills/compliance-checker/scripts/atomise_laws.py
-
-# Phase 2: Retrieve context from the KG for each question
-python skills/compliance-checker/scripts/batch_retrieve.py --storage ./rag_storage
-
-# Phase 3: Gemini adjudicates each question
-python skills/compliance-checker/scripts/adjudicate.py
-
-# Phase 4: Aggregate scores and generate reports
-python skills/compliance-checker/scripts/generate_report.py
-```
-
-All intermediate and final outputs are written to `skills/compliance-checker/outputs/`.
-
-### 4. Forensic Pipeline and Streamlit App
-
-```bash
-# Sample documents for the fictional Acme Widgets Private Limited (written to user_documents/)
-python tests/fixtures/build_fixtures.py
-
-# Extract + normalise into DuckDB (defaults to every PDF/Excel/CSV file in user_documents/),
-# then sweep all five skills (reports go to skills/<skill>/outputs/sweep.json)
-python -m pipeline.test_normalization --entity "Acme Widgets Private Limited" --fiscal-year 2024-25 --run-skills
-
-# Use Mistral OCR for PDFs instead of Docling (needs MISTRAL_API_KEY)
-python -m pipeline.test_normalization --extractor mistral
-
-# Run a single skill against the workbench
-python skills/duplicate-detector/scripts/duplicate_detector.py \
-  --db pipeline/test_output/test_forensic.duckdb --output duplicates.json
-
-# Chat UI with upload, pipeline run and dashboards
-streamlit run frontend/app.py
-```
-
-Optional environment variables:
-
-| Variable | Default | Purpose |
-|---|---|---|
-| `FORENSIC_OUTPUT_DIR` | `pipeline/test_output/` | DuckDB workbench, table cache and skill reports written by the app's pipeline runs |
-| `FORENSIC_AGENT_DB` | `data/forensic_agent.db` | SQLite file for the agent's sessions and memory |
-| `MISTRAL_OCR_CACHE_DIR` | `pipeline/test_output/mistral_cache/` | Cached Mistral OCR responses |
-
----
-
-## Sample Output
-
-Running the full compliance pipeline against `user_documents/sample_docs/sample_statement.pdf` (**Example Engineering Private Limited Profit & Loss Statement, FY 2023-24**) produced the following results:
-
-| Metric | Value |
-|---|---|
-| Overall Compliance Score | **84.3%** |
-| Total Questions Generated | 141 |
-| Compliant | 43 |
-| Violations | 8 |
-| Insufficient Evidence | 90 |
-
-The high `INSUFFICIENT_EVIDENCE` count reflects the nature of the input document -- a standalone P&L statement does not contain the full set of disclosures, board resolutions, and audit reports that a complete annual filing would. The scoring formula excludes these from the denominator, so the 84.3% score represents compliance confidence across the 51 questions where the document contained enough information to render a judgment.
-
-Category-level breakdown from the report:
-
-- **Companies Act, 2013**: 100.0% (14 compliant, 0 violations, 36 insufficient)
-- Other categories include Income Tax Act, GST, SEBI regulations, and related party transaction rules, each scored independently at section granularity.
-
-The full structured report is available at `skills/compliance-checker/outputs/compliance_report.json` and the human-readable version at `skills/compliance-checker/outputs/compliance_report.md`.
+Licence: not yet specified.
