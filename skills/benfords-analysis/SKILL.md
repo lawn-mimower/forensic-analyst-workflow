@@ -28,8 +28,7 @@ This skill supports first-digit, second-digit, first-two-digit, last-two-digit, 
 - **Journal entry amounts** -- especially manual journal entries, which bypass systematic controls
 - **Revenue line items** -- sales invoices, revenue recognition entries
 - **Accounts payable / receivable ageing buckets** -- outstanding amounts across many counterparties
-- **GL transaction amounts** (table: `transactions`, column: `total_amount`) -- the broadest sweep
-- **Line item amounts** (table: `line_items`, column: `amount_inr`) -- extracted financial statement numbers (v2 schema uses `line_items` table only; the v1 `transaction_legs` table no longer exists)
+- **Line item amounts** (table: `line_items`, or the `curated_line_items` view after curation; column: `amount` or `amount_inr`) -- everything the pipeline extracts, including general-ledger extracts, lands in this table; the workbench has no separate transactions table
 - **Any dataset that spans at least two orders of magnitude and arises from a multiplicative process**
 
 ### Negative Triggers (Benford's is NOT Applicable)
@@ -167,29 +166,28 @@ The output file contains:
 
 After Pass 1 sweep, if any test is NON_CONFORMING or has risk score >= 6, the following re-runs are recommended:
 
-1. **Filter by vendor/counterparty** -- If the sweep covers all transactions, isolate specific counterparties. A single fraudulent vendor can poison the entire distribution.
+1. **Filter by account** -- Isolate a single account or expense head. One manipulated account can poison the entire distribution.
    ```bash
-   uv run scripts/benfords.py --db case.duckdb --table transactions --column total_amount \
-     --filter "counterparty_name = 'Suspect Vendor Pvt Ltd'" --tests all --output rerun_vendor.json
+   python skills/benfords-analysis/scripts/benfords.py --db case.duckdb --table line_items --column amount \
+     --filter "account_name = 'Professional fees'" --tests all --min-records 50 --output rerun_account.json
    ```
 
-2. **Filter by period** -- Test each quarter separately. If only Q4 (Jan-Mar) deviates, it may be year-end adjustments.
+2. **Filter by period** -- Test each period separately. If only one year deviates, look at what changed in that year.
    ```bash
-   uv run scripts/benfords.py --db case.duckdb --table transactions --column total_amount \
-     --filter "transaction_date >= '2024-01-01' AND transaction_date <= '2024-03-31'" \
-     --tests first_two --output rerun_q4.json
+   python skills/benfords-analysis/scripts/benfords.py --db case.duckdb --table line_items --column amount \
+     --filter "period_label = 'FY 2024-25'" --tests first_two --output rerun_period.json
    ```
 
 3. **Filter by account category** -- Separate expenses from revenue. If only expenses deviate, focus investigation there.
    ```bash
-   uv run scripts/benfords.py --db case.duckdb --table line_items --column amount_inr \
-     --filter "account_name LIKE '%Expense%'" --tests all --output rerun_expenses.json
+   python skills/benfords-analysis/scripts/benfords.py --db case.duckdb --table line_items --column amount_inr \
+     --filter "account_name ILIKE '%expense%'" --tests all --output rerun_expenses.json
    ```
 
-4. **Filter by journal type** -- Manual journal entries vs. system-generated. Manual entries are higher risk.
+4. **Exclude totals and comparatives** -- Subtotals and prior-year comparatives repeat other numbers and distort the digit distribution.
    ```bash
-   uv run scripts/benfords.py --db case.duckdb --table transactions --column total_amount \
-     --filter "journal_type = 'journal'" --tests first_digit,first_two --output rerun_manual_je.json
+   python skills/benfords-analysis/scripts/benfords.py --db case.duckdb --table line_items --column amount \
+     --filter "NOT is_total AND NOT is_comparative" --tests first_digit,first_two --output rerun_detail.json
    ```
 
 5. **Filter by amount range** -- If first-two-digit flagged digits 48-50, re-run on amounts in that range for deeper analysis.
@@ -211,10 +209,9 @@ After Pass 1 sweep, if any test is NON_CONFORMING or has risk score >= 6, the fo
 | This Skill Finds | Other Skill Finds | Combined Signal |
 |---|---|---|
 | Benford's failure on vendor payments | `duplicate-detector` finds duplicate amounts for same vendor | **ESCALATE** -- potential duplicate payment fraud |
-| Benford's round-number spike near INR 50,000 | `threshold-analysis` confirms clustering at approval limits | **STRONG fraud signal** -- amounts structured to avoid approval |
 | Benford's failure on expenses | `ratio-analyzer` shows improving margins despite revenue decline | **Potential expense suppression** -- expenses being understated |
-| Benford's failure on journal entries | `weekend-holiday-detector` flags same entries posted on weekends | **Manual manipulation** -- entries posted outside business hours |
-| Benford's second-digit 0/5 excess | `round-number-analysis` confirms round-number percentage > 40% | **Fabrication signal** -- numbers being invented |
+| Benford's second-digit 0/5 excess | `duplicate-detector` reports a high round-number concentration | **Fabrication signal** -- numbers being invented |
+| Benford's failure concentrated in a few accounts | `anomaly-detector` flags outliers in the same accounts | **Investigate those accounts first** |
 
 ### Indian-Specific Context
 
@@ -249,7 +246,7 @@ See `references/indian_thresholds.md` for comprehensive threshold documentation.
 ### CLI Interface
 
 ```bash
-uv run skills/benfords-analysis/scripts/benfords.py [OPTIONS]
+python skills/benfords-analysis/scripts/benfords.py [OPTIONS]
 ```
 
 ### Arguments
@@ -257,7 +254,7 @@ uv run skills/benfords-analysis/scripts/benfords.py [OPTIONS]
 | Argument | Required | Default | Description |
 |---|---|---|---|
 | `--db` | Yes | -- | Path to DuckDB database file |
-| `--table` | No | `transactions` | Table name to analyze |
+| `--table` | No | `transactions` | Table name to analyze. The workbench has no `transactions` table, so pass `--table line_items` (or `curated_line_items`) |
 | `--column` | No | `amount` | Numeric column to test |
 | `--tests` | No | `all` | Comma-separated: `first_digit`, `second_digit`, `first_two`, `last_two`, `summation`, `all` |
 | `--filter` | No | -- | SQL WHERE clause to filter data |
@@ -269,68 +266,49 @@ uv run skills/benfords-analysis/scripts/benfords.py [OPTIONS]
 ### Pass 1 (Sweep) -- Default Invocation
 
 ```bash
-# Broad sweep on all GL transactions
-uv run skills/benfords-analysis/scripts/benfords.py \
-  --db data/case.duckdb \
-  --table transactions \
-  --column total_amount \
-  --tests all \
-  --output skills/benfords-analysis/outputs/sweep_transactions.json \
-  --case-id "CASE-2024-001"
-
-# Sweep on extracted line items
-uv run skills/benfords-analysis/scripts/benfords.py \
-  --db data/case.duckdb \
+# Sweep on extracted line items (what the pipeline runs)
+python skills/benfords-analysis/scripts/benfords.py \
+  --db pipeline/test_output/test_forensic.duckdb \
   --table line_items \
-  --column amount_inr \
+  --column amount \
   --tests all \
-  --output skills/benfords-analysis/outputs/sweep_line_items.json \
-  --case-id "CASE-2024-001"
+  --output skills/benfords-analysis/outputs/sweep.json \
+  --case-id "CASE-001"
 
-# Sweep on line items (v2 schema -- line_items replaces v1 transaction_legs)
-uv run skills/benfords-analysis/scripts/benfords.py \
-  --db data/case.duckdb \
+# Same, without subtotals
+python skills/benfords-analysis/scripts/benfords.py \
+  --db pipeline/test_output/test_forensic.duckdb \
   --table line_items \
   --column amount_inr \
   --tests all \
   --filter "NOT is_total" \
-  --output skills/benfords-analysis/outputs/sweep_line_items_nontotal.json \
-  --case-id "CASE-2024-001"
+  --output skills/benfords-analysis/outputs/sweep_nontotal.json \
+  --case-id "CASE-001"
 ```
 
 ### Pass 2 (Investigation) -- Targeted Re-runs
 
 ```bash
-# Re-run first-two-digit on vendor payments only
-uv run skills/benfords-analysis/scripts/benfords.py \
-  --db data/case.duckdb \
-  --table transactions \
-  --column total_amount \
+# First-two and last-two digit tests for one period only
+python skills/benfords-analysis/scripts/benfords.py \
+  --db pipeline/test_output/test_forensic.duckdb \
+  --table line_items \
+  --column amount \
   --tests first_two,last_two \
-  --filter "journal_type = 'payment'" \
-  --output skills/benfords-analysis/outputs/rerun_payments_f2.json \
-  --case-id "CASE-2024-001"
+  --filter "period_label = 'FY 2024-25' AND NOT is_total" \
+  --output skills/benfords-analysis/outputs/rerun_period.json \
+  --case-id "CASE-001"
 
-# Investigate Q4 journal entries
-uv run skills/benfords-analysis/scripts/benfords.py \
-  --db data/case.duckdb \
-  --table transactions \
-  --column total_amount \
-  --tests all \
-  --filter "transaction_date >= '2024-01-01' AND journal_type = 'journal'" \
-  --output skills/benfords-analysis/outputs/rerun_q4_manual_je.json \
-  --case-id "CASE-2024-001"
-
-# Focus on amounts near INR 50,000 threshold
-uv run skills/benfords-analysis/scripts/benfords.py \
-  --db data/case.duckdb \
-  --table transactions \
-  --column total_amount \
+# Focus on amounts near the INR 50,000 threshold
+python skills/benfords-analysis/scripts/benfords.py \
+  --db pipeline/test_output/test_forensic.duckdb \
+  --table line_items \
+  --column amount_inr \
   --tests first_two,last_two,summation \
-  --filter "total_amount BETWEEN 40000 AND 55000" \
+  --filter "amount_inr BETWEEN 40000 AND 55000" \
   --min-records 50 \
   --output skills/benfords-analysis/outputs/rerun_50k_threshold.json \
-  --case-id "CASE-2024-001"
+  --case-id "CASE-001"
 ```
 
 ### Output JSON Schema
@@ -402,4 +380,4 @@ Top-level fields:
 
 **Agent reasoning:** The first-digit distribution looks natural, but the last-two-digit test reveals significant round-number bias. 4.2% of amounts end in "00" (expected: 1%). Combined with second-digit excess at 0, this suggests many amounts are being recorded as round numbers. This could indicate: (a) legitimate round-number contracts/salaries, (b) estimates being recorded as actuals, or (c) fabricated amounts. Need to determine if the round numbers cluster in specific accounts.
 
-**Pass 2 action:** Re-run filtering by account type (expense accounts only, then revenue only) to isolate where the rounding occurs. Cross-reference with `round-number-analysis` skill if available. Check if the round-number entries are manual journal entries vs. system-generated.
+**Pass 2 action:** Re-run filtering by account type (expense accounts only, then revenue only) to isolate where the rounding occurs. Cross-reference with the round-number concentration reported by `duplicate-detector`. Check if the round-number entries are manual journal entries vs. system-generated.
