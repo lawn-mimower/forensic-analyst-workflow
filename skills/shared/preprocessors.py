@@ -4,7 +4,7 @@ Document preprocessing layer — auto-routes files to the best preprocessor.
 Tiered architecture:
   PDF           → MistralPreprocessor (primary) or Docling (fallback)
   DOCX/PPTX/images → Docling (with OCR fallback)
-  XLSX/XLS      → openpyxl + pandas (complex workbook support)
+  XLSX/XLSM     → openpyxl + pandas (complex workbook support)
   CSV           → pandas (fast, direct)
   HTML/MD       → Docling (native support)
 
@@ -380,7 +380,7 @@ class PreprocessingRouter:
 
     DOCLING_EXTENSIONS = {".docx", ".pptx", ".html", ".md"}
     IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".tiff", ".bmp"}
-    EXCEL_EXTENSIONS = {".xlsx", ".xlsm", ".xls", ".xlsb"}
+    EXCEL_EXTENSIONS = {".xlsx", ".xlsm"}
     CSV_EXTENSIONS = {".csv", ".tsv"}
 
     def __init__(self, pdf_backend: str = "mistral"):
