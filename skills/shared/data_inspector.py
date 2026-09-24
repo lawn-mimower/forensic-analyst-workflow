@@ -311,14 +311,18 @@ def profile_related_parties(con: duckdb.DuckDBPyConnection) -> RelatedPartyProfi
 
 
 def profile_extraction_duplicates(con: duckdb.DuckDBPyConnection) -> DuplicateProfile:
-    """Count rows sharing (table_id, account_name, amount, source_page)."""
+    """Count rows sharing (table_id, account_name, amount, source_page, period_end).
+
+    The fiscal period is part of the key so that an unchanged balance shown
+    for both years of a comparative statement is not treated as a duplicate.
+    """
     prof = DuplicateProfile()
 
     try:
         rows = con.execute("""
             SELECT table_id, account_name, amount, source_page, COUNT(*) as cnt
             FROM line_items
-            GROUP BY table_id, account_name, amount, source_page
+            GROUP BY table_id, account_name, amount, source_page, period_end
             HAVING cnt > 1
             ORDER BY cnt DESC
         """).fetchall()
@@ -419,7 +423,7 @@ def profile_database(db_path: str) -> DatabaseProfile:
             issues.append(
                 f"Extraction duplicates: {profile.duplicates.total_dup_groups} groups, "
                 f"{profile.duplicates.total_dup_rows} total duplicate rows "
-                f"(same table_id + account_name + amount + source_page)."
+                f"(same table_id + account_name + amount + source_page + period)."
             )
 
         # Units

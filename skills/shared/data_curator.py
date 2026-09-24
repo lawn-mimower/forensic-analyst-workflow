@@ -35,7 +35,7 @@ class CurationConfig:
     """raw_label → canonical label mapping."""
 
     deduplicate: bool = True
-    """Remove extraction duplicates (same table_id + account_name + amount + source_page)."""
+    """Remove extraction duplicates (same table_id + account_name + amount + source_page + period)."""
 
     entity_whitelist: list[str] | None = None
     """For related_parties: keep only these party_names."""
@@ -128,7 +128,7 @@ WITH deduped AS (
     SELECT *,
         {period_expr} AS curated_period_label,
         ROW_NUMBER() OVER (
-            PARTITION BY table_id, account_name, amount, source_page
+            PARTITION BY table_id, account_name, amount, source_page, period_end
             ORDER BY created_at
         ) AS _rn
     FROM line_items
