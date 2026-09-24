@@ -184,7 +184,7 @@ def _build_page_context(
 
         # First unclassified non-trivial line → likely entity name
         if entity_name is None and len(ll) > 3:
-            entity_name = line.strip()
+            entity_name = line.lstrip("#").strip()
 
     # Also check header/footer for unit
     if not unit:
