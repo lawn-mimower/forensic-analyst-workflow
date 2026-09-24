@@ -1,0 +1,1208 @@
+{
+  "benchmark": "issue_detection",
+  "run_label": "deterministic",
+  "complete": true,
+  "stopped_early": null,
+  "conditions": {
+    "llm_model": null,
+    "llm_provider": null,
+    "llm_endpoint": null,
+    "config": null,
+    "companies": [
+      "kestrel",
+      "tarangini",
+      "northfield",
+      "vardhan",
+      "meridian"
+    ],
+    "unit_of_scoring": "(company, issue type) pairs; micro-averaged precision and recall",
+    "compliance_sections": [
+      "companies_act_2013/section_143 -> caro_missing",
+      "income_tax_act_1961/section_269SS -> cash_loan_269ss",
+      "icai_standards_on_auditing/sa_550 -> rp_omitted_from_schedule"
+    ],
+    "workbench_inputs": "financials.xlsx and general_ledger.csv (the report text is not used)",
+    "llm_inputs": "annual_report.md and general_ledger.csv in one prompt",
+    "compliance_inputs": "LightRAG store built from annual_report.md"
+  },
+  "gold": {
+    "kestrel": [
+      "rpt_threshold_no_approval",
+      "caro_missing",
+      "duplicate_entries",
+      "unusual_large_payment"
+    ],
+    "tarangini": [
+      "rp_omitted_from_schedule",
+      "round_number_entries",
+      "benford_nonconformity"
+    ],
+    "northfield": [
+      "duplicate_entries",
+      "ratio_anomaly",
+      "cash_loan_269ss"
+    ],
+    "vardhan": [],
+    "meridian": [
+      "rp_omitted_from_schedule",
+      "caro_missing",
+      "round_number_entries",
+      "ratio_anomaly"
+    ]
+  },
+  "systems": {
+    "floor": {
+      "per_company": {
+        "kestrel": {
+          "flags": [
+            "caro_missing",
+            "duplicate_entries",
+            "rpt_threshold_no_approval",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "duplicate_groups": 4,
+            "round_thousand_share": 0.03,
+            "just_below_limit_share": 0.042,
+            "largest_payment_pct_of_revenue": 4.2,
+            "ratio_moves_pp": {
+              "gross_margin": -0.3,
+              "receivables_to_revenue": 0.0,
+              "inventories_to_revenue": 0.0
+            },
+            "rpt_above_10pct_net_worth": [
+              "Kestrel Estates LLP: Sale of land and building 480.00"
+            ],
+            "director_entities_paid_but_not_in_rp_schedule": [],
+            "caro_mentioned": false,
+            "cash_loan_sentences": []
+          },
+          "seconds": 0.2,
+          "llm_calls": 0
+        },
+        "tarangini": {
+          "flags": [
+            "benford_nonconformity",
+            "round_number_entries",
+            "rp_omitted_from_schedule"
+          ],
+          "detail": {
+            "duplicate_groups": 0,
+            "round_thousand_share": 0.312,
+            "just_below_limit_share": 0.167,
+            "largest_payment_pct_of_revenue": 0.3,
+            "ratio_moves_pp": {
+              "gross_margin": 0.1,
+              "receivables_to_revenue": -0.0,
+              "inventories_to_revenue": -0.1
+            },
+            "rpt_above_10pct_net_worth": [],
+            "director_entities_paid_but_not_in_rp_schedule": [
+              "Nandi Print & Pack"
+            ],
+            "caro_mentioned": true,
+            "cash_loan_sentences": []
+          },
+          "seconds": 0.0,
+          "llm_calls": 0
+        },
+        "northfield": {
+          "flags": [
+            "cash_loan_269ss",
+            "duplicate_entries",
+            "ratio_anomaly"
+          ],
+          "detail": {
+            "duplicate_groups": 5,
+            "round_thousand_share": 0.029,
+            "just_below_limit_share": 0.022,
+            "largest_payment_pct_of_revenue": 1.1,
+            "ratio_moves_pp": {
+              "gross_margin": 22.9,
+              "receivables_to_revenue": 0.1,
+              "inventories_to_revenue": 8.4
+            },
+            "rpt_above_10pct_net_worth": [],
+            "director_entities_paid_but_not_in_rp_schedule": [],
+            "caro_mentioned": true,
+            "cash_loan_sentences": [
+              "Short-term borrowings include an unsecured loan of Rs. 4.50 lakhs accepted in cash on 18 November 2024 from a relative of a director (see Note 27);"
+            ]
+          },
+          "seconds": 0.0,
+          "llm_calls": 0
+        },
+        "vardhan": {
+          "flags": [
+            "cash_loan_269ss",
+            "rpt_threshold_no_approval"
+          ],
+          "detail": {
+            "duplicate_groups": 0,
+            "round_thousand_share": 0.029,
+            "just_below_limit_share": 0.036,
+            "largest_payment_pct_of_revenue": 0.2,
+            "ratio_moves_pp": {
+              "gross_margin": -0.1,
+              "receivables_to_revenue": -0.0,
+              "inventories_to_revenue": -0.1
+            },
+            "rpt_above_10pct_net_worth": [
+              "Vardhan Engineering Works: Purchase of machinery 352.80"
+            ],
+            "director_entities_paid_but_not_in_rp_schedule": [],
+            "caro_mentioned": true,
+            "cash_loan_sentences": [
+              "During the year the Company did not accept any loan or deposit in cash;"
+            ]
+          },
+          "seconds": 0.0,
+          "llm_calls": 0
+        },
+        "meridian": {
+          "flags": [
+            "caro_missing",
+            "ratio_anomaly",
+            "round_number_entries",
+            "rp_omitted_from_schedule"
+          ],
+          "detail": {
+            "duplicate_groups": 0,
+            "round_thousand_share": 0.364,
+            "just_below_limit_share": 0.024,
+            "largest_payment_pct_of_revenue": 0.3,
+            "ratio_moves_pp": {
+              "gross_margin": 1.0,
+              "receivables_to_revenue": 13.8,
+              "inventories_to_revenue": -0.2
+            },
+            "rpt_above_10pct_net_worth": [],
+            "director_entities_paid_but_not_in_rp_schedule": [
+              "Periyar Cold Storage LLP"
+            ],
+            "caro_mentioned": false,
+            "cash_loan_sentences": []
+          },
+          "seconds": 0.0,
+          "llm_calls": 0
+        }
+      },
+      "metrics": {
+        "companies_scored": [
+          "kestrel",
+          "meridian",
+          "northfield",
+          "tarangini",
+          "vardhan"
+        ],
+        "tp": 14,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.875,
+        "recall": 1.0,
+        "f1": 0.933,
+        "per_type": {
+          "rpt_threshold_no_approval": {
+            "planted_in": [
+              "kestrel"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "vardhan"
+            ],
+            "tp": 1,
+            "fp": 1,
+            "fn": 0
+          },
+          "rp_omitted_from_schedule": {
+            "planted_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "flagged_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "tp": 2,
+            "fp": 0,
+            "fn": 0
+          },
+          "duplicate_entries": {
+            "planted_in": [
+              "kestrel",
+              "northfield"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "northfield"
+            ],
+            "tp": 2,
+            "fp": 0,
+            "fn": 0
+          },
+          "round_number_entries": {
+            "planted_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "flagged_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "tp": 2,
+            "fp": 0,
+            "fn": 0
+          },
+          "benford_nonconformity": {
+            "planted_in": [
+              "tarangini"
+            ],
+            "flagged_in": [
+              "tarangini"
+            ],
+            "tp": 1,
+            "fp": 0,
+            "fn": 0
+          },
+          "caro_missing": {
+            "planted_in": [
+              "kestrel",
+              "meridian"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "meridian"
+            ],
+            "tp": 2,
+            "fp": 0,
+            "fn": 0
+          },
+          "ratio_anomaly": {
+            "planted_in": [
+              "meridian",
+              "northfield"
+            ],
+            "flagged_in": [
+              "meridian",
+              "northfield"
+            ],
+            "tp": 2,
+            "fp": 0,
+            "fn": 0
+          },
+          "cash_loan_269ss": {
+            "planted_in": [
+              "northfield"
+            ],
+            "flagged_in": [
+              "northfield",
+              "vardhan"
+            ],
+            "tp": 1,
+            "fp": 1,
+            "fn": 0
+          },
+          "unusual_large_payment": {
+            "planted_in": [
+              "kestrel"
+            ],
+            "flagged_in": [
+              "kestrel"
+            ],
+            "tp": 1,
+            "fp": 0,
+            "fn": 0
+          }
+        }
+      }
+    },
+    "workbench_raw": {
+      "per_company": {
+        "kestrel": {
+          "flags": [
+            "duplicate_entries",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "benford_first_digit_verdict": "CONFORMING",
+            "benford_overall_verdict": "ANOMALOUS",
+            "benford_records": 879,
+            "exact_duplicate_groups": 6,
+            "exact_duplicate_examples": [
+              [
+                "Communication expenses",
+                2541.02,
+                2
+              ],
+              [
+                "Insurance",
+                2248.92,
+                2
+              ],
+              [
+                "Legal and professional fees",
+                5348.89,
+                2
+              ],
+              [
+                "Printing and stationery",
+                293.23,
+                2
+              ],
+              [
+                "Rent",
+                80000.0,
+                12
+              ]
+            ],
+            "round_ends_00_pct": 3.8,
+            "ratio_flags": [],
+            "ratio_risk_score": 1,
+            "anomaly_consensus": 41,
+            "anomaly_top": [
+              [
+                "Legal and professional fees",
+                18500000.0
+              ],
+              [
+                "Freight and forwarding",
+                981589.13
+              ],
+              [
+                "Legal and professional fees",
+                990909.78
+              ]
+            ],
+            "network_cycles": 0,
+            "network_risk_score": 3,
+            "risk_scores": {
+              "benfords-analysis": 10,
+              "duplicate-detector": 6,
+              "ratio-analyzer": 1,
+              "anomaly-detector": 4,
+              "network-analyzer": 3
+            },
+            "not_mapped": "network-analyzer (no planted issue type corresponds to its cycle/hub findings)",
+            "line_items": 879,
+            "related_party_rows": 8
+          },
+          "seconds": 10.3,
+          "llm_calls": 0
+        },
+        "tarangini": {
+          "flags": [
+            "benford_nonconformity",
+            "duplicate_entries",
+            "round_number_entries",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "benford_first_digit_verdict": "NON_CONFORMING",
+            "benford_overall_verdict": "ANOMALOUS",
+            "benford_records": 908,
+            "exact_duplicate_groups": 26,
+            "exact_duplicate_examples": [
+              [
+                "Communication expenses",
+                2000.0,
+                3
+              ],
+              [
+                "Communication expenses",
+                5000.0,
+                4
+              ],
+              [
+                "Communication expenses",
+                22000.0,
+                2
+              ],
+              [
+                "Freight and forwarding",
+                3000.0,
+                2
+              ],
+              [
+                "Freight and forwarding",
+                27000.0,
+                2
+              ]
+            ],
+            "round_ends_00_pct": 30.2,
+            "ratio_flags": [],
+            "ratio_risk_score": 1,
+            "anomaly_consensus": 48,
+            "anomaly_top": [
+              [
+                "Repairs and maintenance",
+                938398.45
+              ],
+              [
+                "Insurance",
+                947285.17
+              ],
+              [
+                "Freight and forwarding",
+                883846.62
+              ]
+            ],
+            "network_cycles": 0,
+            "network_risk_score": 3,
+            "risk_scores": {
+              "benfords-analysis": 10,
+              "duplicate-detector": 8,
+              "ratio-analyzer": 1,
+              "anomaly-detector": 5,
+              "network-analyzer": 3
+            },
+            "not_mapped": "network-analyzer (no planted issue type corresponds to its cycle/hub findings)",
+            "line_items": 908,
+            "related_party_rows": 6
+          },
+          "seconds": 8.5,
+          "llm_calls": 0
+        },
+        "northfield": {
+          "flags": [
+            "duplicate_entries",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "benford_first_digit_verdict": "CONFORMING",
+            "benford_overall_verdict": "ANOMALOUS",
+            "benford_records": 879,
+            "exact_duplicate_groups": 7,
+            "exact_duplicate_examples": [
+              [
+                "Communication expenses",
+                28479.79,
+                2
+              ],
+              [
+                "Communication expenses",
+                845044.74,
+                2
+              ],
+              [
+                "Miscellaneous expenses",
+                1408.25,
+                2
+              ],
+              [
+                "Printing and stationery",
+                187018.43,
+                2
+              ],
+              [
+                "Rent",
+                38000.0,
+                12
+              ]
+            ],
+            "round_ends_00_pct": 4.2,
+            "ratio_flags": [],
+            "ratio_risk_score": 1,
+            "anomaly_consensus": 39,
+            "anomaly_top": [
+              [
+                "Repairs and maintenance",
+                927103.03
+              ],
+              [
+                "Communication expenses",
+                964713.12
+              ],
+              [
+                "Legal and professional fees",
+                951694.35
+              ]
+            ],
+            "network_cycles": 0,
+            "network_risk_score": 3,
+            "risk_scores": {
+              "benfords-analysis": 10,
+              "duplicate-detector": 6,
+              "ratio-analyzer": 1,
+              "anomaly-detector": 4,
+              "network-analyzer": 3
+            },
+            "not_mapped": "network-analyzer (no planted issue type corresponds to its cycle/hub findings)",
+            "line_items": 879,
+            "related_party_rows": 6
+          },
+          "seconds": 9.1,
+          "llm_calls": 0
+        },
+        "vardhan": {
+          "flags": [
+            "duplicate_entries",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "benford_first_digit_verdict": "CONFORMING",
+            "benford_overall_verdict": "ANOMALOUS",
+            "benford_records": 877,
+            "exact_duplicate_groups": 2,
+            "exact_duplicate_examples": [
+              [
+                "Rent",
+                111000.0,
+                12
+              ],
+              [
+                "Security charges",
+                70000.0,
+                12
+              ]
+            ],
+            "round_ends_00_pct": 3.8,
+            "ratio_flags": [],
+            "ratio_risk_score": 1,
+            "anomaly_consensus": 42,
+            "anomaly_top": [
+              [
+                "Power and fuel",
+                797468.48
+              ],
+              [
+                "Power and fuel",
+                942120.41
+              ],
+              [
+                "Power and fuel",
+                902569.2
+              ]
+            ],
+            "network_cycles": 0,
+            "network_risk_score": 3,
+            "risk_scores": {
+              "benfords-analysis": 10,
+              "duplicate-detector": 4,
+              "ratio-analyzer": 1,
+              "anomaly-detector": 4,
+              "network-analyzer": 3
+            },
+            "not_mapped": "network-analyzer (no planted issue type corresponds to its cycle/hub findings)",
+            "line_items": 877,
+            "related_party_rows": 10
+          },
+          "seconds": 8.1,
+          "llm_calls": 0
+        },
+        "meridian": {
+          "flags": [
+            "duplicate_entries",
+            "round_number_entries",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "benford_first_digit_verdict": "CONFORMING",
+            "benford_overall_verdict": "ANOMALOUS",
+            "benford_records": 886,
+            "exact_duplicate_groups": 30,
+            "exact_duplicate_examples": [
+              [
+                "Freight and forwarding",
+                2000.0,
+                2
+              ],
+              [
+                "Freight and forwarding",
+                3000.0,
+                2
+              ],
+              [
+                "Freight and forwarding",
+                15000.0,
+                3
+              ],
+              [
+                "Freight and forwarding",
+                18000.0,
+                2
+              ],
+              [
+                "Freight and forwarding",
+                49000.0,
+                2
+              ]
+            ],
+            "round_ends_00_pct": 35.0,
+            "ratio_flags": [],
+            "ratio_risk_score": 1,
+            "anomaly_consensus": 43,
+            "anomaly_top": [
+              [
+                "Legal and professional fees",
+                959000.0
+              ],
+              [
+                "Insurance",
+                874807.93
+              ],
+              [
+                "Insurance",
+                904857.76
+              ]
+            ],
+            "network_cycles": 0,
+            "network_risk_score": 3,
+            "risk_scores": {
+              "benfords-analysis": 10,
+              "duplicate-detector": 8,
+              "ratio-analyzer": 1,
+              "anomaly-detector": 4,
+              "network-analyzer": 3
+            },
+            "not_mapped": "network-analyzer (no planted issue type corresponds to its cycle/hub findings)",
+            "line_items": 886,
+            "related_party_rows": 6
+          },
+          "seconds": 9.7,
+          "llm_calls": 0
+        }
+      },
+      "metrics": {
+        "companies_scored": [
+          "kestrel",
+          "meridian",
+          "northfield",
+          "tarangini",
+          "vardhan"
+        ],
+        "tp": 6,
+        "fp": 7,
+        "fn": 8,
+        "precision": 0.462,
+        "recall": 0.429,
+        "f1": 0.444,
+        "per_type": {
+          "rpt_threshold_no_approval": {
+            "planted_in": [
+              "kestrel"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 1
+          },
+          "rp_omitted_from_schedule": {
+            "planted_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 2
+          },
+          "duplicate_entries": {
+            "planted_in": [
+              "kestrel",
+              "northfield"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "meridian",
+              "northfield",
+              "tarangini",
+              "vardhan"
+            ],
+            "tp": 2,
+            "fp": 3,
+            "fn": 0
+          },
+          "round_number_entries": {
+            "planted_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "flagged_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "tp": 2,
+            "fp": 0,
+            "fn": 0
+          },
+          "benford_nonconformity": {
+            "planted_in": [
+              "tarangini"
+            ],
+            "flagged_in": [
+              "tarangini"
+            ],
+            "tp": 1,
+            "fp": 0,
+            "fn": 0
+          },
+          "caro_missing": {
+            "planted_in": [
+              "kestrel",
+              "meridian"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 2
+          },
+          "ratio_anomaly": {
+            "planted_in": [
+              "meridian",
+              "northfield"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 2
+          },
+          "cash_loan_269ss": {
+            "planted_in": [
+              "northfield"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 1
+          },
+          "unusual_large_payment": {
+            "planted_in": [
+              "kestrel"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "meridian",
+              "northfield",
+              "tarangini",
+              "vardhan"
+            ],
+            "tp": 1,
+            "fp": 4,
+            "fn": 0
+          }
+        }
+      }
+    },
+    "workbench_curated": {
+      "per_company": {
+        "kestrel": {
+          "flags": [
+            "ratio_anomaly",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "benford_first_digit_verdict": "CONFORMING",
+            "benford_overall_verdict": "ANOMALOUS",
+            "benford_records": 853,
+            "exact_duplicate_groups": 0,
+            "exact_duplicate_examples": [],
+            "round_ends_00_pct": 1.3,
+            "ratio_flags": [
+              "current_ratio",
+              "current_assets",
+              "other_expense",
+              "pbt",
+              "tax_expense",
+              "pat"
+            ],
+            "ratio_risk_score": 8,
+            "anomaly_consensus": 41,
+            "anomaly_top": [
+              [
+                "Legal and professional fees",
+                18500000.0
+              ],
+              [
+                "Housekeeping",
+                925079.62
+              ],
+              [
+                "Freight and forwarding",
+                981589.13
+              ]
+            ],
+            "network_cycles": 0,
+            "network_risk_score": 3,
+            "risk_scores": {
+              "benfords-analysis": 10,
+              "duplicate-detector": 2,
+              "ratio-analyzer": 8,
+              "anomaly-detector": 4,
+              "network-analyzer": 3
+            },
+            "not_mapped": "network-analyzer (no planted issue type corresponds to its cycle/hub findings)",
+            "curation_log": [
+              "Auto-curating: creating clean views...",
+              "  Curation: curated_line_items: 879 → 853 rows (26 removed)",
+              "  Curation: Period consolidation: 3 labels remapped",
+              "  Curation: Extraction dedup applied (ROW_NUMBER partition)",
+              "  Curation: curated_related_parties: 8 rows (no rows removed)",
+              "  Curation: Entity whitelist: 4 entities kept",
+              "Curated views ready: True"
+            ]
+          },
+          "seconds": 10.8,
+          "llm_calls": 0
+        },
+        "tarangini": {
+          "flags": [
+            "benford_nonconformity",
+            "ratio_anomaly",
+            "round_number_entries",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "benford_first_digit_verdict": "NON_CONFORMING",
+            "benford_overall_verdict": "ANOMALOUS",
+            "benford_records": 855,
+            "exact_duplicate_groups": 0,
+            "exact_duplicate_examples": [],
+            "round_ends_00_pct": 25.9,
+            "ratio_flags": [
+              "current_ratio",
+              "equity",
+              "current_assets"
+            ],
+            "ratio_risk_score": 6,
+            "anomaly_consensus": 43,
+            "anomaly_top": [
+              [
+                "Printing and stationery",
+                850000.0
+              ],
+              [
+                "Freight and forwarding",
+                883846.62
+              ],
+              [
+                "Repairs and maintenance",
+                938398.45
+              ]
+            ],
+            "network_cycles": 0,
+            "network_risk_score": 3,
+            "risk_scores": {
+              "benfords-analysis": 10,
+              "duplicate-detector": 3,
+              "ratio-analyzer": 6,
+              "anomaly-detector": 5,
+              "network-analyzer": 3
+            },
+            "not_mapped": "network-analyzer (no planted issue type corresponds to its cycle/hub findings)",
+            "curation_log": [
+              "Auto-curating: creating clean views...",
+              "  Curation: curated_line_items: 908 → 855 rows (53 removed)",
+              "  Curation: Period consolidation: 3 labels remapped",
+              "  Curation: Extraction dedup applied (ROW_NUMBER partition)",
+              "  Curation: curated_related_parties: 6 rows (no rows removed)",
+              "  Curation: Entity whitelist: 3 entities kept",
+              "Curated views ready: True"
+            ]
+          },
+          "seconds": 12.4,
+          "llm_calls": 0
+        },
+        "northfield": {
+          "flags": [
+            "ratio_anomaly",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "benford_first_digit_verdict": "CONFORMING",
+            "benford_overall_verdict": "ANOMALOUS",
+            "benford_records": 852,
+            "exact_duplicate_groups": 0,
+            "exact_duplicate_examples": [],
+            "round_ends_00_pct": 1.8,
+            "ratio_flags": [
+              "cogs_to_revenue",
+              "current_ratio",
+              "gross_margin",
+              "operating_margin",
+              "equity",
+              "total_liabilities",
+              "inventory",
+              "current_assets",
+              "total_assets",
+              "cogs",
+              "total_expense",
+              "pbt",
+              "tax_expense",
+              "pat"
+            ],
+            "ratio_risk_score": 8,
+            "anomaly_consensus": 38,
+            "anomaly_top": [
+              [
+                "Repairs and maintenance",
+                927103.03
+              ],
+              [
+                "Communication expenses",
+                964713.12
+              ],
+              [
+                "Legal and professional fees",
+                951694.35
+              ]
+            ],
+            "network_cycles": 0,
+            "network_risk_score": 3,
+            "risk_scores": {
+              "benfords-analysis": 10,
+              "duplicate-detector": 2,
+              "ratio-analyzer": 8,
+              "anomaly-detector": 4,
+              "network-analyzer": 3
+            },
+            "not_mapped": "network-analyzer (no planted issue type corresponds to its cycle/hub findings)",
+            "curation_log": [
+              "Auto-curating: creating clean views...",
+              "  Curation: curated_line_items: 879 → 852 rows (27 removed)",
+              "  Curation: Period consolidation: 3 labels remapped",
+              "  Curation: Extraction dedup applied (ROW_NUMBER partition)",
+              "  Curation: curated_related_parties: 6 rows (no rows removed)",
+              "  Curation: Entity whitelist: 3 entities kept",
+              "Curated views ready: True"
+            ]
+          },
+          "seconds": 9.1,
+          "llm_calls": 0
+        },
+        "vardhan": {
+          "flags": [
+            "ratio_anomaly",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "benford_first_digit_verdict": "CONFORMING",
+            "benford_overall_verdict": "ANOMALOUS",
+            "benford_records": 855,
+            "exact_duplicate_groups": 0,
+            "exact_duplicate_examples": [],
+            "round_ends_00_pct": 1.3,
+            "ratio_flags": [
+              "current_ratio"
+            ],
+            "ratio_risk_score": 3,
+            "anomaly_consensus": 40,
+            "anomaly_top": [
+              [
+                "Power and fuel",
+                902569.2
+              ],
+              [
+                "Power and fuel",
+                942120.41
+              ],
+              [
+                "Legal and professional fees",
+                916482.02
+              ]
+            ],
+            "network_cycles": 0,
+            "network_risk_score": 3,
+            "risk_scores": {
+              "benfords-analysis": 10,
+              "duplicate-detector": 2,
+              "ratio-analyzer": 3,
+              "anomaly-detector": 4,
+              "network-analyzer": 3
+            },
+            "not_mapped": "network-analyzer (no planted issue type corresponds to its cycle/hub findings)",
+            "curation_log": [
+              "Auto-curating: creating clean views...",
+              "  Curation: curated_line_items: 877 → 855 rows (22 removed)",
+              "  Curation: Period consolidation: 3 labels remapped",
+              "  Curation: Extraction dedup applied (ROW_NUMBER partition)",
+              "  Curation: curated_related_parties: 10 rows (no rows removed)",
+              "  Curation: Entity whitelist: 4 entities kept",
+              "Curated views ready: True"
+            ]
+          },
+          "seconds": 7.7,
+          "llm_calls": 0
+        },
+        "meridian": {
+          "flags": [
+            "ratio_anomaly",
+            "round_number_entries",
+            "unusual_large_payment"
+          ],
+          "detail": {
+            "benford_first_digit_verdict": "MARGINALLY_NON_CONFORMING",
+            "benford_overall_verdict": "ANOMALOUS",
+            "benford_records": 828,
+            "exact_duplicate_groups": 0,
+            "exact_duplicate_examples": [],
+            "round_ends_00_pct": 30.4,
+            "ratio_flags": [
+              "current_ratio",
+              "equity",
+              "total_liabilities",
+              "trade_receivables",
+              "total_assets"
+            ],
+            "ratio_risk_score": 7,
+            "anomaly_consensus": 39,
+            "anomaly_top": [
+              [
+                "Legal and professional fees",
+                959000.0
+              ],
+              [
+                "Insurance",
+                874807.93
+              ],
+              [
+                "Insurance",
+                904857.76
+              ]
+            ],
+            "network_cycles": 0,
+            "network_risk_score": 3,
+            "risk_scores": {
+              "benfords-analysis": 10,
+              "duplicate-detector": 4,
+              "ratio-analyzer": 7,
+              "anomaly-detector": 4,
+              "network-analyzer": 3
+            },
+            "not_mapped": "network-analyzer (no planted issue type corresponds to its cycle/hub findings)",
+            "curation_log": [
+              "Auto-curating: creating clean views...",
+              "  Curation: curated_line_items: 886 → 828 rows (58 removed)",
+              "  Curation: Period consolidation: 3 labels remapped",
+              "  Curation: Extraction dedup applied (ROW_NUMBER partition)",
+              "  Curation: curated_related_parties: 6 rows (no rows removed)",
+              "  Curation: Entity whitelist: 3 entities kept",
+              "Curated views ready: True"
+            ]
+          },
+          "seconds": 12.0,
+          "llm_calls": 0
+        }
+      },
+      "metrics": {
+        "companies_scored": [
+          "kestrel",
+          "meridian",
+          "northfield",
+          "tarangini",
+          "vardhan"
+        ],
+        "tp": 6,
+        "fp": 7,
+        "fn": 8,
+        "precision": 0.462,
+        "recall": 0.429,
+        "f1": 0.444,
+        "per_type": {
+          "rpt_threshold_no_approval": {
+            "planted_in": [
+              "kestrel"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 1
+          },
+          "rp_omitted_from_schedule": {
+            "planted_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 2
+          },
+          "duplicate_entries": {
+            "planted_in": [
+              "kestrel",
+              "northfield"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 2
+          },
+          "round_number_entries": {
+            "planted_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "flagged_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "tp": 2,
+            "fp": 0,
+            "fn": 0
+          },
+          "benford_nonconformity": {
+            "planted_in": [
+              "tarangini"
+            ],
+            "flagged_in": [
+              "tarangini"
+            ],
+            "tp": 1,
+            "fp": 0,
+            "fn": 0
+          },
+          "caro_missing": {
+            "planted_in": [
+              "kestrel",
+              "meridian"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 2
+          },
+          "ratio_anomaly": {
+            "planted_in": [
+              "meridian",
+              "northfield"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "meridian",
+              "northfield",
+              "tarangini",
+              "vardhan"
+            ],
+            "tp": 2,
+            "fp": 3,
+            "fn": 0
+          },
+          "cash_loan_269ss": {
+            "planted_in": [
+              "northfield"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 1
+          },
+          "unusual_large_payment": {
+            "planted_in": [
+              "kestrel"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "meridian",
+              "northfield",
+              "tarangini",
+              "vardhan"
+            ],
+            "tp": 1,
+            "fp": 4,
+            "fn": 0
+          }
+        }
+      }
+    }
+  }
+}
