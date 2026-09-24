@@ -51,6 +51,17 @@ async def test_profile_document_maps_names_to_keys(fake_llms, small_laws, monkey
     assert saved["document_summary"].startswith("Acme Widgets")
 
 
+async def test_profile_document_fails_clearly_without_summary(fake_llms, small_laws, monkeypatch, tmp_path):
+    phase0 = load_phase("profile_document")
+
+    async def fake_get_rag(storage=None):
+        return _FakeRag(None)  # what LightRAG returns when the query LLM call fails
+
+    monkeypatch.setattr(phase0, "get_rag_instance", fake_get_rag)
+    with pytest.raises(RuntimeError, match="no summary"):
+        await phase0.profile_document(storage="unused", output_dir=str(tmp_path))
+
+
 # ---------------------------------------------------------------------------
 # Phase 1
 # ---------------------------------------------------------------------------

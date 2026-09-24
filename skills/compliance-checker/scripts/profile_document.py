@@ -53,6 +53,12 @@ async def profile_document(
     rag = await get_rag_instance(storage)
     print("[Phase 0] Querying knowledge graph for document summary...")
     summary = await rag.aquery(PROFILE_QUERY, param=QueryParam(mode="global", top_k=60))
+    if not summary:
+        # LightRAG logs the underlying error (e.g. a rejected API key) and returns None
+        raise RuntimeError(
+            "Knowledge graph query returned no summary. Check the LightRAG logs "
+            "above and the kg_llm API key."
+        )
     print(f"[Phase 0] Summary length: {len(summary)} chars")
 
     # Step 2: Get all category display names
