@@ -11,7 +11,9 @@ Usage:
     extractor = MistralTableExtractor()
     tables = extractor.extract("user_documents/some_file.pdf")
 
-Set MISTRAL_API_KEY in the environment (or .env) before use.
+Set MISTRAL_API_KEY in the environment (or .env) before use. Raw OCR
+responses are cached under pipeline/test_output/mistral_cache/ unless
+MISTRAL_OCR_CACHE_DIR points elsewhere.
 """
 
 from __future__ import annotations
@@ -40,7 +42,12 @@ from pipeline.table_extractor import (
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-_CACHE_DIR = Path(__file__).resolve().parent / "test_output" / "mistral_cache"
+_DEFAULT_CACHE_DIR = Path(__file__).resolve().parent / "test_output" / "mistral_cache"
+
+
+def _cache_dir() -> Path:
+    """Directory for cached OCR responses (override with MISTRAL_OCR_CACHE_DIR)."""
+    return Path(os.environ.get("MISTRAL_OCR_CACHE_DIR") or _DEFAULT_CACHE_DIR)
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -417,8 +424,9 @@ class MistralTableExtractor:
 
     def _get_or_call_api(self, file_path: Path, *, use_cache: bool) -> dict:
         """Return the raw OCR response dict, from cache or fresh API call."""
-        _CACHE_DIR.mkdir(parents=True, exist_ok=True)
-        cache_file = _CACHE_DIR / f"{_file_hash(file_path)}.json"
+        cache_dir = _cache_dir()
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        cache_file = cache_dir / f"{_file_hash(file_path)}.json"
 
         if use_cache and cache_file.exists():
             logger.info("Loading cached Mistral response from %s", cache_file.name)
