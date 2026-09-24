@@ -187,3 +187,25 @@ def test_initialize_schema_is_idempotent(tmp_path):
     tables = {r[0] for r in normalizer._get_conn().execute("SHOW TABLES").fetchall()}
     normalizer.close()
     assert tables == {"source_tables", "line_items", "related_parties", "analysis_results"}
+
+
+def test_amounts_keep_full_precision(tmp_path):
+    df = pd.DataFrame({
+        "Particulars": ["Freight outward", "Consultancy fees"],
+        "Amount": ["12,417.28", "12,34,56,789.12"],
+    })
+    table = _table(
+        df, source_file="acme_general_ledger_fy2024-25.csv", source_file_type="csv",
+        section_heading="acme_general_ledger_fy2024-25",
+    )
+    db_path = tmp_path / "precision.duckdb"
+    normalizer = DataNormalizer(db_path=db_path)
+    normalizer.normalize_and_load([table], entity_name=COMPANY, fiscal_year="2024-25")
+    normalizer.close()
+
+    con = duckdb.connect(str(db_path), read_only=True)
+    amounts = dict(con.execute("SELECT account_name, amount FROM line_items").fetchall())
+    periods = {r[0] for r in con.execute("SELECT period_label FROM line_items").fetchall()}
+    con.close()
+    assert amounts == {"Freight outward": 12417.28, "Consultancy fees": 123456789.12}
+    assert periods == {"FY 2024-25"}
