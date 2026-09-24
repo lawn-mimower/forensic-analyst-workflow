@@ -9,6 +9,9 @@ Run with:
     python -m pipeline.test_normalization --from-cache             # skip extraction, use cached tables
     python -m pipeline.test_normalization --extractor mistral      # extract via Mistral OCR
     python -m pipeline.test_normalization --extractor mistral --from-cache  # use Mistral cache
+    python -m pipeline.test_normalization path/to/statement.xlsx --entity "Acme Widgets" --fiscal-year 2024-25
+
+With no input paths, every PDF/Excel/CSV file under user_documents/ is used.
 """
 
 from __future__ import annotations
@@ -35,10 +38,17 @@ _TEST_OUTPUT = Path(__file__).resolve().parent / "test_output"
 _TEST_DB = _TEST_OUTPUT / "test_forensic.duckdb"
 _TABLE_CACHE = _TEST_OUTPUT / "extracted_tables.pkl"
 
-_TEST_FILES = [
-   # _USER_DOCS / "sample_docs/sample_statement.xlsx",
-    _USER_DOCS / "sample_docs/sample_statement.pdf"
-]
+_SUPPORTED_SUFFIXES = {".pdf", ".xlsx", ".xlsm", ".xls", ".csv"}
+
+
+def _default_test_files() -> list[Path]:
+    """Every supported document under user_documents/ (recursive)."""
+    if not _USER_DOCS.is_dir():
+        return []
+    return sorted(
+        p for p in _USER_DOCS.rglob("*")
+        if p.is_file() and p.suffix.lower() in _SUPPORTED_SUFFIXES
+    )
 
 # ---------------------------------------------------------------------------
 # Ensure dotenv loaded
@@ -287,6 +297,22 @@ def extract_tables(file_path: Path) -> list[ExtractedTable]:
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Data Normalizer integration test")
     parser.add_argument(
+        "inputs", nargs="*", type=Path,
+        help="Documents to process (default: all PDF/Excel/CSV files in user_documents/)",
+    )
+    parser.add_argument(
+        "--entity", default="Unknown Entity",
+        help="Entity name recorded on every source table",
+    )
+    parser.add_argument(
+        "--fiscal-year", default="2023-24",
+        help="Primary fiscal year label, e.g. 2024-25 (default: 2023-24)",
+    )
+    parser.add_argument(
+        "--output-dir", type=Path, default=_TEST_OUTPUT,
+        help="Where to write the DuckDB file and table cache (default: pipeline/test_output)",
+    )
+    parser.add_argument(
         "--from-cache", action="store_true",
         help="Skip extraction, load tables from pickle cache",
     )
@@ -350,14 +376,19 @@ def main():
     args = _parse_args()
     use_cache = args.from_cache
     extractor_name = args.extractor
+    out_dir = Path(args.output_dir)
+
+    test_files = [Path(p) for p in args.inputs] or _default_test_files()
+    if args.files:
+        test_files = [p for p in test_files if any(sub in p.name for sub in args.files)]
 
     # Set extractor-specific DB and cache paths
     if extractor_name == "mistral":
-        test_db = _TEST_OUTPUT / "test_forensic_mistral.duckdb"
-        table_cache = _TEST_OUTPUT / "extracted_tables_mistral.pkl"
+        test_db = out_dir / "test_forensic_mistral.duckdb"
+        table_cache = out_dir / "extracted_tables_mistral.pkl"
     else:
-        test_db = _TEST_DB
-        table_cache = _TABLE_CACHE
+        test_db = out_dir / _TEST_DB.name
+        table_cache = out_dir / _TABLE_CACHE.name
 
     print("=" * 70)
     print("DATA NORMALIZER — Integration Test")
@@ -365,7 +396,7 @@ def main():
     print(f"  Mode: {'from cache' if use_cache else 'full extraction'}")
     print("=" * 70)
 
-    _ensure_output_dir()
+    out_dir.mkdir(parents=True, exist_ok=True)
     # Remove stale extractor-specific DB
     if test_db.exists():
         test_db.unlink()
@@ -388,10 +419,10 @@ def main():
 
         if extractor_name == "mistral":
             all_tables = _extract_with_mistral(
-                _TEST_FILES, max_pages=args.max_pages,
+                test_files, max_pages=args.max_pages,
             )
         else:
-            for fpath in _TEST_FILES:
+            for fpath in test_files:
                 print(f"\n--- Extracting from: {fpath.name} ---")
                 if not fpath.exists():
                     print(f"  [SKIP] File not found: {fpath}")
@@ -432,8 +463,8 @@ def main():
     print("\n--- Running normalization ---")
     result = normalizer.normalize_and_load(
         all_tables,
-        entity_name="EXCO",
-        fiscal_year="2023-24",
+        entity_name=args.entity,
+        fiscal_year=args.fiscal_year,
     )
 
     print(f"\n{'=' * 50}")

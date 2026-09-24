@@ -5,11 +5,14 @@ Processes test documents from user_documents/ and prints extraction summaries.
 Saves a JSON manifest of all results to pipeline/test_output/extraction_manifest.json.
 
 Usage:
-    python -m pipeline.test_extraction
+    python -m pipeline.test_extraction                        # every PDF/DOCX/Excel/CSV in user_documents/
+    python -m pipeline.test_extraction path/to/file.xlsx ...  # specific documents
+    python -m pipeline.test_extraction --output-dir /tmp/out  # write the manifest elsewhere
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import logging
 import sys
@@ -138,17 +141,41 @@ def process_file(extractor, file_path: Path) -> list[dict]:
     return manifest_entries
 
 
-def main() -> None:
+SUPPORTED_SUFFIXES = {".pdf", ".docx", ".xlsx", ".xlsm", ".xls", ".csv", ".tsv"}
+
+
+def _default_test_files() -> list[Path]:
+    """Every supported document under user_documents/ (recursive)."""
+    if not USER_DOCS.is_dir():
+        return []
+    return sorted(
+        p for p in USER_DOCS.rglob("*")
+        if p.is_file() and p.suffix.lower() in SUPPORTED_SUFFIXES
+    )
+
+
+def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="TableExtractor smoke test")
+    parser.add_argument(
+        "inputs", nargs="*", type=Path,
+        help="Documents to process (default: all supported files in user_documents/)",
+    )
+    parser.add_argument(
+        "--output-dir", type=Path, default=OUTPUT_DIR,
+        help="Where to write extraction_manifest.json (default: pipeline/test_output)",
+    )
+    return parser.parse_args(argv)
+
+
+def main(argv: list[str] | None = None) -> None:
     """Run the test extraction on all test documents."""
     from pipeline.table_extractor import TableExtractor
 
+    args = _parse_args(argv)
     extractor = TableExtractor()
 
     # Test files
-    test_files = [
-        USER_DOCS / "sample_docs/sample_statement.xlsx",
-        USER_DOCS / "sample_docs/sample_statement.pdf",
-    ]
+    test_files = [Path(p) for p in args.inputs] or _default_test_files()
 
     # Filter to files that actually exist
     existing_files = []
@@ -180,8 +207,9 @@ def main() -> None:
     manifest["total_tables_extracted"] = total_tables
 
     # Save manifest
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    manifest_path = OUTPUT_DIR / "extraction_manifest.json"
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    manifest_path = output_dir / "extraction_manifest.json"
     with open(manifest_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2, ensure_ascii=False, default=str)
 
