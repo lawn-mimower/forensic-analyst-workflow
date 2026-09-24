@@ -17,6 +17,7 @@ import json
 import sys
 import tempfile
 import uuid
+from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -143,8 +144,9 @@ with st.sidebar:
             from sqlalchemy import create_engine, text as sql_text
             eng = create_engine(f"sqlite:///{_AGENT_DB_PATH}")
             with eng.connect() as conn:
+                # Agno's SqliteDb keeps sessions in agno_sessions (epoch seconds)
                 rows = conn.execute(sql_text(
-                    "SELECT session_id, created_at FROM sessions "
+                    "SELECT session_id, created_at FROM agno_sessions "
                     "ORDER BY created_at DESC LIMIT 10"
                 )).fetchall()
             if rows:
@@ -152,6 +154,8 @@ with st.sidebar:
                     for row in rows:
                         sid = row[0]
                         created = row[1]
+                        if isinstance(created, (int, float)):
+                            created = datetime.fromtimestamp(created).strftime("%Y-%m-%d %H:%M")
                         label = f"{sid[:8]}... ({created})" if created else sid[:8]
                         if st.button(label, key=f"sess_{sid}"):
                             st.session_state.session_id = sid
