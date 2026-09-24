@@ -1,0 +1,17 @@
+Account,Group,Debit,Credit
+Revenue from operations,Income,0,850.00
+Other income,Income,0,12.50
+Cost of materials consumed,Expense,410.00,0
+Employee benefits expense,Expense,145.00,0
+Finance costs,Expense,18.00,0
+Depreciation and amortisation,Expense,32.00,0
+Other expenses,Expense,120.50,0
+Tax expense,Expense,34.50,0
+Equity share capital,Equity,0,100.00
+Other equity (opening),Equity,0,310.00
+Long-term borrowings,Liability,0,150.00
+Trade payables,Liability,0,95.00
+Property plant and equipment,Asset,380.00,0
+Inventories,Asset,140.00,0
+Trade receivables,Asset,165.00,0
+Cash and cash equivalents,Asset,72.50,0
