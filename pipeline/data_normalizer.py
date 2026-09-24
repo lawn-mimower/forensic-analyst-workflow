@@ -178,8 +178,45 @@ def _compute_file_hash(file_path: str | Path) -> str:
     return sha256.hexdigest()
 
 
+_MONTHS = ("jan", "feb", "mar", "apr", "may", "jun",
+           "jul", "aug", "sep", "oct", "nov", "dec")
+_MONTH_RX = r"(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?"
+
+
+def _label_year_month(label: str) -> tuple[int, int] | None:
+    """Return (year, month) for date-style labels.
+
+    Handles '2024-03-31', '31.03.2024', '31/03/2024', '31-03-2024',
+    '31 Mar 2025', '31st March, 2025' and 'March 31, 2024'.
+    """
+    text = label.strip().lower()
+    m = re.search(r"\b(\d{4})-(\d{1,2})-(\d{1,2})\b", text)
+    if m:
+        return int(m.group(1)), int(m.group(2))
+    m = re.search(r"\b\d{1,2}[./-](\d{1,2})[./-](\d{4})\b", text)
+    if m:
+        return int(m.group(2)), int(m.group(1))
+    m = re.search(r"\b\d{1,2}(?:st|nd|rd|th)?\s+" + _MONTH_RX + r",?\s+(\d{4})\b", text)
+    if m:
+        return int(m.group(2)), _MONTHS.index(m.group(1)) + 1
+    m = re.search(r"\b" + _MONTH_RX + r"\s+\d{1,2}(?:st|nd|rd|th)?,?\s+(\d{4})\b", text)
+    if m:
+        return int(m.group(2)), _MONTHS.index(m.group(1)) + 1
+    return None
+
+
 def _fiscal_year_to_dates(fy: str) -> tuple[str, str]:
-    """Convert 'FY 2023-24' or '2023-24' to ('2023-04-01', '2024-03-31')."""
+    """Convert 'FY 2023-24' or '2023-24' to ('2023-04-01', '2024-03-31').
+
+    Date-style labels ('31 Mar 2024', 'As at 31.03.2024') map to the Indian
+    fiscal year (April-March) that contains the date.
+    """
+    ym = _label_year_month(fy)
+    if ym:
+        year, month = ym
+        start_year = year if month >= 4 else year - 1
+        return (f"{start_year}-04-01", f"{start_year + 1}-03-31")
+
     match = re.search(r"(\d{4})\s*[-–]\s*(\d{2,4})", fy)
     if match:
         start_year = int(match.group(1))
@@ -288,6 +325,23 @@ def _detect_is_total(label: str) -> bool:
 # Column identification
 # ---------------------------------------------------------------------------
 
+def _is_period_header(name: str) -> bool:
+    """True if a column header names a reporting period.
+
+    Matches fiscal-year ranges ('FY 2023-24', '2023-24'), 'As at ...',
+    date-style headers ('31 Mar 2025', '31.03.2024') and bare years, so
+    that each year column keeps its own period label.
+    """
+    cl = str(name).strip().lower()
+    return bool(
+        re.search(r"fy\s*\d{4}", cl)
+        or re.search(r"\d{4}\s*[-–]\s*\d{2,4}", cl)
+        or re.search(r"as\s*at", cl)
+        or _label_year_month(cl) is not None
+        or re.search(r"\b(19|20)\d{2}\b", cl)
+    )
+
+
 def _identify_columns(
     df: pd.DataFrame,
     col_map: dict[str, str | None],
@@ -349,10 +403,7 @@ def _identify_columns(
                 if numeric_count > 0:
                     # If the column name itself looks like a period label, use it
                     cn = str(col_name).strip()
-                    if (re.search(r"(?i)fy\s*\d{4}", cn)
-                            or re.search(r"\d{4}\s*[-–]\s*\d{2,4}", cn)
-                            or re.search(r"(?i)as\s*at", cn)
-                            or re.search(r"31[\./]\d{2}[\./]\d{4}", cn)):
+                    if _is_period_header(cn):
                         period = cn
                     else:
                         period = reporting_period or fiscal_year
@@ -437,10 +488,8 @@ def _tag_table(table: ExtractedTable) -> dict:
             column_mapping[col] = "account_name"
         elif cl in ("note", "note no", "note no.", "notes", "ref", "note ref"):
             column_mapping[col] = "note_ref"
-        elif re.search(r"fy\s*\d{4}", cl) or re.search(r"\d{4}\s*[-–]\s*\d{2,4}", cl):
+        elif _is_period_header(col):
             # Period column: use the column name as period label
-            column_mapping[col] = col.strip()
-        elif re.search(r"as\s*at", cl) or re.search(r"31[\./]\d{2}[\./]\d{4}", cl):
             column_mapping[col] = col.strip()
         elif cl in ("amount", "debit", "credit", "balance", "total", "value"):
             column_mapping[col] = "amount"
@@ -461,6 +510,15 @@ def _tag_table(table: ExtractedTable) -> dict:
                     column_mapping[col] = None
             except Exception:
                 column_mapping[col] = None
+
+    # Statements list the current period first, so the first period column is
+    # the reporting period and later ones are comparatives.
+    period_columns = [
+        label for label in column_mapping.values()
+        if label not in (None, "account_name", "note_ref", "amount", "ignore")
+    ]
+    if period_columns:
+        reporting_period = period_columns[0]
 
     return {
         "table_type": table_type,
