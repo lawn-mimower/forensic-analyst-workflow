@@ -246,7 +246,7 @@ def aggregate(args, systems: list[str], questions: list[dict], llm_info: dict, s
     by_system = {s: [r for r in items if r["system"] == s] for s in systems}
     index_stats = {}
     stats_dir = items_path.parent / "index_stats"
-    if stats_dir.exists():
+    if stats_dir.exists() and any(s.startswith("lightrag:") for s in systems):
         for f in sorted(stats_dir.glob("*.json")):
             index_stats[f.stem] = json.loads(f.read_text())
     missing = {s: sorted(qids - {r["qid"] for r in rs}) for s, rs in by_system.items()}
