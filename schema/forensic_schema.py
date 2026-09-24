@@ -51,7 +51,7 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 SCHEMA_DIR = Path(__file__).resolve().parent
-SCHEMA_SQL_PATH = SCHEMA_DIR / "forensic_schema.sql"
+SCHEMA_SQL_PATH = SCHEMA_DIR / "forensic_schema_v1_archive.sql"
 DEFAULT_DB_PATH = SCHEMA_DIR.parent / "forensic_data.duckdb"
 
 # Indian number system unit multipliers
