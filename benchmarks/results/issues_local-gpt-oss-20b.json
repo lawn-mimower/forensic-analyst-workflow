@@ -1,0 +1,420 @@
+{
+  "benchmark": "issue_detection",
+  "run_label": "local-gpt-oss-20b",
+  "complete": true,
+  "stopped_early": null,
+  "conditions": {
+    "llm_model": "gpt-oss-20b-ctx16k",
+    "llm_provider": "openai_compat",
+    "llm_endpoint": "http://localhost:11434/v1",
+    "config": "benchmarks/configs/ollama-gpt-oss-20b.yaml",
+    "companies": [
+      "kestrel",
+      "tarangini",
+      "northfield",
+      "vardhan",
+      "meridian"
+    ],
+    "unit_of_scoring": "(company, issue type) pairs; micro-averaged precision and recall",
+    "compliance_sections": [
+      "companies_act_2013/section_143 -> caro_missing",
+      "income_tax_act_1961/section_269SS -> cash_loan_269ss",
+      "icai_standards_on_auditing/sa_550 -> rp_omitted_from_schedule"
+    ],
+    "workbench_inputs": "financials.xlsx and general_ledger.csv (the report text is not used)",
+    "llm_inputs": "annual_report.md and general_ledger.csv in one prompt",
+    "compliance_inputs": "LightRAG store built from annual_report.md"
+  },
+  "gold": {
+    "kestrel": [
+      "rpt_threshold_no_approval",
+      "caro_missing",
+      "duplicate_entries",
+      "unusual_large_payment"
+    ],
+    "tarangini": [
+      "rp_omitted_from_schedule",
+      "round_number_entries",
+      "benford_nonconformity"
+    ],
+    "northfield": [
+      "duplicate_entries",
+      "ratio_anomaly",
+      "cash_loan_269ss"
+    ],
+    "vardhan": [],
+    "meridian": [
+      "rp_omitted_from_schedule",
+      "caro_missing",
+      "round_number_entries",
+      "ratio_anomaly"
+    ]
+  },
+  "systems": {
+    "compliance_audit": {
+      "per_company": {
+        "kestrel": {
+          "flags": [
+            "caro_missing",
+            "rp_omitted_from_schedule"
+          ],
+          "detail": {
+            "applicable_categories": [
+              "companies_act_2013",
+              "income_tax_act_1961",
+              "icai_standards_on_auditing"
+            ],
+            "n_questions": 11,
+            "per_section": {
+              "section_143": {
+                "questions": 3,
+                "VIOLATION": 1,
+                "COMPLIANT": 1,
+                "INSUFFICIENT_EVIDENCE": 1
+              },
+              "section_269SS": {
+                "questions": 4,
+                "VIOLATION": 0,
+                "COMPLIANT": 2,
+                "INSUFFICIENT_EVIDENCE": 2
+              },
+              "sa_550": {
+                "questions": 4,
+                "VIOLATION": 2,
+                "COMPLIANT": 2,
+                "INSUFFICIENT_EVIDENCE": 0
+              }
+            },
+            "index": {
+              "company": "kestrel",
+              "kg_model": "gpt-oss-20b-ctx16k",
+              "doc_status": [
+                "processed"
+              ],
+              "wall_seconds": 151.6,
+              "llm_calls": 6,
+              "new_llm_calls": 6,
+              "prompt_tokens_est": 28269,
+              "completion_tokens_est": 3704,
+              "llm_seconds": 388.4,
+              "entities": 27,
+              "relations": 23
+            }
+          },
+          "seconds": 225.6,
+          "llm_calls": 28,
+          "new_llm_calls": 28,
+          "prompt_tokens_est": 67677,
+          "completion_tokens_est": 3660,
+          "llm_seconds": 216.1
+        },
+        "tarangini": {
+          "flags": [],
+          "detail": {
+            "applicable_categories": [
+              "companies_act_2013",
+              "income_tax_act_1961",
+              "icai_standards_on_auditing"
+            ],
+            "n_questions": 12,
+            "per_section": {
+              "section_143": {
+                "questions": 5,
+                "VIOLATION": 0,
+                "COMPLIANT": 4,
+                "INSUFFICIENT_EVIDENCE": 1
+              },
+              "section_269SS": {
+                "questions": 4,
+                "VIOLATION": 0,
+                "COMPLIANT": 4,
+                "INSUFFICIENT_EVIDENCE": 0
+              },
+              "sa_550": {
+                "questions": 3,
+                "VIOLATION": 0,
+                "COMPLIANT": 2,
+                "INSUFFICIENT_EVIDENCE": 1
+              }
+            },
+            "index": {
+              "company": "tarangini",
+              "kg_model": "gpt-oss-20b-ctx16k",
+              "doc_status": [
+                "processed"
+              ],
+              "wall_seconds": 209.6,
+              "llm_calls": 6,
+              "new_llm_calls": 6,
+              "prompt_tokens_est": 29968,
+              "completion_tokens_est": 4885,
+              "llm_seconds": 515.7,
+              "entities": 51,
+              "relations": 42
+            }
+          },
+          "seconds": 254.5,
+          "llm_calls": 30,
+          "new_llm_calls": 29,
+          "prompt_tokens_est": 83035,
+          "completion_tokens_est": 3534,
+          "llm_seconds": 239.1
+        },
+        "northfield": {
+          "flags": [
+            "rp_omitted_from_schedule"
+          ],
+          "detail": {
+            "applicable_categories": [
+              "companies_act_2013",
+              "icai_standards_on_auditing"
+            ],
+            "n_questions": 8,
+            "per_section": {
+              "section_143": {
+                "questions": 4,
+                "VIOLATION": 0,
+                "COMPLIANT": 3,
+                "INSUFFICIENT_EVIDENCE": 1
+              },
+              "sa_550": {
+                "questions": 4,
+                "VIOLATION": 1,
+                "COMPLIANT": 3,
+                "INSUFFICIENT_EVIDENCE": 0
+              }
+            },
+            "index": {
+              "company": "northfield",
+              "kg_model": "gpt-oss-20b-ctx16k",
+              "doc_status": [
+                "processed"
+              ],
+              "wall_seconds": 205.6,
+              "llm_calls": 6,
+              "new_llm_calls": 6,
+              "prompt_tokens_est": 29268,
+              "completion_tokens_est": 5299,
+              "llm_seconds": 526.0,
+              "entities": 59,
+              "relations": 40
+            }
+          },
+          "seconds": 189.9,
+          "llm_calls": 21,
+          "new_llm_calls": 20,
+          "prompt_tokens_est": 61649,
+          "completion_tokens_est": 2613,
+          "llm_seconds": 174.3
+        },
+        "vardhan": {
+          "flags": [],
+          "detail": {
+            "applicable_categories": [
+              "companies_act_2013",
+              "income_tax_act_1961",
+              "icai_standards_on_auditing"
+            ],
+            "n_questions": 8,
+            "per_section": {
+              "section_143": {
+                "questions": 5,
+                "VIOLATION": 0,
+                "COMPLIANT": 4,
+                "INSUFFICIENT_EVIDENCE": 1
+              },
+              "sa_550": {
+                "questions": 3,
+                "VIOLATION": 0,
+                "COMPLIANT": 3,
+                "INSUFFICIENT_EVIDENCE": 0
+              }
+            },
+            "index": {
+              "company": "vardhan",
+              "kg_model": "gpt-oss-20b-ctx16k",
+              "doc_status": [
+                "processed"
+              ],
+              "wall_seconds": 239.4,
+              "llm_calls": 6,
+              "new_llm_calls": 6,
+              "prompt_tokens_est": 30982,
+              "completion_tokens_est": 6553,
+              "llm_seconds": 619.5,
+              "entities": 65,
+              "relations": 61
+            }
+          },
+          "seconds": 188.5,
+          "llm_calls": 22,
+          "new_llm_calls": 21,
+          "prompt_tokens_est": 73265,
+          "completion_tokens_est": 2315,
+          "llm_seconds": 172.1
+        },
+        "meridian": {
+          "flags": [],
+          "detail": {
+            "applicable_categories": [
+              "companies_act_2013",
+              "income_tax_act_1961",
+              "icai_standards_on_auditing"
+            ],
+            "n_questions": 9,
+            "per_section": {
+              "section_143": {
+                "questions": 4,
+                "VIOLATION": 0,
+                "COMPLIANT": 3,
+                "INSUFFICIENT_EVIDENCE": 1
+              },
+              "section_269SS": {
+                "questions": 2,
+                "VIOLATION": 0,
+                "COMPLIANT": 0,
+                "INSUFFICIENT_EVIDENCE": 2
+              },
+              "sa_550": {
+                "questions": 3,
+                "VIOLATION": 0,
+                "COMPLIANT": 2,
+                "INSUFFICIENT_EVIDENCE": 1
+              }
+            },
+            "index": {
+              "company": "meridian",
+              "kg_model": "gpt-oss-20b-ctx16k",
+              "doc_status": [
+                "processed"
+              ],
+              "wall_seconds": 125.9,
+              "llm_calls": 4,
+              "new_llm_calls": 4,
+              "prompt_tokens_est": 20503,
+              "completion_tokens_est": 3248,
+              "llm_seconds": 218.2,
+              "entities": 28,
+              "relations": 27
+            }
+          },
+          "seconds": 191.8,
+          "llm_calls": 24,
+          "new_llm_calls": 23,
+          "prompt_tokens_est": 55451,
+          "completion_tokens_est": 2839,
+          "llm_seconds": 175.4
+        }
+      },
+      "metrics": {
+        "companies_scored": [
+          "kestrel",
+          "meridian",
+          "northfield",
+          "tarangini",
+          "vardhan"
+        ],
+        "tp": 1,
+        "fp": 2,
+        "fn": 13,
+        "precision": 0.333,
+        "recall": 0.071,
+        "f1": 0.118,
+        "per_type": {
+          "rpt_threshold_no_approval": {
+            "planted_in": [
+              "kestrel"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 1
+          },
+          "rp_omitted_from_schedule": {
+            "planted_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "flagged_in": [
+              "kestrel",
+              "northfield"
+            ],
+            "tp": 0,
+            "fp": 2,
+            "fn": 2
+          },
+          "duplicate_entries": {
+            "planted_in": [
+              "kestrel",
+              "northfield"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 2
+          },
+          "round_number_entries": {
+            "planted_in": [
+              "meridian",
+              "tarangini"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 2
+          },
+          "benford_nonconformity": {
+            "planted_in": [
+              "tarangini"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 1
+          },
+          "caro_missing": {
+            "planted_in": [
+              "kestrel",
+              "meridian"
+            ],
+            "flagged_in": [
+              "kestrel"
+            ],
+            "tp": 1,
+            "fp": 0,
+            "fn": 1
+          },
+          "ratio_anomaly": {
+            "planted_in": [
+              "meridian",
+              "northfield"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 2
+          },
+          "cash_loan_269ss": {
+            "planted_in": [
+              "northfield"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 1
+          },
+          "unusual_large_payment": {
+            "planted_in": [
+              "kestrel"
+            ],
+            "flagged_in": [],
+            "tp": 0,
+            "fp": 0,
+            "fn": 1
+          }
+        }
+      }
+    }
+  },
+  "new_llm_calls_main_process": 0
+}
