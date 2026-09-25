@@ -131,7 +131,7 @@ Environment variables are read from `.env` in the repository root:
 | `MISTRAL_OCR_CACHE_DIR` | Cached Mistral OCR responses (default `pipeline/test_output/mistral_cache/`) |
 | `MODEL_CONFIG_PATH` | Model config to use instead of `model_config.yaml` |
 
-`model_config.yaml` maps roles to providers (`kg_llm`: Mistral `ministral-14b-2512`; `reasoning_llm`: Gemini `gemini-3-flash-preview`; the local embedding model) and sets per-provider rate limits. Mistral, Gemini, Anthropic and `openai_compat` providers are implemented. `openai_compat` talks to any OpenAI-compatible server, such as a local Ollama (`base_url: http://localhost:11434/v1`). Set `MODEL_CONFIG_PATH` to use another config file; `benchmarks/configs/` has one that puts every role on a local Ollama model and one for Gemini.
+`model_config.yaml` maps roles to providers (`kg_llm`: Mistral `ministral-14b-2512`; `reasoning_llm`: Gemini `gemini-3-flash-preview`; the local embedding model) and sets per-provider rate limits. Mistral, Gemini, Anthropic and `openai_compat` providers are implemented. `openai_compat` talks to any OpenAI-compatible server, such as a local Ollama (`base_url: http://localhost:11434/v1`). Set `MODEL_CONFIG_PATH` to use another config file; `benchmarks/configs/` has configs that put every role on a local Ollama model (gpt-oss:20b, llama3.2) and two for Gemini. For Ollama, `reasoning_effort: low|medium|high` under the provider sets the think level of models that support it.
 
 ## Tests
 
@@ -145,6 +145,33 @@ The offline suite swaps Mistral and Gemini for deterministic fakes and runs the 
 
 The live test indexes the fictional Markdown statement, asks one question and runs the compliance pipeline on a single law section.
 
+## Benchmark
+
+`benchmarks/` holds a synthetic benchmark: five fictional companies (annual report, financial workbook, expense ledger) with 30 questions and 14 planted issues, and a harness that runs the repository's methods next to conventional baselines with the same LLM. Everything ran on a local gpt-oss:20b (free); the cheapest baseline also ran on the Gemini API free tier. `benchmarks/RESULTS.md` has the full tables, conditions and caveats.
+
+Question answering, all 30 questions, gpt-oss:20b (strict: the answer line matches):
+
+| System | Correct | Multi-hop | LLM calls / q | Prompt tokens / q | Median latency |
+|---|---|---|---|---|---|
+| LightRAG hybrid / mix (this repo) | 30/30 | 7/7 | 2 | 7,450 | 12 s |
+| LightRAG naive (vector only) | 28/30 | 5/7 | 1 | 3,362 | 2 s |
+| Whole report in one prompt | 29/30 | 7/7 | 1 | 2,426 | 2 s |
+| Whole report, six questions per call | 27/30 | 6/7 | 0.2 | 440 | 1 s |
+| Basic RAG, BM25 top-4 of 256-token chunks | 26/30 | 6/7 | 1 | 1,162 | 2 s |
+| Basic RAG, MiniLM top-4 | 21/30 | 5/7 | 1 | 1,162 | 2 s |
+
+Issue detection, 14 planted issues in 5 companies:
+
+| System | TP | FP | FN | F1 |
+|---|---|---|---|---|
+| Simple rules written for the planted mechanisms (floor) | 14 | 2 | 0 | 0.93 |
+| One LLM call per company with report and ledger, Gemini 3.1 Flash-Lite | 12 | 15 | 2 | 0.58 |
+| One LLM call per company, gpt-oss:20b | 8 | 7 | 6 | 0.55 |
+| Forensic workbench (this repo; numeric tests on the tables) | 6 | 7 | 8 | 0.44 |
+| Compliance audit (this repo; three law sections), gpt-oss:20b | 1 | 2 | 13 | 0.12 |
+
+What it shows: on reports this short (about 2,300 tokens) the knowledge graph answers as well as putting the whole report in the prompt, at six times the latency and three times the tokens per question plus the indexing cost; its only edge is on multi-hop questions, on a handful of items. The workbench finds the numeric issues it has tests for and raises the same false positives on every ledger. The compliance audit is the weakest system: its generated questions test what the auditor's report says rather than the planted facts, and one company's category selection dropped the section that would have caught its cash loan. The limitations below and the results file give the details.
+
 ## Status and limitations
 
 - This is a proof of concept. Verdicts are an LLM's reading of retrieved context, not legal or audit advice. The law file holds short summaries of each section, not the full text of the statutes.
@@ -156,6 +183,8 @@ The live test indexes the fictional Markdown statement, asks one question and ru
 - Unit detection is pattern-based. In the synthetic workbook, the "(Rs. lakhs)" title on the P&L sheet is not picked up, so those amounts load as rupees. The same figures from the synthetic PDF ("All amounts in Rs. lakhs") are scaled correctly.
 - `--run-skills` on the CLI runs the tests on the raw tables. The app and the agent curate the data first.
 - CSV files must be comma-separated.
+- The compliance audit's questions are generated from the law summaries, not from the document, so they ask what the auditor's report states rather than checking the underlying facts. On the benchmark it caught one of the five planted issues within its sections, and its category-selection phase can drop an applicable law (see `benchmarks/RESULTS.md`).
+- The forensic tests fire on clean data too: on the benchmark the consensus anomaly detector reported an unusual payment in every ledger and the ratio analyzer flagged every company after curation. Treat their output as a list to review, not as findings.
 
 ## Repository layout
 
