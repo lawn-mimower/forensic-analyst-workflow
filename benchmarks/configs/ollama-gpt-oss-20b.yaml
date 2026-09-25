@@ -1,0 +1,21 @@
+# Every role on a local Ollama gpt-oss:20b through its OpenAI-compatible endpoint.
+# gpt-oss-20b-ctx16k is gpt-oss:20b (MXFP4, 21B parameters, 3.6B active) with a
+# 16k context window, temperature 0 and a fixed seed; create it once with:
+#   curl http://localhost:11434/api/create -d '{"model": "gpt-oss-20b-ctx16k",
+#     "from": "gpt-oss:20b", "parameters": {"num_ctx": 16384, "temperature": 0, "seed": 42}}'
+# (Ollama's /v1 endpoint ignores per-request num_ctx; 16k keeps the model
+# almost entirely on a 12 GB GPU.) reasoning_effort: low keeps the model's
+# reasoning short; Ollama passes it through as the gpt-oss think level.
+providers:
+  openai_compat:
+    base_url: "http://localhost:11434/v1"
+    default_model: "gpt-oss-20b-ctx16k"
+    reasoning_effort: low
+    rate_limit_rpm: 6000
+    timeout_s: 3600
+
+roles:
+  kg_llm:          { provider: openai_compat }
+  reasoning_llm:   { provider: openai_compat }
+  agent_llm:       { provider: openai_compat }
+  embedding:       { provider: local, model: "all-MiniLM-L6-v2", dim: 384 }

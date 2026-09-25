@@ -352,8 +352,10 @@ class OpenAICompatProvider(LLMProvider):
 
     ``base_url`` points at the server (for Ollama: http://localhost:11434/v1).
     Local servers usually ignore the API key, so ``api_key_env`` is optional.
-    There is no separate thinking mode: ``generate_with_thinking`` is a plain
-    ``generate`` call.
+    ``reasoning_effort`` ("low", "medium" or "high") is passed on every call for
+    servers and models that support it (Ollama with gpt-oss, for example); it is
+    left out when not set. There is no separate thinking mode:
+    ``generate_with_thinking`` is a plain ``generate`` call.
     """
 
     def __init__(
@@ -364,12 +366,20 @@ class OpenAICompatProvider(LLMProvider):
         base_url: str | None = None,
         api_key_env: str | None = None,
         timeout_s: float = 600.0,
+        reasoning_effort: str | None = None,
     ):
         super().__init__(model, rate_limiter)
         self.base_url = base_url
         self.api_key_env = api_key_env
         self.timeout_s = timeout_s
+        self.reasoning_effort = reasoning_effort
         self._client = None
+
+    def _common_kwargs(self) -> dict:
+        kwargs: dict = {"model": self.model}
+        if self.reasoning_effort:
+            kwargs["reasoning_effort"] = self.reasoning_effort
+        return kwargs
 
     def _get_client(self):
         if self._client is None:
@@ -403,10 +413,8 @@ class OpenAICompatProvider(LLMProvider):
         temperature: float | None = None,
         max_tokens: int | None = None,
     ) -> str:
-        kwargs: dict = {
-            "model": self.model,
-            "messages": self._messages(prompt, system_prompt, messages),
-        }
+        kwargs = self._common_kwargs()
+        kwargs["messages"] = self._messages(prompt, system_prompt, messages)
         if temperature is not None:
             kwargs["temperature"] = temperature
         if max_tokens is not None:
@@ -426,7 +434,7 @@ class OpenAICompatProvider(LLMProvider):
         """Structured output via ``response_format`` (json_schema)."""
         await self._rl.wait()
         response = await self._get_client().chat.completions.create(
-            model=self.model,
+            **self._common_kwargs(),
             messages=self._messages(prompt, system_prompt, None),
             response_format={
                 "type": "json_schema",

@@ -119,6 +119,7 @@ def test_registry_reads_model_config_path(clean_registry, monkeypatch, tmp_path)
         "    default_model: llama3.2\n"
         "    rate_limit_rpm: 600\n"
         "    timeout_s: 30\n"
+        "    reasoning_effort: low\n"
         "roles:\n"
         "  kg_llm: { provider: openai_compat }\n"
         "  reasoning_llm: { provider: openai_compat }\n"
@@ -127,6 +128,9 @@ def test_registry_reads_model_config_path(clean_registry, monkeypatch, tmp_path)
     kg = llm_registry.get_role("kg_llm")
     assert isinstance(kg, OpenAICompatProvider)
     assert (kg.model, kg.base_url, kg.timeout_s, kg.api_key_env) == ("llama3.2", "http://localhost:11434/v1", 30, None)
+    assert kg.reasoning_effort == "low"
+    assert kg._common_kwargs() == {"model": "llama3.2", "reasoning_effort": "low"}
+    assert OpenAICompatProvider("m", kg._rl)._common_kwargs() == {"model": "m"}
     assert llm_registry.get_role("reasoning_llm") is kg
 
     monkeypatch.setenv("MODEL_CONFIG_PATH", str(tmp_path / "missing.yaml"))

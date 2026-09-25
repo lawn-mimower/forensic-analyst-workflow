@@ -24,7 +24,7 @@ _CONFIG_PATH = _PROJECT_ROOT / "model_config.yaml"
 
 # Provider settings passed through to the provider class, besides model and rpm
 _PROVIDER_OPTION_KEYS = {
-    "openai_compat": ("base_url", "api_key_env", "timeout_s"),
+    "openai_compat": ("base_url", "api_key_env", "timeout_s", "reasoning_effort"),
 }
 
 
